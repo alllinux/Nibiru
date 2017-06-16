@@ -1,0 +1,31 @@
+<?php
+namespace Nibiru;
+/**
+ * User       - stephan
+ * Date       - 01.02.17
+ * Time       - 17:27
+ * @author    - alllinux.de GbR
+ * @category  - [PLEASE SPECIFIY]
+ * @license   - BSD License
+ */
+interface IMysql
+{
+	const SETTINGS_DATABASE = "DATABASE";
+
+	const PLACE_NO_QUERY    = "NO QUERY";
+	const NO_ID             = false;
+	const PLACE_TABLE_NAME  = "NO TABLENAME";
+	const PLACE_DSN         = "NO CONNECTION STRING";
+	const PLACE_USERNAME    = "username";
+	const PLACE_PASSWORD    = "password";
+	const PLACE_HOSTNAME    = "hostname";
+	const PLACE_DRIVER      = "driver";
+	const PLACE_DATABASE    = "basename";
+	const PLACE_PORT        = "port";
+	const PLACE_CONNECTION  = "NO CONNECTION";
+	const PLACE_PRIMARY_KEY = "PRI";
+	const PLACE_COLUMN_NAME = "NO COLUMN NAME";
+	const PLACE_SEARCH_TERM = "NO SEARCH PARAMETER";
+	const PLACE_DES_ENCRYPT = false;
+
+}

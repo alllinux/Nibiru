@@ -1,0 +1,141 @@
+/**
+ * Nibiru Debugbar styles
+ */
+#nibiru-debug {
+    z-index: 2;
+    position: fixed;
+    left: 0px;
+    overflow-y: scroll;
+    width: 100%;
+    min-height: 300px;
+    max-height: 300px;
+    background-color: white;
+}
+.down {
+    bottom: -300px !important;
+}
+.up {
+    bottom: 0px !important;
+}
+#nibiru-bar-open {
+    z-index: 3;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    min-height: 25px;
+    cursor: pointer;
+    background-color: #D69145;
+}
+.closed {
+    bottom: 0px !important;
+}
+.open {
+    bottom: 300px !important;
+}
+span.nibiru-bar-logo {
+    position: relative;
+    float: left;
+    width: 25px;
+    height: 25px;
+    margin: 0px;
+    padding: 0px;
+    background-image: url("/public/img/logos/nibriu-logo.png");
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+/**
+ * Smarty template debug output
+ */
+
+#tabs-10 h1, #tabs-10 h2, #tabs-10 h3, #tabs-10 td, #tabs-10 th, #tabs-10 p {
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 0.9em;
+    margin: 1px;
+    padding: 0;
+}
+
+#tabs-10 h1 {
+    margin: 0;
+    text-align: left;
+    padding: 2px;
+    background-color: #f0c040;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#tabs-10 h2 {
+    background-color: #9B410E;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+    padding: 2px;
+    border-top: 1px solid black;
+}
+#tabs-10 h3 {
+    text-align: left;
+    font-weight: bold;
+    color: black;
+    font-size: 0.7em;
+    padding: 2px;
+}
+
+#tabs-10 p, #tabs-10 table {
+    background: #f0ead8;
+}
+
+#tabs-10 p {
+    margin: 0;
+    font-style: italic;
+    text-align: center;
+}
+
+#tabs-10 table {
+    width: 100%;
+}
+
+#tabs-10 th, #tabs-10 td {
+    font-family: monospace;
+    vertical-align: top;
+    text-align: left;
+}
+
+#tabs-10 td {
+    color: green;
+}
+
+#tabs-10.odd {
+    background-color: #eeeeee;
+}
+
+#tabs-10.even {
+    background-color: #fafafa;
+}
+
+#tabs-10.exectime {
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+#tabs-10#bold div {
+    color: black;
+    font-weight: bold;
+}
+#tabs-10#blue h3 {
+    color: blue;
+}
+#tabs-10#normal div {
+    color: black;
+    font-weight: normal;
+}
+#tabs-10#table_assigned_vars th {
+    color: blue;
+    font-weight: bold;
+}
+
+tabs-5#table_config_vars th {
+    color: maroon;
+}
