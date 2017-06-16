@@ -1,5 +1,5 @@
 # Nibiru
-#####Version 0.1 beta
+Version 0.1 beta
 ## Introduction
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
@@ -43,4 +43,4 @@ Engine Implementation.</div>
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 15px; margin-bottom: 15px;">The start is done, have success with PHP prototyping, and always remember to have fun!</div>
 
-######Author: Stephan Kasdorf<br><br>
+Author: Stephan Kasdorf<br><br>

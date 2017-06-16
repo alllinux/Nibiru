@@ -4,7 +4,7 @@
     </a>
     <div class="iconav-slider">
         <ul class="nav nav-pills iconav-nav">
-            {foreach $json as $naventry}
+            {foreach $navigationJson as $naventry}
                 <li >
                     <a href="{$naventry.link}" title="{$naventry.tooltip}" data-toggle="tooltip" data-placement="right" data-container="body">
                         <span class="icon {$naventry.icon}"></span>
