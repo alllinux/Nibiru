@@ -44,7 +44,7 @@ class JsonNavigation extends Config
 	 */
 	private static function setFileContentString( )
 	{
-		self::$_file_content_string = file_get_contents( Settings::SETTINGS_PATH . self::getConfig()["SETTINGS"]["navigation"] );
+		self::$_file_content_string = file_get_contents( Settings::SETTINGS_PATH . parent::getInstance()->getConfig()["SETTINGS"]["navigation"] );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class JsonNavigation extends Config
 	 */
 	private static function setFileContentArray( )
 	{
-		self::$_file_content_array = file( Settings::SETTINGS_PATH . self::getConfig()["SETTINGS"]["navigation"] );
+		self::$_file_content_array = file( Settings::SETTINGS_PATH . parent::getInstance()->getConfig()["SETTINGS"]["navigation"] );
 	}
 
 	/**
@@ -116,12 +116,24 @@ class JsonNavigation extends Config
 				$keys = array_keys($value);
 				for($i=0; sizeof($keys)>$i;$i++)
 				{
-					self::$_navigation_array[] = array(
-												'title'   => $keys[$i],
-												'icon'    => $value[$keys[$i]]["icon"],
-						                        'link'    => $value[$keys[$i]]["link"],
-												'tooltip' => $value[$keys[$i]]["tooltip"],
-					);
+					if(array_key_exists('link', $value[$keys[$i]]))
+					{
+						self::$_navigation_array[] = array(
+							'title'   => $keys[$i],
+							'icon'    => $value[$keys[$i]]["icon"],
+							'link'    => $value[$keys[$i]]["link"],
+							'tooltip' => $value[$keys[$i]]["tooltip"]
+						);	
+					}
+					elseif(array_key_exists('onclick', $value[$keys[$i]]))
+					{
+						self::$_navigation_array[] = array(
+							'title'   => $keys[$i],
+							'icon'    => $value[$keys[$i]]["icon"],
+							'tooltip' => $value[$keys[$i]]["tooltip"],
+							'onclick' => $value[$keys[$i]]["onclick"]
+						);
+					}					
 				}
 			}
 		}

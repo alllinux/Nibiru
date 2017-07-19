@@ -12,7 +12,7 @@ namespace Nibiru;
 class Router extends Config
 {
 	private static $_routing;
-	private static $_cur_route;
+	private static $_cur_route = null;
 	private static $_instance;
 	private static $_cur_page;
 	private static $_routes = array();
@@ -36,6 +36,30 @@ class Router extends Config
 		self::$_routing = Config::getInstance()->getConfig()[View::ATM_ROUTING];
 		self::setRoutes(self::$_routing);
 	}
+
+	/**
+	 * @return mixed
+	 */
+	protected static function getCurRoute()
+	{
+		return self::$_cur_route;
+	}
+
+	/**
+	 * @param mixed $cur_route
+	 */
+	private static function _setCurRoute( )
+	{
+		if( Controller::getInstance()->getController() != IController::START_CONTROLLER_NAME )
+		{
+			self::$_cur_route = Controller::getInstance()->getController();
+		}
+		else
+		{
+			self::$_cur_route = IController::START_CONTROLLER_NAME;
+		}
+	}
+
 	/**
 	 * @return mixed
 	 */
@@ -94,19 +118,25 @@ class Router extends Config
 	 */
 	private static function setCurPage( )
 	{
-
-		$uri_parts = explode('/', $_SERVER["REQUEST_URI"]);
-		if(is_array($uri_parts))
+		self::_setCurRoute();
+		if( self::getCurRoute() == null )
 		{
-			if($uri_parts[1] == "")
+			$uri_parts = explode('/', $_SERVER["REQUEST_URI"]);
+			if(is_array($uri_parts))
 			{
-				self::$_cur_page = "index";
+				if($uri_parts[1] == "")
+				{
+					self::$_cur_page = "index";
+				}
+				else
+				{
+					self::$_cur_page = $uri_parts[1];
+				}
 			}
-			else
-			{
-				self::$_cur_page = $uri_parts[1];
-			}
-
+		}
+		else
+		{
+			self::$_cur_page = self::getCurRoute();
 		}
 
 	}

@@ -14,8 +14,7 @@ class indexController extends View implements IController
 {
 	public function __construct()
 	{
-		$this->navigationAction();
-        $this->pageAction();
+		
 	}
 
 	public function pageAction()

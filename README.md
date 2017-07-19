@@ -37,7 +37,22 @@ Engine Implementation.</div>
 <li>Dwoo tempalte eninge tests</li>
 <li>Twig tempalte eninge tests</li>
 <li>Improved routing</li>
-
+</ul>
+<h1>Update</h1>
+<p>Version 0.2 beta 19.07.2017</p>
+<ul>
+    <li>Dispatcher update now supports actions within Controllers</li>
+    <li>Main Framework call moved to the framework file</li>
+    <li>Added support for ODBC in a basic Postgress class</li>
+    <li>Updated the router and added a static printstufftoscreen call</li>
+</ul>
+<p>Still in progress for the next version</p>
+<ul>
+<li>framework documentation</li>
+<li>class documentation</li>
+<li>soap interface to a given SOAP server</li>
+<li>Dwoo tempalte eninge tests</li>
+<li>Twig tempalte eninge tests</li>
 </ul>
 </div>
 

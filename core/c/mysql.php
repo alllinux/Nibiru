@@ -14,15 +14,15 @@ class Mysql implements IMysql
 
 	private static $_instance;
 
-	private $_dsn            = self::PLACE_DSN;
-	private $_username       = self::PLACE_USERNAME;
-	private $_password       = self::PLACE_PASSWORD;
-	private $_diver          = self::PLACE_DRIVER;
-	private $_hostname       = self::PLACE_HOSTNAME;
-	private $_dbname         = self::PLACE_DATABASE;
-	private $_port           = self::PLACE_PORT;
+	protected $_dsn            = self::PLACE_DSN;
+	protected $_username       = self::PLACE_USERNAME;
+	protected $_password       = self::PLACE_PASSWORD;
+	protected $_diver          = self::PLACE_DRIVER;
+	protected $_hostname       = self::PLACE_HOSTNAME;
+	protected $_dbname         = self::PLACE_DATABASE;
+	protected $_port           = self::PLACE_PORT;
 
-	private $_conn           = self::PLACE_CONNECTION;
+	protected $_conn           = self::PLACE_CONNECTION;
 
 	protected function __construct( )
 	{

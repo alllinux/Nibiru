@@ -19,6 +19,13 @@ class View extends Controller implements IView
 	private static $smarty  = array();
 	private static $engine  = array();
 
+	/**
+	 * @desc not part of the core should be working standalone on the 
+	 * $this->buildCsv() method
+	 * @var int
+	 */
+	private $xmlPos = 0;
+	
 	protected function __construct()
 	{
 		Controller::getInstance();
@@ -52,10 +59,10 @@ class View extends Controller implements IView
         {
             case Engine::T_ENGINE_SMARTY:
                 self::$engine = new \Smarty();
-                self::$engine->setTemplateDir(Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates"]);
-                self::$engine->setCompileDir(Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates_c"]);
-                self::$engine->setCacheDir(Config::getInstance()->getConfig()[Engine::T_ENGINE]["cache"]);
-                self::$engine->setConfigDir(Config::getInstance()->getConfig()[Engine::T_ENGINE]["config_dir"]);
+                self::$engine->setTemplateDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates"]);
+                self::$engine->setCompileDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates_c"]);
+                self::$engine->setCacheDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["cache"]);
+                self::$engine->setConfigDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["config_dir"]);
                 self::$engine->assign('debuging', Config::getInstance()->getConfig()[Engine::T_ENGINE]["debugbar"]);
             break;
             case Engine::T_ENGINE_TWIG:
@@ -100,4 +107,32 @@ class View extends Controller implements IView
 		Controller::getInstance()->action( $this->getEngine(), $page );
 	}
 
+	/**
+	 * @param mixed $xmlPos
+	 */
+	protected function _setXmlPos( $xmlPos )
+	{
+		$this->xmlPos = $xmlPos;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected function getXmlPos( )
+	{
+		return $this->xmlPos;
+	}
+	
+	protected static function printStuffToScreen( $stuff, $die = false )
+	{
+		$output = "<pre>" . print_r( $stuff, true ) . "</pre>";
+		if( $die )
+		{
+			die( $output );
+		}
+		else
+		{
+			return $output;
+		}
+	}
 }
