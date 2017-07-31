@@ -10,7 +10,8 @@ namespace Nibiru;
  */
 interface IController
 {
-
+	const START_CONTROLLER_NAME = "index";
+	
 	/**
 	 * This should be part of any extended controller
 	 * class in order to implement a page structure

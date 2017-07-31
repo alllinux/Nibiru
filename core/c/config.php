@@ -38,7 +38,7 @@ class Config extends Settings
 	 */
 	private static function setEnv( )
 	{
-		if(getenv("APPLICATION_ENV"))
+		if( getenv("APPLICATION_ENV") )
 		{
 			self::$_env = getenv("APPLICATION_ENV");
 		}

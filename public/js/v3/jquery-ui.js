@@ -9025,7 +9025,7 @@ $.extend( Datepicker.prototype, {
 			if ( secondary || !changeYear ) {
 				html += "<span class='ui-datepicker-year'>" + drawYear + "</span>";
 			} else {
-
+				
 				// determine range of years to display
 				years = this._get( inst, "yearRange" ).split( ":" );
 				thisYear = new Date().getFullYear();

@@ -18,6 +18,7 @@ class Controller
 	protected $_post        = array();
 	private $_current       = array();
 	private $_next          = array();
+	private $_controller	= "index";
 
 	protected function __construct()
 	{
@@ -50,6 +51,22 @@ class Controller
 		$this->_config = $config;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getController()
+	{
+		return $this->_controller;
+	}
+
+	/**
+	 * @param string $controller
+	 */
+	protected function setController( $controller )
+	{
+		$this->_controller = $controller;
+	}
+	
 	/**
 	 * @param $template
 	 * @param $page

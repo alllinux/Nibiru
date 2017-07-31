@@ -30,7 +30,7 @@ final class Dispatcher
         Router::getInstance();
         Router::getInstance()->route();
         require_once __DIR__ . '/../../application/controller/' . Router::getInstance()->tplName() . 'Controller.php';
-        $class = "Sunrise\\".\Sunrise\Router::getInstance()->tplName()."Controller";
+        $class = "Nibiru\\".\Nibiru\Router::getInstance()->tplName()."Controller";
         $controller = new $class();
 
         if(array_key_exists('_action', $_REQUEST))

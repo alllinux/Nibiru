@@ -10,8 +10,6 @@
 session_start();
 /**
  * @desc Nibiru framework functionality
- * TODO: write a javascript controller handler
- * in order to be full scale compatible with limbas
  */
 require_once __DIR__ . '/t/messages.php';
 require_once __DIR__ . '/c/settings.php';
