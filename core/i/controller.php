@@ -10,7 +10,12 @@ namespace Nibiru;
  */
 interface IController
 {
+	/**
+	 * @desc start name for the current Controller
+	 * 		 request search value for the Controller
+	 */
 	const START_CONTROLLER_NAME = "index";
+	const CONTROLLER_REQUEST_NAME = "controller";
 	
 	/**
 	 * This should be part of any extended controller
