@@ -19,6 +19,8 @@ class JsonNavigation extends Config
 	private static $_instance;
 	private static $_file_content_string = NULL;
 	private static $_file_content_array = array();
+	private static $_name = false;
+	private static $_section_name = self::NAVIGATION;
 
 	public static function getInstance()
 	{
@@ -29,6 +31,38 @@ class JsonNavigation extends Config
 		$className = get_called_class();
 		if(self::$_instance==null) self::$_instance = new $className();
 		return self::$_instance;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected static function getSectionName()
+	{
+		return self::$_section_name;
+	}
+
+	/**
+	 * @param string $section_name
+	 */
+	private static function setSectionName( $section_name )
+	{
+		self::$_section_name = $section_name;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	protected static function getName()
+	{
+		return self::$_name;
+	}
+
+	/**
+	 * @param boolean $name
+	 */
+	private static function setName( $name )
+	{
+		self::$_name = $name;
 	}
 
 	/**
@@ -44,7 +78,7 @@ class JsonNavigation extends Config
 	 */
 	private static function setFileContentString( )
 	{
-		self::$_file_content_string = file_get_contents( Settings::SETTINGS_PATH . parent::getInstance()->getConfig()["SETTINGS"]["navigation"] );
+		self::$_file_content_string = file_get_contents( Settings::SETTINGS_PATH . parent::getInstance()->getConfig()["SETTINGS"][self::getSectionName()] );
 	}
 
 	/**
@@ -60,7 +94,7 @@ class JsonNavigation extends Config
 	 */
 	private static function setFileContentArray( )
 	{
-		self::$_file_content_array = file( Settings::SETTINGS_PATH . parent::getInstance()->getConfig()["SETTINGS"]["navigation"] );
+		self::$_file_content_array = file( Settings::SETTINGS_PATH . parent::getInstance()->getConfig()["SETTINGS"][self::getSectionName()] );
 	}
 
 	/**
@@ -106,12 +140,22 @@ class JsonNavigation extends Config
 	 * Loads the navigation from a json file into
 	 * the view, making the variables available
 	 */
-	public function loadJsonNavigationArray( )
+	public function loadJsonNavigationArray( $name = false )
 	{
+		if( $name )
+		{
+			self::$_navigation_array = array();
+			self::setSectionName( $name );
+			self::setName( $name );
+			parent::getInstance();
+			self::setFileContentString();
+			self::setFileContentArray();
+			self::setNavigation();
+		}
 		$nav = self::getNavigation();
 		foreach ( $nav as $item => $value)
 		{
-			if($item == self::NAVIGATION)
+			if($item == self::getSectionName())
 			{
 				$keys = array_keys($value);
 				for($i=0; sizeof($keys)>$i;$i++)
@@ -137,6 +181,13 @@ class JsonNavigation extends Config
 				}
 			}
 		}
-		View::getInstance()->getEngine()->assignGlobal("navigationJson", self::$_navigation_array);
+		if( $name )
+		{
+			View::getInstance()->getEngine()->assignGlobal(self::getName(), self::$_navigation_array);
+		}
+		else
+		{
+			View::getInstance()->getEngine()->assignGlobal("navigationJson", self::$_navigation_array);
+		}
 	}
 }

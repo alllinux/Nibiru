@@ -12,9 +12,10 @@ class View extends Controller implements IView
 {
 	private static $_instance;
 
-	const ATM_SETTINGS = "SETTINGS";
-	const ATM_ROUTING = "ROUTING";
-	const ATM_FILE_END = ".tpl";
+	const NIBIRU_SETTINGS = "SETTINGS";
+	const NIBIRU_SECURITY = "SECURITY";
+	const NIBIRU_ROUTING = "ROUTING";
+	const NIBIRU_FILE_END = ".tpl";
 
 	private static $smarty  = array();
 	private static $engine  = array();
@@ -99,10 +100,10 @@ class View extends Controller implements IView
 
 	public function display( $page )
 	{
-		preg_match_all("/".self::ATM_FILE_END."/", $page, $matches);
-		if(!array_key_exists(self::ATM_FILE_END, array_flip(array_shift($matches))))
+		preg_match_all("/".self::NIBIRU_FILE_END."/", $page, $matches);
+		if(!array_key_exists(self::NIBIRU_FILE_END, array_flip(array_shift($matches))))
 		{
-			$page = str_replace("/", "", $page) . self::ATM_FILE_END;
+			$page = str_replace("/", "", $page) . self::NIBIRU_FILE_END;
 		}
 		Controller::getInstance()->action( $this->getEngine(), $page );
 	}

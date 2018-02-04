@@ -16,6 +16,7 @@ class Router extends Config
 	private static $_instance;
 	private static $_cur_page;
 	private static $_routes = array();
+	private static $_action;
 
 	protected function __construct()
 	{
@@ -33,8 +34,9 @@ class Router extends Config
 	private static function loadRouting()
 	{
 		Config::setConfig(Config::getInstance()->getEnv());
-		self::$_routing = Config::getInstance()->getConfig()[View::ATM_ROUTING];
+		self::$_routing = Config::getInstance()->getConfig()[View::NIBIRU_ROUTING];
 		self::setRoutes(self::$_routing);
+		self::setCurRoute();
 	}
 
 	/**
@@ -48,11 +50,15 @@ class Router extends Config
 	/**
 	 * @param mixed $cur_route
 	 */
-	private static function _setCurRoute( )
+	private static function setCurRoute( )
 	{
-		if( Controller::getInstance()->getController() != IController::START_CONTROLLER_NAME )
+		if( self::getCurPage() != IController::START_CONTROLLER_NAME )
 		{
-			self::$_cur_route = Controller::getInstance()->getController();
+			self::$_cur_route = self::getCurPage();
+			if(self::getAction())
+			{
+				self::$_cur_route .= '/' . self::getAction() . '/';
+			}
 		}
 		else
 		{
@@ -76,7 +82,21 @@ class Router extends Config
 		self::$_routes = $routes;
 	}
 
+	/**
+	 * @return mixed
+	 */
+	protected static function getAction()
+	{
+		return self::$_action;
+	}
 
+	/**
+	 * @param mixed $action
+	 */
+	private static function setAction( $action )
+	{
+		$_REQUEST['_action'] = $action;
+	}
 
 	public function route()
 	{
@@ -118,7 +138,6 @@ class Router extends Config
 	 */
 	private static function setCurPage( )
 	{
-		self::_setCurRoute();
 		if( self::getCurRoute() == null )
 		{
 			$uri_parts = explode('/', $_SERVER["REQUEST_URI"]);
@@ -131,6 +150,10 @@ class Router extends Config
 				else
 				{
 					self::$_cur_page = $uri_parts[1];
+					if(array_key_exists(2, $uri_parts))
+					{
+						self::setAction($uri_parts[2]);
+					}
 				}
 			}
 		}
@@ -138,7 +161,6 @@ class Router extends Config
 		{
 			self::$_cur_page = self::getCurRoute();
 		}
-
 	}
 
 	/**

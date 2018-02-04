@@ -1,44 +1,38 @@
 <?php
-namespace Nibiru;
-
+namespace Nibiru\Form;
 /**
  * Created by PhpStorm.
- * User: stephan
- * Date: 24.01.17
- * Time: 10:20
+ * User: mithril
+ * Date: 26.01.18
+ * Time: 20:59
  */
+
 interface IForm
 {
-	/**
-	 * @desc Basic Form template
-	 */
-	const TYPE_FORM              = "<form action=\"{action}\" method=\"{type}\" name=\"{name}\">" . "\n" . "{fields}" . "\n" . "<input type='submit' value='speichern'>\t\t" . "</form>" . "\n";
-	const TYPE_FORM_FIELDSET     = "<form action=\"{action}\" method=\"{type}\" name=\"{name}\">"."\n"."<fieldset><label>{flname}</label>" . "\n" . "{fields}" . "\n" . "<input type='submit' value='speichern'>" . "\t\t" . "</fieldset>"."\n"."</form>" . "\n";
     /**
-     * @desc add the form action in order to set the path
-     *       for the controller
-     * @param $action
+     * @desc Constant Form attributes
+     */
+    const FORM_NAME                 = 'name';
+    const FORM_VALUE                = 'value';
+    const FORM_METHOD               = 'method';
+    const FORM_METHOD_TYPE          = array('post', 'get');
+    const FORM_ACTION               = 'action';
+    const FORM_TARGET               = 'target';
+    const FORM_TARGET_TYPE          = array('_blank', '_self', '_parent', '_top');
+    const FORM_TYPE_TEXT            = 'text';
+    const FORM_TYPE_SUBMIT          = 'submit';
+    const FORM_TYPE_BUTTON          = 'button';
+    const FORM_ATTRIBUTE_ROWS       = 'rows';
+    const FORM_ATTRIBUTE_COLS       = 'cols';
+    const FORM_ATTRIBUTE_SPEECH     = 'speech';
+    const FORM_ATTRIBUTE_SRC        = 'src';
+    const FORM_ATTRIBUTE_ALT        = 'alt';
+    const FORM_ATTRIBUTE_ID         = 'id';
+    
+    /**
+     * @desc loads the current Form element to the form
+     * @param $element
      * @return mixed
      */
-    public static function setFormAction($action);
-
-    /**
-     * @desc set the form type, two types (post, get)
-     * @param $type
-     * @return mixed
-     */
-    public static function setFormType($type);
-
-    /**
-     * @desc set the name for the form
-     * @param $name
-     * @return mixed
-     */
-    public static function setFormName($name);
-
-    /**
-     * @desc display the form data on the html layout
-     * @return mixed
-     */
-    public function displayForm();
+    public function loadElement( $attributes );
 }

@@ -1,20 +1,18 @@
 <?php
 namespace Nibiru\Form;
 use Nibiru\Adapter;
+
 /**
  * Created by PhpStorm.
  * User: mithril
  * Date: 26.01.18
- * Time: 20:59
+ * Time: 21:42
  */
 
-class Form implements IForm
+class TypeSearch implements IForm
 {
     private $_attributes = array(
-        self::FORM_NAME      => '',
-        self::FORM_METHOD    => '',
-        self::FORM_ACTION    => '',
-        self::FORM_TARGET    => ''
+        
     );
 
     private $_element;
@@ -63,7 +61,9 @@ class Form implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<form action="ACTION" method="METHOD" name="NAME" target="TARGET">' . "\n" . 'FIELDS</form>' . "\n";
+        $this->_element = '<input type="search">' . "\n";
     }
+
+
 
 }

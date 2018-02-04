@@ -36,9 +36,9 @@ Engine Implementation.</div>
 <li>soap interface to a given SOAP server</li>
 <li>Dwoo tempalte eninge tests</li>
 <li>Twig tempalte eninge tests</li>
-<li>Improved routing</li>
+<li>Database access functionallity for the db.php Factory</li>
 </ul>
-<h1>Update</h1>
+<h1>Previous version</h1>
 <p>Version 0.2 beta 19.07.2017</p>
 <ul>
     <li>Dispatcher update now supports actions within Controllers</li>
@@ -53,6 +53,16 @@ Engine Implementation.</div>
 <li>soap interface to a given SOAP server</li>
 <li>Dwoo tempalte eninge tests</li>
 <li>Twig tempalte eninge tests</li>
+</ul>
+
+<h1>Update</h1>
+<p>Version 0.3 beta 04.02.2018</p>
+<ul>
+<li>Improved: The Router now accepts actions, either trough the _action as parameter, or on the URL pattern after the controller name Example: http://youdomain/[controllername]/[actionname]/</li>
+<li>It is now possible to load as many navigations on the page as wanted by passing the name to the <br>JsonNavigation::getInstance()->loadJsonNavigationArray('[NAME]'); <br>call in the navigationAction of the Controller</li>
+<li>Building forms by simple adding the namespace<br> use Nibiru\Factory\Form; <br>and calling Example:<br> Form::addInputTypeText( array( 'name' => 'lastname', 'value' => 'placeholder' ) );<br> To finalize the form the last call should be something like this:<br>Form::addForm( array('name' => 'testform', 'method' => 'post', 'action' => '/' . Router::getInstance()->currentPage(), 'target' => '_self') );</li>
+<li>The Database design has fully been refactored, now it contains an autoloading mechanism which can be triggert by createing a database folder in the application folder, a Example file is in the folder applicatoin/database</li>
+<li>The Database access can now be implemented anywhere in your application by adding the namespace to your database accessing Logic:<br>use Nibiru\Factory\Db;</li>
 </ul>
 </div>
 

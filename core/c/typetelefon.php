@@ -1,20 +1,19 @@
 <?php
 namespace Nibiru\Form;
 use Nibiru\Adapter;
+
 /**
  * Created by PhpStorm.
- * User: mithril
+ * User: Stephan Kasdorf
  * Date: 26.01.18
- * Time: 20:59
+ * Time: 21:42
  */
 
-class Form implements IForm
+class TypeTelefon implements IForm
 {
     private $_attributes = array(
-        self::FORM_NAME      => '',
-        self::FORM_METHOD    => '',
-        self::FORM_ACTION    => '',
-        self::FORM_TARGET    => ''
+        self::FORM_NAME  => '',
+        self::FORM_VALUE
     );
 
     private $_element;
@@ -63,7 +62,9 @@ class Form implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<form action="ACTION" method="METHOD" name="NAME" target="TARGET">' . "\n" . 'FIELDS</form>' . "\n";
+        $this->_element = '<input type="tel" name="NAME" value="VALUE">' . "\n";
     }
+
+
 
 }

@@ -17,17 +17,9 @@ require_once __DIR__ . '/c/config.php';
 require_once __DIR__ . '/c/router.php';
 require_once __DIR__ . '/i/engine.php';
 require_once __DIR__ . '/c/engine.php';
-require_once __DIR__ . '/i/form.php';
-require_once __DIR__ . '/c/form.php';
-require_once __DIR__ . '/i/input.php';
-require_once __DIR__ . '/c/input.php';
-require_once __DIR__ . '/i/formfromtable.php';
-require_once __DIR__ . '/c/formfromtable.php';
-require_once __DIR__ . '/i/controller.php';
-require_once __DIR__ . '/c/controller.php';
-require_once __DIR__ . '/i/view.php';
-require_once __DIR__ . '/c/view.php';
-require_once __DIR__ . '/c/json-navigation.php';
+/**
+ * @desc Database connectivity
+ */
 require_once __DIR__ . '/i/mysql.php';
 require_once __DIR__ . '/c/mysql.php';
 require_once __DIR__ . '/i/pdo.php';
@@ -36,6 +28,42 @@ require_once __DIR__ . '/i/odbc.php';
 require_once __DIR__ . '/c/odbc.php';
 require_once __DIR__ . '/i/postgres.php';
 require_once __DIR__ . '/c/postgres.php';
+require_once __DIR__ . '/i/db.php';
+require_once __DIR__ . '/a/db.php';
+require_once __DIR__ . '/f/db.php';
+/**
+ * @desc MVC functionality
+ */
+require_once __DIR__ . '/i/form.php';
+require_once __DIR__ . '/f/form.php';
+require_once __DIR__ . '/c/form.php';
+require_once __DIR__ . '/c/typetext.php';
+require_once __DIR__ . '/c/typepassword.php';
+require_once __DIR__ . '/c/typeemail.php';
+require_once __DIR__ . '/c/typesubmit.php';
+require_once __DIR__ . '/c/typetextarea.php';
+require_once __DIR__ . '/c/typeradio.php';
+require_once __DIR__ . '/c/typedate.php';
+require_once __DIR__ . '/c/typedatetime.php';
+require_once __DIR__ . '/c/typetelefon.php';
+require_once __DIR__ . '/c/typesearch.php';
+require_once __DIR__ . '/c/typehidden.php';
+require_once __DIR__ . '/c/typeimagesubmit.php';
+require_once __DIR__ . '/c/typenumber.php';
+require_once __DIR__ . '/c/typereset.php';
+require_once __DIR__ . '/c/typefileupload.php';
+require_once __DIR__ . '/c/typecheckbox.php';
+require_once __DIR__ . '/c/typecolor.php';
+require_once __DIR__ . '/c/typeoption.php';
+require_once __DIR__ . '/c/typeselect.php';
+require_once __DIR__ . '/c/typerange.php';
+require_once __DIR__ . '/c/typeurl.php';
+require_once __DIR__ . '/i/controller.php';
+require_once __DIR__ . '/c/controller.php';
+require_once __DIR__ . '/i/view.php';
+require_once __DIR__ . '/c/view.php';
+require_once __DIR__ . '/c/json-navigation.php';
+
 
 /**
  * @desc currently unfinished

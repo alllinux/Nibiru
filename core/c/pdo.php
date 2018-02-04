@@ -35,6 +35,7 @@ final class Pdo extends Mysql implements IPdo
 
 	public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
 	{
+        $result = array();
 	    $statement = parent::getInstance()->getConn();
 	    $describe = $statement->query('DESC ' . $tablename);
 	    $describe->execute();
@@ -48,7 +49,8 @@ final class Pdo extends Mysql implements IPdo
         }
         $prepare = $statement->prepare("SELECT * FROM " . $tablename . " WHERE " . $id_name . " = :" . $id_name . ";");
         $prepare->execute($id);
-        $rowset = array_shift($prepare->fetchAll());
+        $fetchAll = $prepare->fetchAll();
+        $rowset = array_shift($fetchAll);
 
         foreach(array_keys($rowset) as $entry)
         {

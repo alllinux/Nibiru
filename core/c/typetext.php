@@ -1,26 +1,34 @@
 <?php
 namespace Nibiru\Form;
 use Nibiru\Adapter;
+
 /**
  * Created by PhpStorm.
  * User: mithril
  * Date: 26.01.18
- * Time: 20:59
+ * Time: 21:42
  */
 
-class Form implements IForm
+class TypeText implements IForm
 {
     private $_attributes = array(
-        self::FORM_NAME      => '',
-        self::FORM_METHOD    => '',
-        self::FORM_ACTION    => '',
-        self::FORM_TARGET    => ''
+        self::FORM_NAME  => '',
+        self::FORM_VALUE => '',
+        self::FORM_ATTRIBUTE_SPEECH => ''
     );
 
     private $_element;
-
+    
     public function loadElement( $attributes )
     {
+        if(!array_key_exists('speech', $attributes))
+        {
+            $attributes['speech'] = '';
+        }
+        else
+        {
+            $attributes['speech'] = ' x-webkit-speech';
+        }
         $this->_setElement();
         $this->_setAttributes( $attributes );
         return $this->getElement();
@@ -45,7 +53,7 @@ class Form implements IForm
             {
                 case array_key_exists($key, $this->_attributes):
                     $this->_element = str_replace(strtoupper($key), $entry, $this->getElement());
-                    break;
+                break;
             }
         }
     }
@@ -63,7 +71,9 @@ class Form implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<form action="ACTION" method="METHOD" name="NAME" target="TARGET">' . "\n" . 'FIELDS</form>' . "\n";
+        $this->_element = '<input type="text" name="NAME" value="VALUE"SPEECH>' . "\n";
     }
+    
+    
 
 }

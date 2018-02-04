@@ -80,7 +80,7 @@ class Settings
 				}
 				else
 				{
-					self::$_config = parse_ini_file('../' . self::SETTINGS_PATH . $current_settings_file, View::ATM_SETTINGS);
+					self::$_config = parse_ini_file('../' . self::SETTINGS_PATH . $current_settings_file, View::NIBIRU_SETTINGS);
 				}
 			}
 		}

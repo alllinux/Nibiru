@@ -22,7 +22,6 @@ class Controller
 
 	protected function __construct()
 	{
-		$this->_setController();
 		$this->_setConfig(Config::getInstance()->getConfig());
 	}
 
@@ -63,13 +62,9 @@ class Controller
 	/**
 	 * @param string $controller
 	 */
-	private function _setController( )
+	protected function setController( $controller )
 	{
-		if(array_key_exists( IController::CONTROLLER_REQUEST_NAME, $this->getRequest()) )
-		{
-			$this->_setNext( $this->getRequest()[IController::CONTROLLER_REQUEST_NAME] );
-			$this->_controller = $this->getNext();
-		}
+		$this->_controller = $controller;
 	}
 	
 	/**
