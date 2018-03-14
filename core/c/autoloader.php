@@ -13,7 +13,8 @@ require_once __DIR__ . '/../i/db.php';
 class Autoloader
 {
     const MY_FILE_NAME      = "autoloader.php";
-    const DB_MODEL_FOLDER   = "dbmodels";
+    const DB_MODEL_FOLDER   = "dbmodel";
+    const MODUL_FOLDER      = "modul";
 
     private static $_filesInFoler = array();
     private static $_instance;

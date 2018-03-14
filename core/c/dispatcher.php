@@ -7,7 +7,8 @@
  */
 
 namespace Nibiru;
-
+use Nibiru\Autoloader\Autoloader;
+require_once __DIR__ . '/../c/autoloader.php';
 
 final class Dispatcher
 {
@@ -29,6 +30,7 @@ final class Dispatcher
     {
         Router::getInstance();
         Router::getInstance()->route();
+        Autoloader::getInstance()->runRequireOnce();
         require_once __DIR__ . '/../../application/controller/' . Router::getInstance()->tplName() . 'Controller.php';
         $class = "Nibiru\\".\Nibiru\Router::getInstance()->tplName()."Controller";
         $controller = new $class();

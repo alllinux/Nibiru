@@ -1,5 +1,6 @@
-# Nibiru
-Version 0.1 beta
+# Nibiru 
+### Rapid Prototyping PHP Framework
+Version 0.3.5 beta
 ## Introduction
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
@@ -38,7 +39,7 @@ Engine Implementation.</div>
 <li>Twig tempalte eninge tests</li>
 <li>Database access functionallity for the db.php Factory</li>
 </ul>
-<h1>Previous version</h1>
+
 <p>Version 0.2 beta 19.07.2017</p>
 <ul>
     <li>Dispatcher update now supports actions within Controllers</li>
@@ -54,9 +55,8 @@ Engine Implementation.</div>
 <li>Dwoo tempalte eninge tests</li>
 <li>Twig tempalte eninge tests</li>
 </ul>
-
-<h1>Update</h1>
-<p>Version 0.3 beta 04.02.2018</p>
+<h1>Previous version</h1>
+<h1>Version 0.3 beta 04.02.2018</h1>
 <ul>
 <li>Improved: The Router now accepts actions, either trough the _action as parameter, or on the URL pattern after the controller name Example: http://youdomain/[controllername]/[actionname]/</li>
 <li>It is now possible to load as many navigations on the page as wanted by passing the name to the <br>JsonNavigation::getInstance()->loadJsonNavigationArray('[NAME]'); <br>call in the navigationAction of the Controller</li>
@@ -66,6 +66,15 @@ Engine Implementation.</div>
 </ul>
 </div>
 
+<h1>Update</h1>
+<p>Version 0.3.5 beta 14.03.2018</p>
+<ul>
+<li>Bugfix on the Router, now the currentPage will be returned correctly.</li>
+<li>Update for the database adapter, a detailed instruction on how to use it will be within the soon comming documentation</li>
+<li>Improvement of the form elements, those now are able to also swap div layers around a field, as well as correct labeling</li>
+<li>Added missing form elements, migration to a Form factory, in order to easy configure and install a form anywhere you like</li>
+<li>Minor bugfixing</li>
+</ul>
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 15px; margin-bottom: 15px;">The start is done, have success with PHP prototyping, and always remember to have fun!</div>
 
 Author: Stephan Kasdorf<br><br>

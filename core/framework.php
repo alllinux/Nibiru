@@ -36,6 +36,8 @@ require_once __DIR__ . '/f/db.php';
  */
 require_once __DIR__ . '/i/form.php';
 require_once __DIR__ . '/f/form.php';
+require_once __DIR__ . '/t/form.php';
+require_once __DIR__ . '/c/formattributes.php';
 require_once __DIR__ . '/c/form.php';
 require_once __DIR__ . '/c/typetext.php';
 require_once __DIR__ . '/c/typepassword.php';
@@ -48,6 +50,7 @@ require_once __DIR__ . '/c/typedatetime.php';
 require_once __DIR__ . '/c/typetelefon.php';
 require_once __DIR__ . '/c/typesearch.php';
 require_once __DIR__ . '/c/typehidden.php';
+require_once __DIR__ . '/c/typebutton.php';
 require_once __DIR__ . '/c/typeimagesubmit.php';
 require_once __DIR__ . '/c/typenumber.php';
 require_once __DIR__ . '/c/typereset.php';
@@ -58,13 +61,12 @@ require_once __DIR__ . '/c/typeoption.php';
 require_once __DIR__ . '/c/typeselect.php';
 require_once __DIR__ . '/c/typerange.php';
 require_once __DIR__ . '/c/typeurl.php';
+require_once __DIR__ . '/c/typelabel.php';
 require_once __DIR__ . '/i/controller.php';
 require_once __DIR__ . '/c/controller.php';
 require_once __DIR__ . '/i/view.php';
 require_once __DIR__ . '/c/view.php';
 require_once __DIR__ . '/c/json-navigation.php';
-
-
 /**
  * @desc currently unfinished
  */

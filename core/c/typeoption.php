@@ -9,51 +9,20 @@ use Nibiru\Adapter;
  * Time: 21:42
  */
 
-class TypeOption implements IForm
+class TypeOption extends FormAttributes implements IForm
 {
     private $_attributes = array(
-        self::FORM_VALUE  => ''
+        self::FORM_VALUE            => '',
+        self::FORM_ATTRIBUTE_ID     => '',
+        self::FORM_ATTRIBUTE_CLASS  => ''
     );
-
-    private $_element;
 
     public function loadElement( $attributes )
     {
+        self::__construct( $this->_attributes );
         $this->_setElement();
         $this->_setAttributes( $attributes );
         return $this->getElement();
-    }
-
-    /**
-     * @return array
-     */
-    protected function getAttributes( )
-    {
-        return $this->_attributes;
-    }
-
-    /**
-     * @param array $attributes
-     */
-    private function _setAttributes( $attributes )
-    {
-        foreach( $attributes as $key=>$entry )
-        {
-            switch ($key)
-            {
-                case array_key_exists($key, $this->_attributes):
-                    $this->_element = str_replace(strtoupper($key), $entry, $this->getElement());
-                    break;
-            }
-        }
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getElement( )
-    {
-        return $this->_element;
     }
 
     /**
@@ -61,7 +30,7 @@ class TypeOption implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<option value="VALUE">VALUE</option>' . "\n";
+        $this->_element = '<option value="VALUE" ID CLASS>VALUE</option>' . "\n";
     }
 
 

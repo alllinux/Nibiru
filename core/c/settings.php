@@ -17,9 +17,9 @@ class Settings
 	private static $_instance;
 	private static $_is_db_connection = false;
 
-	protected function __construct()
+	protected function __construct( )
 	{
-
+		//Constructor
 	}
 
 	public static function getInstance()

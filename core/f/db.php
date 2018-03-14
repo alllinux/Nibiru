@@ -1,9 +1,6 @@
 <?php
-
 namespace Nibiru\Factory;
-use Nibiru\Autoloader\Autoloader;
 
-require_once __DIR__ . '/../c/autoloader.php';
 /**
  * Created by PhpStorm.
  * User: kasdorf
@@ -27,7 +24,6 @@ class Db
         try {
             if( $modelName != "" )
             {
-                Autoloader::getInstance()->runRequireOnce();
                 self::_setModel( $modelName );
                 return self::getModel();
             }

@@ -9,52 +9,23 @@ use Nibiru\Adapter;
  * Time: 21:42
  */
 
-class TypeTelefon implements IForm
+class TypeTelefon extends FormAttributes implements IForm
 {
     private $_attributes = array(
-        self::FORM_NAME  => '',
-        self::FORM_VALUE
+        self::FORM_NAME                     => '',
+        self::FORM_VALUE                    => '',
+        self::FORM_ATTRIBUTE_CLASS          => '',
+        self::FORM_ATTRIBUTE_ID             => '',
+        self::FORM_ATTRIBUTE_PLACEHOLDER    => '',
+        self::FORM_ATTRIBUTE_REQUIRED       => ''
     );
-
-    private $_element;
 
     public function loadElement( $attributes )
     {
+        parent::__construct( $this->_attributes );
         $this->_setElement();
-        $this->_setAttributes( $attributes );
+        $this->_setAttributes( self::loadAttributeValues( $attributes ) );
         return $this->getElement();
-    }
-
-    /**
-     * @return array
-     */
-    protected function getAttributes( )
-    {
-        return $this->_attributes;
-    }
-
-    /**
-     * @param array $attributes
-     */
-    private function _setAttributes( $attributes )
-    {
-        foreach( $attributes as $key=>$entry )
-        {
-            switch ($key)
-            {
-                case array_key_exists($key, $this->_attributes):
-                    $this->_element = str_replace(strtoupper($key), $entry, $this->getElement());
-                    break;
-            }
-        }
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getElement( )
-    {
-        return $this->_element;
     }
 
     /**
@@ -62,7 +33,7 @@ class TypeTelefon implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<input type="tel" name="NAME" value="VALUE">' . "\n";
+        $this->_element = '<input type="tel" name="NAME" value="VALUE" placeholder="PLACEHOLDER" required="REQUIRED" CLASS ID>' . "\n";
     }
 
 

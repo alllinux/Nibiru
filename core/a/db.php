@@ -38,6 +38,12 @@ abstract class Db implements IDb
         }
     }
 
+    public function loadPasswordByUsername( $user_name = false )
+    {
+        $result = Pdo::query("SELECT DES_DECRYPT(".self::TABLE['field']['user_pass'].", '" . Config::getInstance()->getConfig()[View::NIBIRU_SECURITY]["password_hash"] . "') AS ".self::TABLE['field']['user_pass']." FROM user WHERE " . self::TABLE['field']['user_name']. " = '" . $user_name . "';");
+        return array_shift($result);
+    }
+    
     public function loadTableAsArray()
     {
         $result = Pdo::fetchTableAsArray( self::getTable()['table'] );
@@ -59,14 +65,49 @@ abstract class Db implements IDb
         // TODO: Implement selectDatasetByMinMax() method.
     }
 
-    public function insertArrayIntoTable($dataset = array())
+    /**
+     * @desc inserts an array into the database as on of the fields may be encrypted, but it has to be a varbinary field 
+     * @param array $dataset
+     * @param bool $encrypted
+     */
+    public function insertArrayIntoTable($dataset = array(), $encrypted = false)
     {
-        // TODO: Implement insertArrayIntoTable() method.
+        if($encrypted)
+        {
+            Pdo::insertArrayIntoTable(self::$table['table'], $dataset, $encrypted);
+        }
+        else
+        {
+            Pdo::insertArrayIntoTable(self::$table['table'], $dataset);
+        }
     }
 
     public function nextInsertIndex()
     {
         // TODO: Implement nextInsertIndex() method.
     }
+
+    /**
+     * @desc updates a row by a given field and field where search value
+     * @param bool $wherefield
+     * @param bool $wherevalue
+     * @param bool $rowfield
+     * @param bool $rowvalue
+     */
+    public function updateRowByFieldWhere( $wherefield = false, $wherevalue = false, $rowfield = false, $rowvalue = false )
+    {
+        Pdo::updateColumnByFieldWhere( self::$table['table'], $rowfield, $rowvalue, $wherefield, $wherevalue );
+    }
+
+    /**
+     * @desc select a row by the selected fieldset ( field and where value )
+     * @param array $field
+     * @return mixed
+     */
+    public function selectRowByFieldWhere( $field = array() )
+    {
+        return Pdo::fetchRowInArrayByWhere(self::$table['table'], $field['field'], $field['value']);
+    }
+
 
 }

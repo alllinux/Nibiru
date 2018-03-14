@@ -41,12 +41,23 @@ interface IDb
     public function insertArrayIntoTable( $dataset = array() );
 
     /**
+     * @desc selects a row by the fieldname and the given value, should be
+     *       array('fieldname' => 'value')
+     * @param array $field
+     * @return mixed
+     */
+    public function selectRowByFieldWhere( $field = array() );
+    /**
      * @desc beacause there is no autoindex this has to be part of every database model
      *       class, so the next index is always correctly set
      * @return mixed
      */
     public function nextInsertIndex();
 
-
-
+    /**
+     * @desc loads the password from the datbaase for remembering
+     * @param bool $user_name
+     * @return mixed
+     */
+    public function loadPasswordByUsername( $user_name = false );
 }

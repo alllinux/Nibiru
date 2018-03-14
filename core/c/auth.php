@@ -33,16 +33,25 @@ class Auth extends Controller implements IAuth
 		return self::$_instance;
 	}
 
-	public function auth( $username, $password )
+	public function auth( $login, $password )
 	{
 		// TODO: Implement auth($username, $password) method.
         $this->_setPassword($password);
-        $this->_setUsername($username);
+        $this->_setUsername($login);
 
-        echo "<pre>";
-        print_r(pdo::query("SELECT DES_DECRYPT(user_pass, '".Config::getInstance()->getConfig()["SECURITY"]["password_hash"]."') FROM user;"));
-        echo "</pre>";
-        die();
+		if(!array_key_exists('auth', $_SESSION))
+		{
+			$user_password = Pdo::query("SELECT DES_DECRYPT(user_pass, '".Config::getInstance()->getConfig()["SECURITY"]["password_hash"]."') AS pass FROM user WHERE user_login = '".$login."';");
+			if( $user_password["pass"] == $password )
+			{
+				$_SESSION['auth']['login'] = $login;
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 
 	/**

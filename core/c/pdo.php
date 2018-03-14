@@ -33,6 +33,20 @@ final class Pdo extends Mysql implements IPdo
 		return $result;
 	}
 
+    public static function updateColumnByFieldWhere( $tablename = self::PLACE_TABLE_NAME,
+                                                    $column_name = IMysql::PLACE_COLUMN_NAME,
+                                                    $parameter_name = IMysql::PLACE_SEARCH_TERM,
+                                                    $field_name = IMysql::PLACE_FIELD_NAME,
+                                                    $where_value = IMysql::PLACE_WHERE_VALUE )
+    {
+        $statement = parent::getInstance()->getConn();
+        $query = "UPDATE " . $tablename . " SET " . $column_name . " = :" . $column_name . " WHERE " . $field_name . " = :". $field_name;
+        $insert = $statement->prepare($query);
+        $insert->bindParam( ':'.$column_name, $parameter_name );
+        $insert->bindParam( ':'.$field_name, $where_value );
+        $insert->execute();
+    }
+
 	public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
 	{
         $result = array();
@@ -62,15 +76,23 @@ final class Pdo extends Mysql implements IPdo
         return $result;
     }
 
+    /**
+     * @desc selects the given table row by given parameter and column
+     * @param string $tablename
+     * @param string $column_name
+     * @param string $parameter_name
+     * @return mixed
+     */
     public static function fetchRowInArrayByWhere($tablename = IMysql::PLACE_TABLE_NAME,
                                                   $column_name = IMysql::PLACE_COLUMN_NAME,
                                                   $parameter_name = IMysql::PLACE_SEARCH_TERM)
     {
         $statement = parent::getInstance()->getConn();
-        $prepare = $statement->prepare("SELECT * FROM " . $tablename . " WHERE " . $column_name . " = :" . $parameter_name . ";");
+        $prepare = $statement->prepare("SELECT * FROM " . $tablename . " WHERE " . $column_name . " = :" . $column_name . ";");
+        $prepare->bindParam(":".$column_name, $parameter_name, \PDO::PARAM_STR);
         $prepare->execute();
-        $rowset = array_shift($prepare->fetchAll());
-
+        $r = $prepare->fetchAll();
+        $rowset = array_shift( $r );
         foreach(array_keys($rowset) as $entry)
         {
             if(is_string($entry))
@@ -94,6 +116,13 @@ final class Pdo extends Mysql implements IPdo
 		return $result;
 	}
 
+    /**
+     * @desc will insert the array with fieldnames into the database, if the last parameter is set it should be a string containing the
+     *       fieldname that should be encrypted
+     * @param string $tablename
+     * @param string $array_name
+     * @param bool $encrypted
+     */
 	public static function insertArrayIntoTable( $tablename = IMysql::PLACE_TABLE_NAME, $array_name = IMysql::PLACE_ARRAY_NAME, $encrypted = IMysql::PLACE_DES_ENCRYPT )
     {
         $statement = parent::getInstance()->getConn();
@@ -125,15 +154,33 @@ final class Pdo extends Mysql implements IPdo
                     {
                         if( ++$i === $numItems )
                         {
-                            $row .= ":" . $field ;
+                            if($field == $encrypted)
+                            {
+                                $row .= "DES_ENCRYPT(:".$encrypted.", :key)";
+                            }
+                            else
+                            {
+                                $row .= ":" . $field ;
+                            }
                         }
                         else
                         {
-                            $row .= ":" . $field . ", ";
+                            if($field == $encrypted)
+                            {
+                                $row .= "DES_ENCRYPT(:".$encrypted.", :key), ";
+                            }
+                            else
+                            {
+                                $row .= ":" . $field . ", ";
+                            }
                         }
                     }
                     $row .= " )";
                     $query = $statement->prepare('INSERT INTO ' . $tablename . $row);
+                    if($encrypted)
+                    {
+                        $array_name['key'] = Config::getInstance()->getConfig()[View::NIBIRU_SECURITY]["password_hash"];
+                    }
                     $query->execute( $entry );
                 }
             }
@@ -160,15 +207,33 @@ final class Pdo extends Mysql implements IPdo
                 {
                     if( ++$i === $numItems )
                     {
-                        $row .= ":" . $field ;
+                        if($field == $encrypted)
+                        {
+                            $row .= "DES_ENCRYPT(:".$encrypted.", :key)";
+                        }
+                        else
+                        {
+                            $row .= ":" . $field ;
+                        }
                     }
                     else
                     {
-                        $row .= ":" . $field . ", ";
+                        if($field == $encrypted)
+                        {
+                            $row .= "DES_ENCRYPT(:".$encrypted.", :key), ";
+                        }
+                        else
+                        {
+                            $row .= ":" . $field . ", ";
+                        }
                     }
                 }
                 $row .= " )";
                 $query = $statement->prepare('INSERT INTO ' . $tablename . $row);
+                if($encrypted)
+                {
+                    $array_name['key'] = Config::getInstance()->getConfig()[View::NIBIRU_SECURITY]["password_hash"];
+                }
                 $query->execute( $array_name );
             }
 

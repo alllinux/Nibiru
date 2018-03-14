@@ -8,54 +8,23 @@ use Nibiru\Adapter;
  * Time: 20:59
  */
 
-class Form implements IForm
+class Form extends FormAttributes implements IForm
 {
     private $_attributes = array(
-        self::FORM_NAME      => '',
-        self::FORM_METHOD    => '',
-        self::FORM_ACTION    => '',
-        self::FORM_TARGET    => ''
+        self::FORM_NAME             => '',
+        self::FORM_METHOD           => '',
+        self::FORM_ACTION           => '',
+        self::FORM_TARGET           => '',
+        self::FORM_ATTRIBUTE_ID     => '',
+        self::FORM_ATTRIBUTE_CLASS  => ''
     );
-
-    private $_element;
 
     public function loadElement( $attributes )
     {
+        parent::__construct($this->_attributes);
         $this->_setElement();
-        $this->_setAttributes( $attributes );
+        $this->_setAttributes( self::loadAttributeValues( $attributes ) );
         return $this->getElement();
-    }
-
-    /**
-     * @return array
-     */
-    protected function getAttributes( )
-    {
-        return $this->_attributes;
-    }
-
-    /**
-     * @param array $attributes
-     */
-    private function _setAttributes( $attributes )
-    {
-        foreach( $attributes as $key=>$entry )
-        {
-            switch ($key)
-            {
-                case array_key_exists($key, $this->_attributes):
-                    $this->_element = str_replace(strtoupper($key), $entry, $this->getElement());
-                    break;
-            }
-        }
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getElement( )
-    {
-        return $this->_element;
     }
 
     /**
@@ -63,7 +32,7 @@ class Form implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<form action="ACTION" method="METHOD" name="NAME" target="TARGET">' . "\n" . 'FIELDS</form>' . "\n";
+        $this->_element = '<form action="ACTION" method="METHOD" name="NAME" target="TARGET" ID CLASS>' . "\n" . 'FIELDS</form>' . "\n";
     }
 
 }

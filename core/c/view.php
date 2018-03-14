@@ -12,10 +12,13 @@ class View extends Controller implements IView
 {
 	private static $_instance;
 
-	const NIBIRU_SETTINGS = "SETTINGS";
-	const NIBIRU_SECURITY = "SECURITY";
-	const NIBIRU_ROUTING = "ROUTING";
-	const NIBIRU_FILE_END = ".tpl";
+	const NIBIRU_SETTINGS 	= "SETTINGS";
+	const NIBIRU_URL		= "pageurl";
+	const NIBIRU_ERROR 		= "ERROR";
+	const NIBIRU_SECURITY 	= "SECURITY";
+	const NIBIRU_ROUTING 	= "ROUTING";
+	const NIBIRU_EMAIL		= "EMAIL";
+	const NIBIRU_FILE_END 	= ".tpl";
 
 	private static $smarty  = array();
 	private static $engine  = array();
