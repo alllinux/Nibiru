@@ -1,0 +1,19 @@
+{
+  "name": "alllinux/Nibiru",
+  "type": "framework",
+  "description": "PHP MVC rapid prototyping framework",
+  "keywords": ["php","mvc","prototyping","nibiru","template-engine","database","navigation","router","rapid"],
+  "homepage": "https://github.com/alllinux/Nibiru",
+  "license": "BSD 4 License",
+  "authors": [
+    {
+      "name": "Stephan Kasdorf",
+      "email": "skasdorf@alllinux.de",
+      "homepage": "http://www.alllinux.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0"
+  }
+}
