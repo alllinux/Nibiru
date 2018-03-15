@@ -4,7 +4,7 @@
   "description": "PHP MVC rapid prototyping framework",
   "keywords": ["php","mvc","prototyping","nibiru","template-engine","database","navigation","router","rapid"],
   "homepage": "https://github.com/alllinux/Nibiru",
-  "license": "BSD-4-Old",
+  "license": "BSD 4",
   "authors": [
     {
       "name": "Stephan Kasdorf",
