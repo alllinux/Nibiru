@@ -1,0 +1,4 @@
+SetEnv APPLICATION_ENV development
+RewriteEngine On
+RewriteRule !\.(js|gif|jpg|png|css|txt)$ index.php [L]
+RewriteRule ^(.*)$ $1 [L]

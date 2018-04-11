@@ -23,8 +23,8 @@ class indexController extends View implements IController
 			array(
 				'name' => 'Beispielseite',
 				'title' => 'Stephan Kasdorf - Nibiru Example',
-        		'css'  => Config::getInstance()->getConfig()[View::ATM_SETTINGS]["smarty.css"],
-				'js'  => Config::getInstance()->getConfig()[View::ATM_SETTINGS]["smarty.js"]
+        		'css'  => Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]["smarty.css"],
+				'js'  => Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]["smarty.js"]
 			)
 		);
 	}
