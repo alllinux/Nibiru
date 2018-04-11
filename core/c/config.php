@@ -44,7 +44,9 @@ class Config extends Settings
 		}
 		else
 		{
-			self::$_env = self::CLI_SYSTEM;
+            defined('APPLICATION_ENV')
+            || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
+            self::$_env = APPLICATION_ENV;
 		}
 	}
 
