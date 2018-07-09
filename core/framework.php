@@ -7,7 +7,10 @@
  * @category  - [PLEASE SPECIFIY]
  * @license   - BSD License
  */
-session_start();
+if(session_status() == PHP_SESSION_NONE)
+{
+    session_start();
+}
 /**
  * @desc Nibiru framework functionality
  */
@@ -29,7 +32,8 @@ require_once __DIR__ . '/c/odbc.php';
 require_once __DIR__ . '/i/postgres.php';
 require_once __DIR__ . '/c/postgres.php';
 require_once __DIR__ . '/i/db.php';
-require_once __DIR__ . '/a/db.php';
+require_once __DIR__ . '/a/mysql.db.php';
+require_once __DIR__ . '/a/postgres.db.php';
 require_once __DIR__ . '/f/db.php';
 /**
  * @desc MVC functionality

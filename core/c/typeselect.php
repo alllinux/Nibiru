@@ -12,9 +12,10 @@ use Nibiru\Adapter;
 class TypeSelect extends FormAttributes implements IForm
 {
     private $_attributes = array(
-        self::FORM_NAME             => '',
-        self::FORM_ATTRIBUTE_CLASS  => '',
-        self::FORM_ATTRIBUTE_ID     => ''
+        self::FORM_NAME                 => '',
+        self::FORM_ATTRIBUTE_CLASS      => '',
+        self::FORM_ATTRIBUTE_ID         => '',
+        self::FORM_ATTRIBUTE_ONCHANGE   => ''
     );
 
     public function loadElement( $attributes )
@@ -30,9 +31,6 @@ class TypeSelect extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<select name="NAME" ID CLASS>' . "\n" . 'OPTIONS' . "\n" . '</select>' . "\n";
+        $this->_element = '<select name="NAME" onchange="ONCHANGE" ID CLASS>' . "\n" . 'OPTIONS' . "\n" . '</select>' . "\n";
     }
-
-
-
 }

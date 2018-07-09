@@ -44,7 +44,9 @@ class Auth extends Controller implements IAuth
 			$user_password = Pdo::query("SELECT DES_DECRYPT(user_pass, '".Config::getInstance()->getConfig()["SECURITY"]["password_hash"]."') AS pass FROM user WHERE user_login = '".$login."';");
 			if( $user_password["pass"] == $password )
 			{
-				$_SESSION['auth']['login'] = $login;
+				$session_id = session_id();
+				$_SESSION['auth']['id']	   		 = $session_id;
+				$_SESSION['auth']['login'] 		 = $login;
 				return true;
 			}
 			else

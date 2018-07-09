@@ -18,6 +18,7 @@ interface IForm
     const FORM_METHOD_TYPE              = array('post', 'get');
     const FORM_ACTION                   = 'action';
     const FORM_TARGET                   = 'target';
+    const FORM_ENCTYPE                  = 'enctype';
     const FORM_TARGET_TYPE              = array('_blank', '_self', '_parent', '_top');
     const FORM_TYPE_TEXT                = 'text';
     const FORM_TYPE_SUBMIT              = 'submit';
@@ -34,6 +35,10 @@ interface IForm
     const FORM_ATTRIBUTE_PLACEHOLDER    = 'placeholder';
     const FORM_ATTRIBUTE_REQUIRED       = 'required';
     const FORM_ATTRIBUTE_TYPE           = 'type';
+    const FORM_ATTRIBUTE_ONCHANGE       = 'onchange';
+    const FORM_ATTRIBUTE_ONSUBMIT       = 'onsubmit';
+    const FORM_ATTRIBUTE_SELECTED       = 'selected';
+    const FORM_ATTRIBUTE_CONTEXT        = 'context';
 
     /**
      * @desc loads the current Form element to the form

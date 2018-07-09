@@ -44,7 +44,14 @@ class Form
      */
     private static function assambleOptions( $option )
     {
-        self::$option .= $option;
+        if($option == false)
+        {
+            self::$option = "";
+        }
+        else
+        {
+            self::$option .= $option;
+        }
     }
 
     /**
@@ -55,6 +62,14 @@ class Form
     private static function displaySelect( $select )
     {
         return str_replace( 'OPTIONS', self::$option, $select );
+    }
+
+    /**
+     * @desc clear all form data in order to build a new one
+     */
+    public static function create()
+    {
+        self::$form = "";
     }
 
     /**
@@ -144,7 +159,7 @@ class Form
         {
             self::setDiv( $div );
         }
-        self::setElement( new \Nibiru\Form\Form() );
+        self::setElement( new \Sunrise\Form\Form() );
         return self::display( self::getElement()->loadElement( $attributes ) );
     }
 
@@ -429,7 +444,7 @@ class Form
         }
         self::setElement( new TypeSelect() );
         self::assamble( self::displaySelect( self::getElement()->loadElement( $attributes ) ) );
-
+        self::assambleOptions( false );
     }
 
     /**

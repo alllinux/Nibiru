@@ -142,4 +142,11 @@ class Controller
 		return $_REQUEST;
 	}
 
+	/**
+	 * @return mixed
+	 */
+	public function getServer()
+	{
+		return $_SERVER;
+	}
 }

@@ -12,9 +12,11 @@ use Nibiru\Adapter;
 class TypeOption extends FormAttributes implements IForm
 {
     private $_attributes = array(
-        self::FORM_VALUE            => '',
-        self::FORM_ATTRIBUTE_ID     => '',
-        self::FORM_ATTRIBUTE_CLASS  => ''
+        self::FORM_VALUE                => '',
+        self::FORM_ATTRIBUTE_ID         => '',
+        self::FORM_ATTRIBUTE_CLASS      => '',
+        self::FORM_ATTRIBUTE_SELECTED   => '',
+        self::FORM_ATTRIBUTE_CONTEXT    => ''
     );
 
     public function loadElement( $attributes )
@@ -30,9 +32,6 @@ class TypeOption extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<option value="VALUE" ID CLASS>VALUE</option>' . "\n";
+        $this->_element = '<option value="VALUE" ID CLASS SELECTED>CONTEXT</option>' . "\n";
     }
-
-
-
 }

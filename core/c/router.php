@@ -171,7 +171,7 @@ class Router extends Config
 	public function currentPage()
 	{
 		//self::RouterDebug(self::$_cur_page);
-		return self::$_cur_page;
+		return self::getCurPage();
 	}
 
 	public static function RouterDebug($value)

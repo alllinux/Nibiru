@@ -1,7 +1,9 @@
 <?php
-namespace Nibiru\Adapter;
-use Nibiru\IDb;
+namespace Nibiru\Adapter\MySQL;
+
 use Nibiru\Pdo;
+use Nibiru\Factory;
+use Nibiru\Adapter\IDb;
 
 /**
  * Created by PhpStorm.

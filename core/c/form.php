@@ -16,7 +16,9 @@ class Form extends FormAttributes implements IForm
         self::FORM_ACTION           => '',
         self::FORM_TARGET           => '',
         self::FORM_ATTRIBUTE_ID     => '',
-        self::FORM_ATTRIBUTE_CLASS  => ''
+        self::FORM_ATTRIBUTE_CLASS  => '',
+        self::FORM_ENCTYPE          => '',
+        self::FORM_ATTRIBUTE_ONSUBMIT => ''
     );
 
     public function loadElement( $attributes )
@@ -32,7 +34,7 @@ class Form extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<form action="ACTION" method="METHOD" name="NAME" target="TARGET" ID CLASS>' . "\n" . 'FIELDS</form>' . "\n";
+        $this->_element = '<form action="ACTION" method="METHOD" name="NAME" target="TARGET" enctype="ENCTYPE" onsubmit="ONSUBMIT" ID CLASS>' . "\n" . 'FIELDS</form>' . "\n";
     }
 
 }

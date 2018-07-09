@@ -33,9 +33,4 @@ class indexController extends View implements IController
 	{
 		JsonNavigation::getInstance()->loadJsonNavigationArray();
 	}
-
-	public function formAction(	$action = false, $name = "", $type = "", $labeled = false, $data = array() )
-	{
-		// TODO: Implement formAction() method.
-	}
 }

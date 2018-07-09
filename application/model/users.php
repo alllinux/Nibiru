@@ -1,6 +1,6 @@
 <?php
 namespace Nibiru\Model;
-use Nibiru\Adapter\Db;
+use Nibiru\Adapter\MySQL\Db;
 use Nibiru\Pdo;
 /**
  * Created by PhpStorm.

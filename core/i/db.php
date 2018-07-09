@@ -1,5 +1,5 @@
 <?php
-namespace Nibiru;
+namespace Nibiru\Adapter;
 /**
  * Created by PhpStorm.
  * User: kasdorf

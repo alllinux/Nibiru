@@ -8,25 +8,25 @@ namespace Nibiru\Form;
  */
 class FormAttributes
 {
-    
+
     private $_attributes = array();
     protected $_element;
-    
+
     use \Nibiru\Attributes\Form;
-    
+
     public function __construct( $attributes = false )
     {
         if($attributes)
         {
             try {
-                    if( is_array( $attributes ) )
-                    {
-                        $this->_attributes = $attributes;
-                    }
-                    else
-                    {
-                        throw new \Exception( self::errorMessage( str_replace('.php', '', basename( __FILE__ )), __LINE__ ) );
-                    }
+                if( is_array( $attributes ) )
+                {
+                    $this->_attributes = $attributes;
+                }
+                else
+                {
+                    throw new \Exception( self::errorMessage( str_replace('.php', '', basename( __FILE__ )), __LINE__ ) );
+                }
             } catch (\Exception $e)
             {
                 self::exceptionMessage( $e );
@@ -41,7 +41,7 @@ class FormAttributes
     {
         return $this->_attributes;
     }
-    
+
     /**
      * @param array $attributes
      */
@@ -58,6 +58,9 @@ class FormAttributes
         }
         $this->_element = str_replace(' ID', '', $this->_element);
         $this->_element = str_replace(' CLASS', '', $this->_element);
+        $this->_element = str_replace(' enctype="ENCTYPE"', '', $this->_element);
+        $this->_element = str_replace(' onsubmit="ONSUBMIT"', '', $this->_element);
+        $this->_element = str_replace(' action="ACTION"', '', $this->_element);
         $this->_element = str_replace(' SPEECH', '', $this->_element);
         $this->_element = str_replace(' FORM', '', $this->_element);
         $this->_element = str_replace(' placeholder="PLACEHOLDER"', '', $this->_element);
@@ -65,6 +68,9 @@ class FormAttributes
         $this->_element = str_replace(' value="VALUE"', '', $this->_element);
         $this->_element = str_replace('  ', ' ', $this->_element);
         $this->_element = str_replace(' type="TYPE"', '', $this->_element);
+        $this->_element = str_replace(' onchange="ONCHANGE"', '', $this->_element);
+        $this->_element = str_replace(' SELECTED', '', $this->_element);
+        $this->_element = str_replace(' CONTEXT', '', $this->_element);
     }
 
     /**

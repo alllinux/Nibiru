@@ -33,6 +33,12 @@ final class Pdo extends Mysql implements IPdo
 		return $result;
 	}
 
+    public static function selectDatasetByFieldAndValue($tablename = self::PLACE_TABLE_NAME, $fieldAndValue = array() )
+    {
+        $result = parent::getInstance()->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . "';");
+        return $result->fetchAll();
+    }
+
     public static function updateColumnByFieldWhere( $tablename = self::PLACE_TABLE_NAME,
                                                     $column_name = IMysql::PLACE_COLUMN_NAME,
                                                     $parameter_name = IMysql::PLACE_SEARCH_TERM,

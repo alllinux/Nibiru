@@ -1,6 +1,6 @@
 # Nibiru 
 ### Rapid Prototyping PHP Framework
-Version 0.3.5 beta
+Version 0.4.0 beta
 ## Introduction
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
@@ -55,7 +55,6 @@ Engine Implementation.</div>
 <li>Dwoo tempalte eninge tests</li>
 <li>Twig tempalte eninge tests</li>
 </ul>
-<h1>Previous version</h1>
 <h1>Version 0.3 beta 04.02.2018</h1>
 <ul>
 <li>Improved: The Router now accepts actions, either trough the _action as parameter, or on the URL pattern after the controller name Example: http://youdomain/[controllername]/[actionname]/</li>
@@ -65,8 +64,7 @@ Engine Implementation.</div>
 <li>The Database access can now be implemented anywhere in your application by adding the namespace to your database accessing Logic:<br>use Nibiru\Factory\Db;</li>
 </ul>
 </div>
-
-<h1>Update</h1>
+<h1>Previous version</h1>
 <p>Version 0.3.5 beta 14.03.2018</p>
 <ul>
 <li>Bugfix on the Router, now the currentPage will be returned correctly.</li>
@@ -75,6 +73,17 @@ Engine Implementation.</div>
 <li>Added missing form elements, migration to a Form factory, in order to easy configure and install a form anywhere you like</li>
 <li>Minor bugfixing</li>
 </ul>
+
+<h1>Update</h1>
+<p>Version 0.4.0 beta 09.07.2018</p>
+<ul>
+<li>Bugfix on the form classes, now the select option is correctly set back.</li>
+<li>Update for the database adapter</li>
+<li>Improvement of the form elements, added onchange on the select boxes, the form tag now can have no element if needed.</li>
+<li>Implementation of the Postgres and MySQL Adapter with propper Namespacing.</li>
+<li>Minor bugfixing</li>
+</ul>
+
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 15px; margin-bottom: 15px;">The start is done, have success with PHP prototyping, and always remember to have fun!</div>
 
 Author: Stephan Kasdorf<br><br>

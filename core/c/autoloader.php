@@ -14,7 +14,7 @@ class Autoloader
 {
     const MY_FILE_NAME      = "autoloader.php";
     const DB_MODEL_FOLDER   = "dbmodel";
-    const MODUL_FOLDER      = "modul";
+    const MODULE_FOLDER     = "module";
 
     private static $_filesInFoler = array();
     private static $_instance;
@@ -56,7 +56,33 @@ class Autoloader
      */
     private static function _setFilesInFoler( )
     {
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER] ));
+        $modelFolder = Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER];
+        if(is_array($modelFolder))
+        {
+            foreach ($modelFolder as $folder)
+            {
+                $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . $folder ));
+                foreach ($iterator as $item)
+                {
+                    if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
+                    {
+                        self::$_filesInFoler[] = $item->getPathName();
+                    }
+                }   
+            }
+        }
+        else
+        {
+            $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . $modelFolder ));
+            foreach ($iterator as $item)
+            {
+                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
+                {
+                    self::$_filesInFoler[] = $item->getPathName();
+                }
+            }    
+        }        
+        $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::MODULE_FOLDER] ));
         foreach ($iterator as $item)
         {
             if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")

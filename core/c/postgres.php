@@ -152,4 +152,9 @@ class Postgres extends Odbc implements IPostgres
         }
     }
 
+    public static function truncateTable($tablename = IOdbc::PLACE_TABLE_NAME)
+    {
+        \odbc_exec(parent::getInstance( self::getSettingsSection() )->getConn(), "DELETE FROM " . $tablename . ";");
+    }
+
 }
