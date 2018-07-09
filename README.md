@@ -80,7 +80,7 @@ Engine Implementation.</div>
 <li>Bugfix on the form classes, now the select option is correctly set back.</li>
 <li>Update for the database adapter</li>
 <li>Improvement of the form elements, added onchange on the select boxes, the form tag now can have no element if needed.</li>
-<li>Implementation of the Postgres and MySQL Adapter with propper Namespacing.</li>
+<li>Implementation of the Postgres and MySQL Adapter with proper Namespacing.</li>
 <li>Minor bugfixing</li>
 </ul>
 
