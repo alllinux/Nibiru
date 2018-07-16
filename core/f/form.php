@@ -159,7 +159,7 @@ class Form
         {
             self::setDiv( $div );
         }
-        self::setElement( new \Sunrise\Form\Form() );
+        self::setElement( new \Nibiru\Form\Form() );
         return self::display( self::getElement()->loadElement( $attributes ) );
     }
 
