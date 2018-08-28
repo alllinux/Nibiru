@@ -10,7 +10,17 @@ namespace Nibiru;
  */
 final class Pdo extends Mysql implements IPdo
 {
-
+    private static $section = false;
+    
+    public static function settingsSection( $section = IOdbc::SETTINGS_DATABASE )
+    {
+        self::$section = $section;
+    }
+    
+    private static function getSettingsSection()
+    {
+        return self::$section;
+    }
 	/**
 	 * @param string $string
 	 *
@@ -18,7 +28,7 @@ final class Pdo extends Mysql implements IPdo
 	 */
 	public static function query( $string = self::PLACE_NO_QUERY )
 	{
-		$query = parent::getInstance()->getConn()->query( $string );
+		$query = parent::getInstance( self::getSettingsSection() )->getConn()->query( $string );
 		while($row = $query->fetch())
 		{
 			$keys = array_keys($row);
@@ -35,7 +45,7 @@ final class Pdo extends Mysql implements IPdo
 
     public static function selectDatasetByFieldAndValue($tablename = self::PLACE_TABLE_NAME, $fieldAndValue = array() )
     {
-        $result = parent::getInstance()->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . "';");
+        $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . "';");
         return $result->fetchAll();
     }
 
@@ -45,7 +55,7 @@ final class Pdo extends Mysql implements IPdo
                                                     $field_name = IMysql::PLACE_FIELD_NAME,
                                                     $where_value = IMysql::PLACE_WHERE_VALUE )
     {
-        $statement = parent::getInstance()->getConn();
+        $statement = parent::getInstance( self::getSettingsSection() )->getConn();
         $query = "UPDATE " . $tablename . " SET " . $column_name . " = :" . $column_name . " WHERE " . $field_name . " = :". $field_name;
         $insert = $statement->prepare($query);
         $insert->bindParam( ':'.$column_name, $parameter_name );
@@ -56,7 +66,7 @@ final class Pdo extends Mysql implements IPdo
 	public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
 	{
         $result = array();
-	    $statement = parent::getInstance()->getConn();
+	    $statement = parent::getInstance( self::getSettingsSection() )->getConn();
 	    $describe = $statement->query('DESC ' . $tablename);
 	    $describe->execute();
         $tableInformation = $describe->fetchAll( \PDO::FETCH_ASSOC );
@@ -93,7 +103,7 @@ final class Pdo extends Mysql implements IPdo
                                                   $column_name = IMysql::PLACE_COLUMN_NAME,
                                                   $parameter_name = IMysql::PLACE_SEARCH_TERM)
     {
-        $statement = parent::getInstance()->getConn();
+        $statement = parent::getInstance( self::getSettingsSection() )->getConn();
         $prepare = $statement->prepare("SELECT * FROM " . $tablename . " WHERE " . $column_name . " = :" . $column_name . ";");
         $prepare->bindParam(":".$column_name, $parameter_name, \PDO::PARAM_STR);
         $prepare->execute();
@@ -116,7 +126,7 @@ final class Pdo extends Mysql implements IPdo
 
 	public static function fetchTableAsArray( $tablename = self::PLACE_TABLE_NAME )
 	{
-		$statement = parent::getInstance()->getConn()->query('SElECT * FROM ' . $tablename);
+		$statement = parent::getInstance( self::getSettingsSection() )->getConn()->query('SElECT * FROM ' . $tablename);
 		$statement->execute();
 		$result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 		return $result;
@@ -131,7 +141,7 @@ final class Pdo extends Mysql implements IPdo
      */
 	public static function insertArrayIntoTable( $tablename = IMysql::PLACE_TABLE_NAME, $array_name = IMysql::PLACE_ARRAY_NAME, $encrypted = IMysql::PLACE_DES_ENCRYPT )
     {
-        $statement = parent::getInstance()->getConn();
+        $statement = parent::getInstance( self::getSettingsSection() )->getConn();
 
         if(is_array($array_name))
         {

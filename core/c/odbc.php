@@ -17,10 +17,16 @@ class Odbc extends Mysql implements IOdbc
     
     private static $_instance;
 
-    protected function __construct( )
+    protected function __construct( $section = false )
     {
-
-        $settings = Config::getInstance()->getConfig()[self::SETTINGS_DATABASE];
+        if($section)
+        {
+            $settings = Config::getInstance()->getConfig()[$section];
+        }
+        else
+        {
+            $settings = Config::getInstance()->getConfig()[self::SETTINGS_DATABASE];
+        }
         $this->_setUsername($settings[self::PLACE_USERNAME]);
         $this->_setPassword($settings[self::PLACE_PASSWORD]);
         $this->_setDbname($settings[self::PLACE_DATABASE]);
@@ -32,10 +38,10 @@ class Odbc extends Mysql implements IOdbc
         $this->_setConn();
     }
 
-    public static function getInstance()
+    public static function getInstance( $section = false )
     {
         $className = get_called_class();
-        if(self::$_instance==null) self::$_instance = new $className();
+        if(self::$_instance==null) self::$_instance = new $className( $section );
         return self::$_instance;
     }
 

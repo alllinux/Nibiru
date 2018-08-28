@@ -9,7 +9,8 @@ namespace Nibiru\Factory;
  */
 class Db
 {
-    protected static $_model = null;
+    const DATABASE_DRIVER_NS    = "driver";
+    protected static $_model    = null;
 
     /**
      * @desc loads the database model through the correct Factory,

@@ -12,10 +12,11 @@ use Nibiru\Adapter;
 class TypeCheckbox extends FormAttributes implements IForm
 {
     private $_attributes = array(
-        self::FORM_NAME             => '',
-        self::FORM_VALUE            => '',
-        self::FORM_ATTRIBUTE_ID     => '',
-        self::FORM_ATTRIBUTE_CLASS  => ''
+        self::FORM_NAME                 => '',
+        self::FORM_VALUE                => '',
+        self::FORM_ATTRIBUTE_ID         => '',
+        self::FORM_ATTRIBUTE_CLASS      => '',
+        self::FORM_ATTRIBUTE_CHECKED    => ''
     );
 
     public function loadElement( $attributes )
@@ -32,7 +33,7 @@ class TypeCheckbox extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<input type="checkbox" name="NAME" value="VALUE" ID CLASS>' . 'VALUE<br>' . "\n";
+        $this->_element = '<input type="checkbox" name="NAME" value="VALUE" CHECKED ID CLASS>' . 'VALUE<br>' . "\n";
     }
 
 

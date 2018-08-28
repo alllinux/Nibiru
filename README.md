@@ -34,9 +34,10 @@ Engine Implementation.</div>
 <ul>
 <li>framework documentation</li>
 <li>class documentation</li>
-<li>soap interface to a given SOAP server</li>
-<li>Dwoo tempalte eninge tests</li>
-<li>Twig tempalte eninge tests</li>
+<li>soap interface to a given SOAP server (canceled, not needed to old)</li>
+<li>bitcoin api, and payment gateway</li>
+<li>Dwoo tempalte engine tests</li>
+<li>Twig tempalte engine tests</li>
 <li>Database access functionallity for the db.php Factory</li>
 </ul>
 
@@ -51,11 +52,13 @@ Engine Implementation.</div>
 <ul>
 <li>framework documentation</li>
 <li>class documentation</li>
-<li>soap interface to a given SOAP server</li>
-<li>Dwoo tempalte eninge tests</li>
-<li>Twig tempalte eninge tests</li>
+<li>soap interface to a given SOAP server (canceled, not needed to old)</li>
+<li>bitcoin api, and payment gateway</li>
+<li>Dwoo tempalte engine tests</li>
+<li>Twig tempalte engine tests</li>
 </ul>
-<h1>Version 0.3 beta 04.02.2018</h1>
+
+<p>Version 0.3 beta 04.02.2018</p>
 <ul>
 <li>Improved: The Router now accepts actions, either trough the _action as parameter, or on the URL pattern after the controller name Example: http://youdomain/[controllername]/[actionname]/</li>
 <li>It is now possible to load as many navigations on the page as wanted by passing the name to the <br>JsonNavigation::getInstance()->loadJsonNavigationArray('[NAME]'); <br>call in the navigationAction of the Controller</li>
@@ -65,7 +68,7 @@ Engine Implementation.</div>
 </ul>
 </div>
 <h1>Previous version</h1>
-<p>Version 0.3.5 beta 14.03.2018</p>
+<h1>Version 0.3.5 beta 14.03.2018</h1>
 <ul>
 <li>Bugfix on the Router, now the currentPage will be returned correctly.</li>
 <li>Update for the database adapter, a detailed instruction on how to use it will be within the soon comming documentation</li>
@@ -75,15 +78,13 @@ Engine Implementation.</div>
 </ul>
 
 <h1>Update</h1>
-<p>Version 0.4.0 beta 09.07.2018</p>
+<p>Version 0.4.0 beta 28.08.2018</p>
 <ul>
-<li>Bugfix on the form classes, now the select option is correctly set back.</li>
-<li>Update for the database adapter</li>
-<li>Improvement of the form elements, added onchange on the select boxes, the form tag now can have no element if needed.</li>
-<li>Implementation of the Postgres and MySQL Adapter with proper Namespacing.</li>
-<li>Minor bugfixing</li>
+<li>Minor update concerning the autoloading class in the core, now it is also possible to give a loading order through the configuration</li>
+<li>Minor update concerning the form factory classes in the core, now some javascript events are implemented as well, another update concerning functinoallity will follow soon.</li>
+<li>Update on the example configuration file, implementing the autoloading order of interfaces, moduels and traits.</li>
+<li>Update for multidatabase support, see the documentation on http://www.nibiru-framework.com</li>
 </ul>
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 15px; margin-bottom: 15px;">The start is done, have success with PHP prototyping, and always remember to have fun!</div>
-
 Author: Stephan Kasdorf<br><br>

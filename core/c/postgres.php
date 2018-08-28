@@ -9,6 +9,17 @@ namespace Nibiru;
  */
 class Postgres extends Odbc implements IPostgres
 {
+    private static $section = false;
+    
+    public static function settingsSection( $section = IOdbc::SETTINGS_DATABASE )
+    {
+        self::$section = $section;
+    }
+    
+    private static function getSettingsSection()
+    {
+        return self::$section;
+    }
     /**
      * @desc does a plain SQL query on a postgres database, and returns the 
      *       result as an array
@@ -18,7 +29,7 @@ class Postgres extends Odbc implements IPostgres
     public static function query($string = IOdbc::PLACE_NO_QUERY)
     {
         $all = array();
-        $result = \odbc_exec(parent::getInstance()->getConn(), $string);
+        $result = \odbc_exec(parent::getInstance( self::getSettingsSection() )->getConn(), $string);
         for($i=1;$row=\odbc_fetch_object($result,$i);$i++)
         {
             $row_values = array();
@@ -54,7 +65,7 @@ class Postgres extends Odbc implements IPostgres
     public static function fetchTableFieldsAsArray($tablename = IOdbc::PLACE_TABLE_NAME)
     {
         $columns = array();
-        $result = \odbc_columns(parent::getInstance()->getConn(), null, null, $tablename);
+        $result = \odbc_columns(parent::getInstance( self::getSettingsSection() )->getConn(), null, null, $tablename);
         for($i=0;$row=\odbc_fetch_object($result, $i);$i++)
         {
             foreach ($row as $key=>$entry)
@@ -112,7 +123,7 @@ class Postgres extends Odbc implements IPostgres
                 $row .= " )";
                 $sql = 'INSERT INTO ' . $tablename . $row . ';';
 
-                \odbc_exec(parent::getInstance()->getConn(), $sql);
+                \odbc_exec(parent::getInstance( self::getSettingsSection() )->getConn(), $sql);
             }
         }
         else
@@ -148,7 +159,7 @@ class Postgres extends Odbc implements IPostgres
             $row .= " )";
             $sql = 'INSERT INTO ' . $tablename . $row . ';';
             
-            \odbc_exec(parent::getInstance()->getConn(), $sql);
+            \odbc_exec(parent::getInstance( self::getSettingsSection() )->getConn(), $sql);
         }
     }
 

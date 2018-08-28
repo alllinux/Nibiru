@@ -39,6 +39,7 @@ interface IForm
     const FORM_ATTRIBUTE_ONSUBMIT       = 'onsubmit';
     const FORM_ATTRIBUTE_SELECTED       = 'selected';
     const FORM_ATTRIBUTE_CONTEXT        = 'context';
+    const FORM_ATTRIBUTE_CHECKED        = 'checked';
 
     /**
      * @desc loads the current Form element to the form
