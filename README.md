@@ -86,7 +86,7 @@ Engine Implementation.</div>
 </ul>
 
 <h1>Update</h1>
-<p>Version 0.5.0 beta 05.12.2018</p>
+<p>Version 0.6.0 beta 05.12.2018</p>
 <ul>
 <li>Added a Pagination to the core it now can be used like in the template file Example, the class just needs to be extended by the module that should have a pageination (e.g. a Blog Module)</li>
 <li>Some extensions for the Routing option, in order to parmeterize the url.</li>
