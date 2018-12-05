@@ -1,6 +1,6 @@
 {
 "navigation" :
                 {
-                  "Home": { "link": "/", "tooltip": "Home", "icon": "icon icon-home" }
+                  "Home": { "link": "/", "tooltip": "Home", "icon": "icon icon-home", "footer": "false" }
                 }
 }

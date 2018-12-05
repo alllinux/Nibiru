@@ -15,6 +15,7 @@ if(session_status() == PHP_SESSION_NONE)
  * @desc Nibiru framework functionality
  */
 require_once __DIR__ . '/t/messages.php';
+require_once __DIR__ . '/t/pageination.php';
 require_once __DIR__ . '/c/settings.php';
 require_once __DIR__ . '/c/config.php';
 require_once __DIR__ . '/c/router.php';
@@ -32,9 +33,11 @@ require_once __DIR__ . '/c/odbc.php';
 require_once __DIR__ . '/i/postgres.php';
 require_once __DIR__ . '/c/postgres.php';
 require_once __DIR__ . '/i/db.php';
+require_once __DIR__ . '/i/pageination.php';
 require_once __DIR__ . '/a/mysql.db.php';
 require_once __DIR__ . '/a/postgres.db.php';
 require_once __DIR__ . '/f/db.php';
+require_once __DIR__ . '/a/pageination.php';
 /**
  * @desc MVC functionality
  */
@@ -70,12 +73,10 @@ require_once __DIR__ . '/i/controller.php';
 require_once __DIR__ . '/c/controller.php';
 require_once __DIR__ . '/i/view.php';
 require_once __DIR__ . '/c/view.php';
-require_once __DIR__ . '/c/json-navigation.php';
+require_once __DIR__ . '/c/jsonnavigation.php';
 /**
  * @desc currently unfinished
  */
-require_once __DIR__ . '/i/soap.php';
-require_once __DIR__ . '/c/soap.php';
 require_once __DIR__ . '/i/auth.php';
 require_once __DIR__ . '/c/auth.php';
 /**

@@ -166,7 +166,8 @@ class JsonNavigation extends Config
 							'title'   => $keys[$i],
 							'icon'    => $value[$keys[$i]]["icon"],
 							'link'    => $value[$keys[$i]]["link"],
-							'tooltip' => $value[$keys[$i]]["tooltip"]
+							'tooltip' => $value[$keys[$i]]["tooltip"],
+                            'footer'  => $value[$keys[$i]]['footer']
 						);	
 					}
 					elseif(array_key_exists('onclick', $value[$keys[$i]]))
@@ -175,7 +176,8 @@ class JsonNavigation extends Config
 							'title'   => $keys[$i],
 							'icon'    => $value[$keys[$i]]["icon"],
 							'tooltip' => $value[$keys[$i]]["tooltip"],
-							'onclick' => $value[$keys[$i]]["onclick"]
+							'onclick' => $value[$keys[$i]]["onclick"],
+                            'footer'  => $value[$keys[$i]]['footer']
 						);
 					}					
 				}

@@ -1,6 +1,6 @@
 # Nibiru 
 ### Rapid Prototyping PHP Framework
-Version 0.4.0 beta
+Version 0.6.0 beta
 ## Introduction
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
@@ -67,8 +67,7 @@ Engine Implementation.</div>
 <li>The Database access can now be implemented anywhere in your application by adding the namespace to your database accessing Logic:<br>use Nibiru\Factory\Db;</li>
 </ul>
 </div>
-<h1>Previous version</h1>
-<h1>Version 0.3.5 beta 14.03.2018</h1>
+<p>Version 0.3.5 beta 14.03.2018</p>
 <ul>
 <li>Bugfix on the Router, now the currentPage will be returned correctly.</li>
 <li>Update for the database adapter, a detailed instruction on how to use it will be within the soon comming documentation</li>
@@ -77,13 +76,23 @@ Engine Implementation.</div>
 <li>Minor bugfixing</li>
 </ul>
 
-<h1>Update</h1>
+<h1>Previous version</h1>
 <p>Version 0.4.0 beta 28.08.2018</p>
 <ul>
 <li>Minor update concerning the autoloading class in the core, now it is also possible to give a loading order through the configuration</li>
 <li>Minor update concerning the form factory classes in the core, now some javascript events are implemented as well, another update concerning functinoallity will follow soon.</li>
 <li>Update on the example configuration file, implementing the autoloading order of interfaces, moduels and traits.</li>
 <li>Update for multidatabase support, see the documentation on http://www.nibiru-framework.com</li>
+</ul>
+
+<h1>Update</h1>
+<p>Version 0.5.0 beta 05.12.2018</p>
+<ul>
+<li>Added a Pagination to the core it now can be used like in the template file Example, the class just needs to be extended by the module that should have a pageination (e.g. a Blog Module)</li>
+<li>Some extensions for the Routing option, in order to parmeterize the url.</li>
+<li>Name fixing.</li>
+<li>Added an additional attribute for the navigation, so the navigation position can be set to footer.</li>
+<li>A soap extension will not be part of the system anymore, since that is just a bad habit, so this will be replaced with a REST api.</li>
 </ul>
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 15px; margin-bottom: 15px;">The start is done, have success with PHP prototyping, and always remember to have fun!</div>

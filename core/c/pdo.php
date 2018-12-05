@@ -43,6 +43,17 @@ final class Pdo extends Mysql implements IPdo
 		return $result;
 	}
 
+    /**
+     * @param string $string
+     *
+     * @return array
+     */
+    public static function queryString( $string = self::PLACE_NO_QUERY )
+    {
+        $query = parent::getInstance( self::getSettingsSection() )->getConn()->query( $string );
+        return $query->fetchAll();
+    }
+
     public static function selectDatasetByFieldAndValue($tablename = self::PLACE_TABLE_NAME, $fieldAndValue = array() )
     {
         $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . "';");
@@ -124,13 +135,34 @@ final class Pdo extends Mysql implements IPdo
 		// TODO: Implement getLastInsertedID() method.
 	}
 
-	public static function fetchTableAsArray( $tablename = self::PLACE_TABLE_NAME )
-	{
-		$statement = parent::getInstance( self::getSettingsSection() )->getConn()->query('SElECT * FROM ' . $tablename);
-		$statement->execute();
-		$result = $statement->fetchAll( \PDO::FETCH_ASSOC );
-		return $result;
-	}
+    public static function fetchTableAsArray( $tablename = self::PLACE_TABLE_NAME, $limit = self::PLACE_QUERY_LIMIT, $order = self::PLACE_SORT_ORDER )
+    {
+        if($limit != self::PLACE_QUERY_LIMIT)
+        {
+            if( $order == self::PLACE_SORT_ORDER )
+            {
+                $order = "";
+            }
+            if(is_array($limit))
+            {
+                if(array_key_exists('start', $limit))
+                {
+                    $statement = parent::getInstance( self::getSettingsSection() )->getConn()->query('SELECT * FROM ' . $tablename . $order . ' LIMIT ' . $limit['start'] . ', ' . $limit['end'] . ';' );
+                }
+            }
+            else
+            {
+                $statement = parent::getInstance( self::getSettingsSection() )->getConn()->query('SElECT * FROM ' . $tablename . $order . ' LIMIT ' . $limit . ';');
+            }
+        }
+        else
+        {
+            $statement = parent::getInstance( self::getSettingsSection() )->getConn()->query('SElECT * FROM ' . $tablename);
+        }
+        $statement->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        return $result;
+    }
 
     /**
      * @desc will insert the array with fieldnames into the database, if the last parameter is set it should be a string containing the

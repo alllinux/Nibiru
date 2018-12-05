@@ -67,7 +67,7 @@ class Settings
 			}
 			elseif(file_exists('../' . self::SETTINGS_PATH . $current_settings_file))
 			{
-				if($env==config::CLI_SYSTEM)
+				if($env==Config::CLI_SYSTEM)
 				{
 					if(self::$_is_db_connection)
 					{
