@@ -1,6 +1,6 @@
 # Nibiru 
 ### Rapid Prototyping PHP Framework
-Version 0.6.0 beta
+Version 0.6.1 beta
 ## Introduction
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
@@ -93,6 +93,12 @@ Engine Implementation.</div>
 <li>Name fixing.</li>
 <li>Added an additional attribute for the navigation, so the navigation position can be set to footer.</li>
 <li>A soap extension will not be part of the system anymore, since that is just a bad habit, so this will be replaced with a REST api.</li>
+</ul>
+
+<h1>Bugfixing</h1>
+<p>Version 0.6.1 beta 04.01.2019</p>
+<ul>
+<li>Bugfix for the pagination in the core files, used not to work on more then three pages, is now fixed.</li>
 </ul>
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 15px; margin-bottom: 15px;">The start is done, have success with PHP prototyping, and always remember to have fun!</div>

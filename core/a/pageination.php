@@ -1,16 +1,22 @@
 <?php
-namespace Nibiru;
+namespace Nibiru\Module;
 /**
  * Created by PhpStorm.
- * User: mithril
+ * User: Stephan Kasdorf
  * Date: 15.09.18
- * Time: 03:16
+ * Last Update: 04.01.2019
+ * Time: 19:13
  */
+use Nibiru\Adapter;
+use Nibiru\Config;
+use Nibiru\Controller;
+use Nibiru\Router;
+use Nibiru\View;
 
-abstract class Pageination implements IPageination
+abstract class Pageination implements Adapter\Pageination
 {
-    use Attributes\Pageination;
-    
+    use \Nibiru\Messages\Pageination;
+
     private static $_table                = false;
     private static $_current_page_content = array();
     private static $_current_number         = 0;
@@ -82,49 +88,39 @@ abstract class Pageination implements IPageination
     private static function setPageEntryIndex( )
     {
         $PagesWithFullEntriesIndex = floor(self::getMaxPageEntries()/self::getEntriesPerPage());
-        $limit = array();
         for($i=1; $i<$PagesWithFullEntriesIndex+1; $i++)
         {
-            if(!array_key_exists($i-1, $limit))
+            $limit = array();
+
+            if($i==1)
             {
-                $limit[$i] = array(
+                $limit = array(
                     'start'   => 0,
                     'end' => self::getEntriesPerPage()
                 );
             }
             else
             {
-                if(array_key_exists($i, $limit))
-                {
-                    if(array_key_exists('start', $limit[$i]))
-                    {
-                        $start = $limit[$i]['start'];
-                    }
-                    else
-                    {
-                        $start = self::PAGE_ITERATION;
-                    }
-                }
-                else
-                {
-                    $start = self::PAGE_ITERATION;
-                }
-                $limit[$i] = array(
+                $laststart = self::getPageEntryIndex()[$i-1]['start'];
+
+                $limit = array(
+                    'start' => $laststart + self::getEntriesPerPage(),
                     'end'   => self::getEntriesPerPage(),
-                    'start' => $start + self::getEntriesPerPage()
                 );
+
             }
+            self::$_page_entry_index[$i] = $limit;
         }
         $fullEntriesOnPages = $PagesWithFullEntriesIndex*self::getEntriesPerPage();
         if($fullEntriesOnPages<self::getMaxPageEntries())
         {
             $lastPageEntries = self::getMaxPageEntries()-($PagesWithFullEntriesIndex*self::getEntriesPerPage());
-            $limit[$i] = array(
-                'start' => $limit[$i-1]['start'] + self::getEntriesPerPage(),
+            $limit = array(
+                'start' => self::getPageEntryIndex()[$i-1]['start']+self::getEntriesPerPage(),
                 'end'   => $lastPageEntries
             );
+            self::$_page_entry_index[$i] = $limit;
         }
-        self::$_page_entry_index = $limit;
         self::setUriPaginationPath();
         self::loadPaginationToTemplate();
     }
@@ -144,7 +140,7 @@ abstract class Pageination implements IPageination
     {
         self::$_entries_per_page = Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]['entriesperpage'];
     }
-    
+
     /**
      * @return int
      */
@@ -163,7 +159,7 @@ abstract class Pageination implements IPageination
         self::setMaxPageEntries( self::getTable()->loadTableRowCount( $tableinfo[0], $where ));
         self::$_max_pages = ceil(self::getMaxPageEntries()/self::getEntriesPerPage());
     }
-    
+
     /**
      * @return boolean
      */
@@ -230,38 +226,38 @@ abstract class Pageination implements IPageination
     protected static function setCurrentNumber( )
     {
         try {
-                $page = false;
-                $uri = explode('/', $_SERVER['REQUEST_URI']);
-                foreach ($uri as $uripart)
+            $page = false;
+            $uri = explode('/', $_SERVER['REQUEST_URI']);
+            foreach ($uri as $uripart)
+            {
+                if($page)
                 {
-                    if($page)
+                    if(is_numeric($uripart))
                     {
-                        if(is_numeric($uripart))
-                        {
-                            self::$_current_number = $uripart;
-                            Controller::getInstance()->varname(View::getInstance()->getEngine(), array('pagenumber' => self::getCurrentNumber()));
-                            $page = false;
-                            self::setNextPageNumber();
-                            self::setPreviousPageNumber();
-                        }
-                        else
-                        {
-                            throw new \Exception('ERROR: the pagenumber has to be a nummeric value!');
-                        }
+                        self::$_current_number = $uripart;
+                        Controller::getInstance()->varname(View::getInstance()->getEngine(), array('pagenumber' => self::getCurrentNumber()));
+                        $page = false;
+                        self::setNextPageNumber();
+                        self::setPreviousPageNumber();
                     }
-                    if($uripart == 'page')
+                    else
                     {
-                        $page = true;
+                        throw new \Exception('ERROR: the pagenumber has to be a nummeric value!');
                     }
                 }
-                if(self::getCurrentNumber() == self::CURRENT_PAGE)
+                if($uripart == 'page')
                 {
-                    throw new \Exception('ERROR: URL parameter [page] is missing, please check your class and add the parameter!');
+                    $page = true;
                 }
-                self::setNextPageNumber();
-                self::setPreviousPageNumber();
-                
             }
+            if(self::getCurrentNumber() == self::CURRENT_PAGE)
+            {
+                throw new \Exception('ERROR: URL parameter [page] is missing, please check your class and add the parameter!');
+            }
+            self::setNextPageNumber();
+            self::setPreviousPageNumber();
+
+        }
         catch (\Exception $e)
         {
             echo '<pre>';
