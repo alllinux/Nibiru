@@ -224,7 +224,8 @@ final class Debug
      */
     private function _setGlobalsData()
     {
-        if(sizeof($GLOBALS)>0)
+
+        if(sizeof($GLOBALS)>0 && array_key_exists(0, $GLOBALS))
         {
             $this->_globals_data = '<pre>' . print_r($GLOBALS, true) . '</pre>';
         }
@@ -233,6 +234,7 @@ final class Debug
             $this->_globals_data = Messages::msg_globals();
         }
         Controller::getInstance()->varname( View::getInstance()->getEngine(), array('ndbglobals' => $this->getGlobalsData()) );
+
     }
 
     /**

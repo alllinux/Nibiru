@@ -7,15 +7,15 @@ namespace Nibiru\Module;
  * Last Update: 04.01.2019
  * Time: 19:13
  */
-use Nibiru\Adapter;
+use Nibiru\Attributes;
 use Nibiru\Config;
 use Nibiru\Controller;
 use Nibiru\Router;
 use Nibiru\View;
 
-abstract class Pageination implements Adapter\Pageination
+abstract class Pageination implements \Nibiru\IPageination
 {
-    use \Nibiru\Messages\Pageination;
+    use Attributes\Pageination;
 
     private static $_table                = false;
     private static $_current_page_content = array();
