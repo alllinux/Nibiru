@@ -12,6 +12,10 @@ require_once __DIR__ . '/../c/autoloader.php';
 
 final class Dispatcher
 {
+    const CONFIG_GENERATOR_SECTION = 'GENERATOR';
+    const GENERATOR_DATABASE       = 'database';
+    const GENERATOR_DB_OVERWRITE   = 'database.overwrite';
+
     private static $_instance;
 
     protected function __construct()
@@ -28,6 +32,10 @@ final class Dispatcher
 
     public function run()
     {
+        if(Config::getInstance()->getConfig()[self::CONFIG_GENERATOR_SECTION][self::GENERATOR_DATABASE])
+        {
+            new Model( false );
+        }
         Router::getInstance();
         Router::getInstance()->route();
         Autoloader::getInstance()->runRequireOnce();

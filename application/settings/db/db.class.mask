@@ -1,0 +1,36 @@
+<?php
+
+namespace Nibiru\Model\[FOLDERNAME];
+use Nibiru\Adapter\[ADAPTER]\Db;
+use Nibiru\Pdo;
+
+/**
+ * Created by PhpStorm.
+ * User: kasdorf
+ * Date: 10.11.17
+ * Time: 09:38
+ */
+class [CLASSNAME] extends Db
+{
+
+    const TABLE = array(
+        'table'     => '[TABLE]',
+        'fields'    =>  [FIELDARRAY]
+    );
+
+    public function __construct()
+    {
+        [ADAPTER]::settingsSection('[DBSECTION]');
+        self::initTable( self::TABLE );
+    }
+
+    public function getTableInfo()
+    {
+        return self::TABLE;
+    }
+
+    public function insertArrayIntoTable($dataset = array())
+    {
+        // TODO: Implement insertArrayIntoTable() method.
+    }
+}

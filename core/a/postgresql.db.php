@@ -1,8 +1,8 @@
 <?php
 
-namespace Nibiru\Adapter\Postgres;
+namespace Nibiru\Adapter\Postgresql;
 
-use Nibiru\Postgres;
+use Nibiru\Postgresql;
 use Nibiru\Factory;
 use Nibiru\Adapter\IDb;
 /**
@@ -58,7 +58,7 @@ abstract class Db implements IDb
     {
         try
         {
-            return Postgres::query("SELECT * FROM " . self::getTable()['table'] . " WHERE " . self::getTable()['fields']['id'] . " = " . $id . ";" );
+            return Postgresql::query("SELECT * FROM " . self::getTable()['table'] . " WHERE " . self::getTable()['fields']['id'] . " = " . $id . ";" );
         }
         catch (\Exception $e)
         {
@@ -90,7 +90,7 @@ abstract class Db implements IDb
                     $fields .= $field . ", ";
                 }
             }
-            return Postgres::query("SELECT " . $fields . "FROM " . self::getTable()['table'] . ";");
+            return Postgresql::query("SELECT " . $fields . "FROM " . self::getTable()['table'] . ";");
         }
         catch(\Exception $e)
         {
@@ -165,17 +165,17 @@ abstract class Db implements IDb
         {
             if(!empty($mfields))
             {
-                $result = Postgres::query("SELECT " . $fields . ", " . $mfields . " FROM " . self::getTable()['table']);
+                $result = Postgresql::query("SELECT " . $fields . ", " . $mfields . " FROM " . self::getTable()['table']);
             }
             else
             {
-                $result = Postgres::query("SELECT " . $fields . " FROM " . self::getTable()['table']);
+                $result = Postgresql::query("SELECT " . $fields . " FROM " . self::getTable()['table']);
             }
         }
 
         if(!empty($mfields) && empty($fields))
         {
-            $result = Postgres::query("SELECT " . $mfields . " FROM " . self::getTable()['table']);
+            $result = Postgresql::query("SELECT " . $mfields . " FROM " . self::getTable()['table']);
         }
         return $result;
     }
@@ -190,7 +190,7 @@ abstract class Db implements IDb
     {
         if(!$iterate)
         {
-            $cur = array_shift(Postgres::query('SELECT MAX(id) AS id FROM ' . self::getTable()['table'] . ';'));
+            $cur = array_shift(Postgresql::query('SELECT MAX(id) AS id FROM ' . self::getTable()['table'] . ';'));
             if(empty(array_filter($cur)))
             {
                 $cur["id"] = 1;
@@ -215,7 +215,7 @@ abstract class Db implements IDb
      */
     public function selectRowsetByFieldValue( $fieldValue = array() )
     {
-        return Postgres::fetchRowInArrayByWhere(self::getTable()['table'], $fieldValue['field'], $fieldValue['value']);
+        return Postgresql::fetchRowInArrayByWhere(self::getTable()['table'], $fieldValue['field'], $fieldValue['value']);
     }
 
     /**
@@ -225,7 +225,7 @@ abstract class Db implements IDb
      */
     public function selectFieldByFieldValue( $fieldValue = array() )
     {
-        return Postgres::query("SELECT " . $fieldValue['field'] . " FROM " . self::getTable()['table'] . " WHERE " . $fieldValue['field'] . " = '" . $fieldValue['value'] . "';");
+        return Postgresql::query("SELECT " . $fieldValue['field'] . " FROM " . self::getTable()['table'] . " WHERE " . $fieldValue['field'] . " = '" . $fieldValue['value'] . "';");
     }
 
     /**
@@ -233,7 +233,7 @@ abstract class Db implements IDb
      */
     public function truncateTable()
     {
-        Postgres::query('DELETE FROM ' . self::getTable()['table'] . ';');
+        Postgresql::query('DELETE FROM ' . self::getTable()['table'] . ';');
     }
 
     /**
@@ -244,7 +244,7 @@ abstract class Db implements IDb
     {
         if($id)
         {
-            Postgres::query('DELETE FROM ' . self::getTable()['table'] . ' WHERE id = ' . $id . ';' );
+            Postgresql::query('DELETE FROM ' . self::getTable()['table'] . ' WHERE id = ' . $id . ';' );
         }
     }
 
@@ -256,7 +256,7 @@ abstract class Db implements IDb
     {
         if(array_key_exists('field', $fieldValue))
         {
-            Postgres::query("DELETE FROM " . self::getTable()['table'] . " WHERE " . $fieldValue["field"] . " = '" . $fieldValue["value"] . "'" );
+            Postgresql::query("DELETE FROM " . self::getTable()['table'] . " WHERE " . $fieldValue["field"] . " = '" . $fieldValue["value"] . "'" );
         }
     }
 
@@ -271,18 +271,18 @@ abstract class Db implements IDb
         if(sizeof($sortfield)>0)
         {
             $name = implode(', ', $sortfield['name']);
-            $result = Postgres::query('SELECT * FROM ' . self::getTable()['table'] . ' ORDER BY ' . $name . ' ' . $sortfield['order']. ';');
+            $result = Postgresql::query('SELECT * FROM ' . self::getTable()['table'] . ' ORDER BY ' . $name . ' ' . $sortfield['order']. ';');
         }
         else
         {
-            $result = Postgres::query('SELECT * FROM ' . self::getTable()['table'] . ';');
+            $result = Postgresql::query('SELECT * FROM ' . self::getTable()['table'] . ';');
         }
         return $result;
     }
 
     public function loadMultithreadCount()
     {
-        if( $this->_multithreatCount < Postgres::getInstance()->getMultithreading() )
+        if( $this->_multithreatCount < Postgresql::getInstance()->getMultithreading() )
         {
             $this->_multithreatCount++;
         }
@@ -304,13 +304,13 @@ abstract class Db implements IDb
         {
             if(!$sequences)
             {
-                $result = Postgres::query('SELECT MAX(id) AS id FROM ' . self::getTable()['table'] . ';');
+                $result = Postgresql::query('SELECT MAX(id) AS id FROM ' . self::getTable()['table'] . ';');
                 return array_shift($result)["id"];
             }
             else
             {
                 //Limbas sequence abfragen
-                Postgres::query('SELECT last_value AS id FROM seq_' . self::getTable()['table'] . '_id ;');
+                Postgresql::query('SELECT last_value AS id FROM seq_' . self::getTable()['table'] . '_id ;');
                 return array_shift($result)["id"];
             }
         }
@@ -326,7 +326,7 @@ abstract class Db implements IDb
      */
     public function insertedRowCount()
     {
-        $result = Postgres::query("SELECT count(*) as sum FROM " . self::getTable()['table'] . ";");
+        $result = Postgresql::query("SELECT count(*) as sum FROM " . self::getTable()['table'] . ";");
         return array_shift($result)['sum'];
     }
 
@@ -336,13 +336,13 @@ abstract class Db implements IDb
      */
     public function getAllColumnsAsArray()
     {
-        $result = Postgres::query("SELECT * FROM information_schema.columns WHERE table_schema = 'public' AND table_name   = '" . self::getTable()['table'] . "';");
+        $result = Postgresql::query("SELECT * FROM information_schema.columns WHERE table_schema = 'public' AND table_name   = '" . self::getTable()['table'] . "';");
         return $result;
     }
 
     public function loadPasswordByUsername( $user_name = false )
     {
-        //TODO: Implement the postgres query
+        //TODO: Implement the postgress query
     }
 
     /**

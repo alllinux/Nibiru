@@ -1,6 +1,6 @@
 # Nibiru 
 ### Rapid Prototyping PHP Framework
-Version 0.6.1 beta
+Version 0.7.0 beta
 ## Introduction
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
@@ -76,7 +76,6 @@ Engine Implementation.</div>
 <li>Minor bugfixing</li>
 </ul>
 
-<h1>Previous version</h1>
 <p>Version 0.4.0 beta 28.08.2018</p>
 <ul>
 <li>Minor update concerning the autoloading class in the core, now it is also possible to give a loading order through the configuration</li>
@@ -85,7 +84,13 @@ Engine Implementation.</div>
 <li>Update for multidatabase support, see the documentation on http://www.nibiru-framework.com</li>
 </ul>
 
-<h1>Update</h1>
+<h1>Bugfixing</h1>
+<p>Version 0.6.1 beta 04.01.2019</p>
+<ul>
+<li>Bugfix for the pagination in the core files, used not to work on more then three pages, is now fixed.</li>
+</ul>
+
+<h1>Previous version</h1>
 <p>Version 0.6.0 beta 05.12.2018</p>
 <ul>
 <li>Added a Pagination to the core it now can be used like in the template file Example, the class just needs to be extended by the module that should have a pageination (e.g. a Blog Module)</li>
@@ -95,11 +100,25 @@ Engine Implementation.</div>
 <li>A soap extension will not be part of the system anymore, since that is just a bad habit, so this will be replaced with a REST api.</li>
 </ul>
 
-<h1>Bugfixing</h1>
-<p>Version 0.6.1 beta 04.01.2019</p>
+<h1>Update</h1>
+<p>Version 0.7.0 beta 27.01.2018</p>
 <ul>
-<li>Bugfix for the pagination in the core files, used not to work on more then three pages, is now fixed.</li>
+<li>Class generator for the database models can now be used, and are configured in the settings file</li>
+<li>A bug in the debug core class has been corrected</li>
+<li>Implemented the pgsql driver from PHP</li>
+<li>Added a configuration parameter for useing either the ODBC, or the PGSQL-PHP database driver</li>
+<li>It is possible to now generate the database models even if they already exisit, by configuring overwrite in the configuration</li>
+<li>Added multithreading for postgres</li>
+<li>Added charset configuration for the database settings</li>
+<li>Added a class mask file in the settings folder in order to have the chance to pre-configure the autmatic generated database model files.</li>
 </ul>
+
+<h1>TODO</h1>
+<p>Version 0.7.1 beta</p>
+<ul>
+<li>Add autoated class generator for MySQL database models</li>
+</ul>
+
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 15px; margin-bottom: 15px;">The start is done, have success with PHP prototyping, and always remember to have fun!</div>
 Author: Stephan Kasdorf<br><br>

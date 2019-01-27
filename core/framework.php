@@ -28,16 +28,26 @@ require_once __DIR__ . '/i/mysql.php';
 require_once __DIR__ . '/c/mysql.php';
 require_once __DIR__ . '/i/pdo.php';
 require_once __DIR__ . '/c/pdo.php';
+/**
+ * @desc Database ODBC support
+ */
 require_once __DIR__ . '/i/odbc.php';
 require_once __DIR__ . '/c/odbc.php';
 require_once __DIR__ . '/i/postgres.php';
 require_once __DIR__ . '/c/postgres.php';
+require_once __DIR__ . '/i/psql.php';
+require_once __DIR__ . '/c/psql.php';
+require_once __DIR__ . '/i/postgresql.php';
+require_once __DIR__ . '/c/postgresql.php';
 require_once __DIR__ . '/i/db.php';
 require_once __DIR__ . '/i/pageination.php';
 require_once __DIR__ . '/a/mysql.db.php';
 require_once __DIR__ . '/a/postgres.db.php';
+require_once __DIR__ . '/a/postgresql.db.php';
 require_once __DIR__ . '/f/db.php';
 require_once __DIR__ . '/a/pageination.php';
+require_once __DIR__ . '/c/table.php';
+require_once __DIR__ . '/c/model.php';
 /**
  * @desc MVC functionality
  */

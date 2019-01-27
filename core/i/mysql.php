@@ -10,26 +10,28 @@ namespace Nibiru;
  */
 interface IMysql
 {
-	const SETTINGS_DATABASE = "DATABASE";
+	const SETTINGS_DATABASE         = "DATABASE";
 
-	const PLACE_NO_QUERY    = "NO QUERY";
-	const NO_ID             = false;
-	const PLACE_TABLE_NAME  = "NO TABLENAME";
-    const PLACE_QUERY_LIMIT	= "NO LIMIT";
-    const PLACE_SORT_ORDER	= "NO ORDER";
-	const PLACE_DSN         = "NO CONNECTION STRING";
-	const PLACE_USERNAME    = "username";
-	const PLACE_PASSWORD    = "password";
-	const PLACE_HOSTNAME    = "hostname";
-	const PLACE_DRIVER      = "driver";
-	const PLACE_DATABASE    = "basename";
-	const PLACE_PORT        = "port";
-	const PLACE_CONNECTION  = "NO CONNECTION";
-	const PLACE_PRIMARY_KEY = "PRI";
-	const PLACE_COLUMN_NAME = "NO COLUMN NAME";
-	const PLACE_SEARCH_TERM = "NO SEARCH PARAMETER";
-	const PLACE_FIELD_NAME	= "NO FIELD NAME";
-	const PLACE_WHERE_VALUE	= "NO WHERE VALUE";
-	const PLACE_DES_ENCRYPT = false;
+	const PLACE_NO_QUERY            = "NO QUERY";
+	const NO_ID                     = false;
+	const PLACE_TABLE_NAME          = "NO TABLENAME";
+    const PLACE_QUERY_LIMIT	        = "NO LIMIT";
+    const PLACE_SORT_ORDER	        = "NO ORDER";
+	const PLACE_DSN                 = "NO CONNECTION STRING";
+	const PLACE_USERNAME            = "username";
+	const PLACE_PASSWORD            = "password";
+	const PLACE_HOSTNAME            = "hostname";
+	const PLACE_DRIVER              = "driver";
+	const PLACE_DATABASE            = "basename";
+	const PLACE_PORT                = "port";
+    const PLACE_MULTI_THREADING     = "multithreading";
+	const PLACE_CONNECTION          = "NO CONNECTION";
+	const PLACE_PRIMARY_KEY         = "PRI";
+	const PLACE_COLUMN_NAME         = "NO COLUMN NAME";
+	const PLACE_SEARCH_TERM         = "NO SEARCH PARAMETER";
+	const PLACE_FIELD_NAME	        = "NO FIELD NAME";
+	const PLACE_WHERE_VALUE	        = "NO WHERE VALUE";
+	const PLACE_DES_ENCRYPT         = false;
+    const PLACE_ENCODING            = "encoding";
 
 }
