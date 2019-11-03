@@ -21,6 +21,7 @@ require_once __DIR__ . '/c/config.php';
 require_once __DIR__ . '/c/router.php';
 require_once __DIR__ . '/i/engine.php';
 require_once __DIR__ . '/c/engine.php';
+require_once __DIR__ . '/l/autoload.php';
 /**
  * @desc Database connectivity
  */
@@ -79,10 +80,11 @@ require_once __DIR__ . '/c/typeselect.php';
 require_once __DIR__ . '/c/typerange.php';
 require_once __DIR__ . '/c/typeurl.php';
 require_once __DIR__ . '/c/typelabel.php';
-require_once __DIR__ . '/i/controller.php';
-require_once __DIR__ . '/c/controller.php';
 require_once __DIR__ . '/i/view.php';
 require_once __DIR__ . '/c/view.php';
+require_once __DIR__ . '/i/controller.php';
+require_once __DIR__ . '/c/controller.php';
+require_once __DIR__ . '/a/controller.php';
 require_once __DIR__ . '/c/jsonnavigation.php';
 /**
  * @desc currently unfinished

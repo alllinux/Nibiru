@@ -8,7 +8,7 @@ namespace Nibiru;
  * @category  - [PLEASE SPECIFIY]
  * @license   - BSD License
  */
-class View extends Controller implements IView
+class View implements IView
 {
 	private static $_instance;
 
@@ -49,44 +49,28 @@ class View extends Controller implements IView
     /**
      * @return array
      */
-    public function getEngine()
+    public function getEngine(): \Smarty
     {
         return self::$engine;
     }
 
     /**
-     * @param array $engine
+     * Will setup the template engine
      */
     public static function _setEngine( )
     {
-        switch(Config::getInstance()->getConfig()[Engine::T_ENGINE][Engine::T_ENGINE_NAME])
-        {
-            case Engine::T_ENGINE_SMARTY:
-                self::$engine = new \Smarty();
-                self::$engine->setTemplateDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates"]);
-                self::$engine->setCompileDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates_c"]);
-                self::$engine->setCacheDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["cache"]);
-                self::$engine->setConfigDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["config_dir"]);
-                self::$engine->assign('debuging', Config::getInstance()->getConfig()[Engine::T_ENGINE]["debugbar"]);
-            break;
-            case Engine::T_ENGINE_TWIG:
-                $twig = new \Twig_Autoloader();
-                $twig::register();
-                self::$engine = new \Twig_Environment(new \Twig_Loader_Filesystem(Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates"]), array(
-                    'cache' => Config::getInstance()->getConfig()[Engine::T_ENGINE]["cache"],
-                ));
-            break;
-            case Engine::T_ENGINE_DWOO:
-                // Implement Dwoo Template Engine
-                self::$engine = new \Dwoo\Core();
-                self::$engine->setCacheDir(Config::getInstance()->getConfig()[Engine::T_ENGINE]["cache"]);
-                self::$engine->setCompileDir(Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates_c"]);
-                self::$engine->setTemplateDir(Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates"]);
-                self::$engine->get('debugbar.tpl', array('debuging' => Config::getInstance()->getConfig()[Engine::T_ENGINE]["debugbar"]));
-            break;
-        }
+        self::$engine = new \Smarty();
+        self::$engine->setTemplateDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates"]);
+        self::$engine->setCompileDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates_c"]);
+        self::$engine->setCacheDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["cache"]);
+        self::$engine->setConfigDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["config_dir"]);
+        self::$engine->setDebugTemplate(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["debug_template"] );
+        self::$engine->assign('debuging', Config::getInstance()->getConfig()[Engine::T_ENGINE]["debugbar"]);
     }
 
+    /**
+     * @param array $varname
+     */
 	public function assign( $varname = array() )
 	{
 		if(is_array($varname))
@@ -95,12 +79,18 @@ class View extends Controller implements IView
 		}
 	}
 
+    /**
+     * @param $page
+     */
 	public static function forwardTo( $page )
 	{
 			header('Location: ' . $page);
 			exit();
 	}
 
+    /**
+     * @param $page
+     */
 	public function display( $page )
 	{
 		preg_match_all("/".self::NIBIRU_FILE_END."/", $page, $matches);
@@ -126,7 +116,12 @@ class View extends Controller implements IView
 	{
 		return $this->xmlPos;
 	}
-	
+
+    /**
+     * @param $stuff
+     * @param bool $die
+     * @return string
+     */
 	protected static function printStuffToScreen( $stuff, $die = false )
 	{
 		$output = "<pre>" . print_r( $stuff, true ) . "</pre>";

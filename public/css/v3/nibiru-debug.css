@@ -25,7 +25,7 @@
     width: 100%;
     min-height: 25px;
     cursor: pointer;
-    background-color: #D69145;
+    background-color: #181818;
 }
 .closed {
     bottom: 0px !important;
@@ -40,7 +40,7 @@ span.nibiru-bar-logo {
     height: 25px;
     margin: 0px;
     padding: 0px;
-    background-image: url("/public/img/logos/nibriu-logo.png");
+    background-image: url("/public/img/logos/nibiru-bar-logo.png");
     background-position: left top;
     background-repeat: no-repeat;
     background-size: cover;

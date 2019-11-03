@@ -1,6 +1,5 @@
 <?php
 namespace Nibiru;
-
 /**
  * User       - stephan
  * Date       - 24.01.17
@@ -9,8 +8,9 @@ namespace Nibiru;
  * @category  - [PLEASE SPECIFIY]
  * @license   - BSD License
  */
+use Nibiru\Adapter\Controller;
 
-class indexController extends View implements IController
+class indexController extends Controller
 {
 	public function __construct()
 	{

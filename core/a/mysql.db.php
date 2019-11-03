@@ -16,6 +16,9 @@ abstract class Db implements IDb
 {
     private static $table = array();
 
+    /**
+     * @param array $table
+     */
     protected static function initTable( $table = array() )
     {
         self::setTable( $table );
@@ -40,28 +43,49 @@ abstract class Db implements IDb
         }
     }
 
+    /**
+     * @param bool $user_name
+     * @return mixed
+     */
     public function loadPasswordByUsername( $user_name = false )
     {
         $result = Pdo::query("SELECT DES_DECRYPT(".self::TABLE['field']['user_pass'].", '" . Config::getInstance()->getConfig()[View::NIBIRU_SECURITY]["password_hash"] . "') AS ".self::TABLE['field']['user_pass']." FROM user WHERE " . self::TABLE['field']['user_name']. " = '" . $user_name . "';");
         return array_shift($result);
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function loadTableAsArray()
     {
         $result = Pdo::fetchTableAsArray( self::getTable()['table'] );
         return $result;
     }
-    
+
+    /**
+     * @param bool $id
+     * @return mixed|void
+     */
     public function selectRowsetById($id = false)
     {
         // TODO: Implement selectRowsetById() method.
     }
 
+    /**
+     * @param array $rowset
+     * @param bool $id
+     * @return mixed|void
+     */
     public function insertRowsetById($rowset = array(), $id = false)
     {
         // TODO: Implement insertRowsetById() method.
     }
 
+    /**
+     * @param bool $min
+     * @param bool $max
+     * @return mixed|void
+     */
     public function selectDatasetByMinMax($min = false, $max = false)
     {
         // TODO: Implement selectDatasetByMinMax() method.

@@ -34,7 +34,7 @@ abstract class Db implements IDb
      * @desc getter for the table constant array
      * @return array
      */
-    private static function getTable()
+    private static function getTable(): array
     {
         return self::$table;
     }

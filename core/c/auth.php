@@ -104,4 +104,22 @@ class Auth extends Controller implements IAuth
 		$this->_password = $password;
 	}
 
+    /**
+     * This should be part of any extended controller
+     * class in order to implement a page structure
+     * @return array
+     */
+    public function pageAction()
+    {
+        // TODO: Implement pageAction() method.
+    }
+
+    /**
+     * This is the part where you can add titles to
+     * your page navigation.
+     */
+    public function navigationAction()
+    {
+        // TODO: Implement navigationAction() method.
+    }
 }
