@@ -22,7 +22,7 @@ class JsonNavigation extends Config
 	private static $_name = false;
 	private static $_section_name = self::NAVIGATION;
 
-	public static function getInstance()
+	public static function getInstance(): JsonNavigation
 	{
 		parent::getInstance();
 		self::setFileContentString();
@@ -36,7 +36,7 @@ class JsonNavigation extends Config
 	/**
 	 * @return string
 	 */
-	protected static function getSectionName()
+	protected static function getSectionName(): string
 	{
 		return self::$_section_name;
 	}
@@ -44,23 +44,23 @@ class JsonNavigation extends Config
 	/**
 	 * @param string $section_name
 	 */
-	private static function setSectionName( $section_name )
+	private static function setSectionName( string $section_name )
 	{
 		self::$_section_name = $section_name;
 	}
 
-	/**
-	 * @return boolean
-	 */
-	protected static function getName()
+    /**
+     * @return string
+     */
+	protected static function getName(): string
 	{
 		return self::$_name;
 	}
 
-	/**
-	 * @param boolean $name
-	 */
-	private static function setName( $name )
+    /**
+     * @param $name
+     */
+	private static function setName( string $name )
 	{
 		self::$_name = $name;
 	}
@@ -74,7 +74,7 @@ class JsonNavigation extends Config
 	}
 
 	/**
-	 * @param null $file_content
+	 * Content String
 	 */
 	private static function setFileContentString( )
 	{
@@ -84,30 +84,31 @@ class JsonNavigation extends Config
 	/**
 	 * @return array
 	 */
-	protected static function getFileContentArray( )
+	protected static function getFileContentArray( ): array
 	{
 		return self::$_file_content_array;
 	}
 
 	/**
-	 * @param array $file_content_array
+	 * will set the file Content array
 	 */
 	private static function setFileContentArray( )
 	{
 		self::$_file_content_array = file( Settings::SETTINGS_PATH . parent::getInstance()->getConfig()["SETTINGS"][self::getSectionName()] );
 	}
 
-	/**
-	 * @return array
-	 */
-	protected static function getNavigation( )
+    /**
+     * @return \RecursiveIteratorIterator
+     */
+	protected static function getNavigation( ): \RecursiveIteratorIterator
 	{
 		return self::$_navigation;
 	}
 
-	/**
-	 * @param array $navigation
-	 */
+    /**
+     * Will load the navigation json file to the $_navigation
+     * variable
+     */
 	private static function setNavigation( )
 	{
 		self::$_navigation = new \RecursiveIteratorIterator(
@@ -139,8 +140,9 @@ class JsonNavigation extends Config
 	/**
 	 * Loads the navigation from a json file into
 	 * the view, making the variables available
-	 */
-	public function loadJsonNavigationArray( $name = false )
+     * @param string $name
+     */
+	public function loadJsonNavigationArray( string $name = '' )
 	{
 		if( $name )
 		{

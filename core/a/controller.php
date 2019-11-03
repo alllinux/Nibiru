@@ -13,6 +13,11 @@ use Nibiru;
 
 abstract class Controller extends Nibiru\Controller implements IController
 {
+    public function __construct()
+    {
+        //basic constructor for the Controller can be overwritten
+    }
+
     /**
      * This should be part of any extended controller
      * class in order to implement a page structure

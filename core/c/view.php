@@ -12,14 +12,6 @@ class View implements IView
 {
 	private static $_instance;
 
-	const NIBIRU_SETTINGS 	= "SETTINGS";
-	const NIBIRU_URL		= "pageurl";
-	const NIBIRU_ERROR 		= "ERROR";
-	const NIBIRU_SECURITY 	= "SECURITY";
-	const NIBIRU_ROUTING 	= "ROUTING";
-	const NIBIRU_EMAIL		= "EMAIL";
-	const NIBIRU_FILE_END 	= ".tpl";
-
 	private static $smarty  = array();
 	private static $engine  = array();
 
@@ -36,7 +28,10 @@ class View implements IView
 		self::_setEngine();
 	}
 
-	public static function getInstance()
+    /**
+     * @return View
+     */
+	public static function getInstance(): View
 	{
 		$className = get_called_class();
 		if( self::$_instance == null )
@@ -47,7 +42,18 @@ class View implements IView
 	}
 
     /**
-     * @return array
+     * @param array $varname
+     */
+	public static function assign( $varname = array() )
+    {
+        if(is_array($varname))
+        {
+            Controller::getInstance()->varname( self::getInstance()->getEngine(), $varname );
+        }
+    }
+
+    /**
+     * @return \Smarty
      */
     public function getEngine(): \Smarty
     {
@@ -67,17 +73,6 @@ class View implements IView
         self::$engine->setDebugTemplate(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["debug_template"] );
         self::$engine->assign('debuging', Config::getInstance()->getConfig()[Engine::T_ENGINE]["debugbar"]);
     }
-
-    /**
-     * @param array $varname
-     */
-	public function assign( $varname = array() )
-	{
-		if(is_array($varname))
-		{
-			Controller::getInstance()->varname( $this->getEngine(), $varname );
-		}
-	}
 
     /**
      * @param $page

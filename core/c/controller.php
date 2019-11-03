@@ -25,7 +25,7 @@ class Controller extends View
 		$this->_setConfig(Config::getInstance()->getConfig());
 	}
 
-	public static function getInstance()
+	public static function getInstance(): View
 	{
 		$className = get_called_class();
 		if( self::$_instance == null )

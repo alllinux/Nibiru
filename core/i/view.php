@@ -10,5 +10,11 @@ namespace Nibiru;
  */
 interface IView
 {
-
+    const NIBIRU_SETTINGS 	= "SETTINGS";
+    const NIBIRU_URL		= "pageurl";
+    const NIBIRU_ERROR 		= "ERROR";
+    const NIBIRU_SECURITY 	= "SECURITY";
+    const NIBIRU_ROUTING 	= "ROUTING";
+    const NIBIRU_EMAIL		= "EMAIL";
+    const NIBIRU_FILE_END 	= ".tpl";
 }

@@ -42,7 +42,7 @@ class Form
      * @desc is used internaly for assambly only
      * @param $option
      */
-    private static function assambleOptions( $option )
+    private static function assembleOptions( $option )
     {
         if($option == false)
         {
@@ -76,7 +76,7 @@ class Form
      * @desc is used internally for assambly only
      * @param $element
      */
-    private static function assamble( $element )
+    private static function assemble( $element )
     {
         if( self::getDiv() )
         {
@@ -174,7 +174,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeText() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -188,7 +188,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeSubmit() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -202,7 +202,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeTextarea() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -217,7 +217,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeRadio() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -231,7 +231,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeCheckbox() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -245,7 +245,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypePassword() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -259,7 +259,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeDate() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -273,7 +273,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeEmail() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -287,7 +287,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeColor() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -301,7 +301,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeDatetime() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -315,7 +315,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeFileUpload() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -329,7 +329,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeHidden() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -343,7 +343,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeImageSubmit() );
-        self::assamble( self::getElement()->loadElement( $attrbutes ) );
+        self::assemble( self::getElement()->loadElement( $attrbutes ) );
     }
 
     /**
@@ -357,7 +357,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeNumber() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -372,7 +372,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeRange() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -386,7 +386,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeReset() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -400,7 +400,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeSearch() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -414,7 +414,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeTelefon() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -428,7 +428,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeUrl() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -443,8 +443,8 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeSelect() );
-        self::assamble( self::displaySelect( self::getElement()->loadElement( $attributes ) ) );
-        self::assambleOptions( false );
+        self::assemble( self::displaySelect( self::getElement()->loadElement( $attributes ) ) );
+        self::assembleOptions( false );
     }
 
     /**
@@ -459,7 +459,7 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeButton() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -469,7 +469,7 @@ class Form
     public static function addSelectOption( $attributes )
     {
         self::setElement( new TypeOption() );
-        self::assambleOptions( self::getElement()->loadElement( $attributes ) );
+        self::assembleOptions( self::getElement()->loadElement( $attributes ) );
     }
 
     /**
@@ -483,6 +483,6 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeLabel() );
-        self::assamble( self::getElement()->loadElement( $attributes ) );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 }
