@@ -12,8 +12,10 @@ use Nibiru\Config;
 use Nibiru\Controller;
 use Nibiru\Router;
 use Nibiru\View;
+use Nibiru\IPageination;
+use Nibiru\Adapter\IDb;
 
-abstract class Pageination implements \Nibiru\IPageination
+abstract class Pageination implements IPageination
 {
     use Attributes\Pageination;
 
@@ -33,7 +35,10 @@ abstract class Pageination implements \Nibiru\IPageination
         self::$_uri_pagination_path = '/' . Router::getInstance()->currentPage() . '/' . Controller::getInstance()->getRequest()['_action'] . '/';
     }
 
-    private static function getUriPaginationPath()
+    /**
+     * @return string
+     */
+    private static function getUriPaginationPath(): string
     {
         return self::$_uri_pagination_path;
     }
@@ -56,7 +61,7 @@ abstract class Pageination implements \Nibiru\IPageination
     /**
      * @return int
      */
-    private static function getMaxPageEntries()
+    private static function getMaxPageEntries(): int
     {
         return self::$_max_page_entries;
     }
@@ -64,12 +69,15 @@ abstract class Pageination implements \Nibiru\IPageination
     /**
      * @param int $max_page_entries
      */
-    private static function setMaxPageEntries( $max_page_entries )
+    private static function setMaxPageEntries( int $max_page_entries )
     {
         self::$_max_page_entries = $max_page_entries;
     }
 
-    private static function currentPageEntryLimit( )
+    /**
+     * @return mixed
+     */
+    private static function currentPageEntryLimit( ): ?array
     {
         return self::getPageEntryIndex()[self::getCurrentNumber()];
     }
@@ -83,7 +91,7 @@ abstract class Pageination implements \Nibiru\IPageination
     }
 
     /**
-     * @param array $page_entry_index
+     * will set the current page entry index
      */
     private static function setPageEntryIndex( )
     {
@@ -128,13 +136,13 @@ abstract class Pageination implements \Nibiru\IPageination
     /**
      * @return int
      */
-    private static function getEntriesPerPage()
+    private static function getEntriesPerPage(): int
     {
         return self::$_entries_per_page;
     }
 
     /**
-     * @param int $entries_per_page
+     * will set the entries per page
      */
     private static function setEntriesPerPage( )
     {
@@ -144,7 +152,7 @@ abstract class Pageination implements \Nibiru\IPageination
     /**
      * @return int
      */
-    public static function getMaxPages( )
+    public static function getMaxPages( ): int
     {
         return self::$_max_pages;
     }
@@ -153,7 +161,7 @@ abstract class Pageination implements \Nibiru\IPageination
      * @desc if you have deactivated pages you can set a filter here
      * @param string $where
      */
-    private static function setMaxPages( $where = '' )
+    private static function setMaxPages( string $where = '' )
     {
         $tableinfo = self::getTable()->loadAllTableFieldNames();
         self::setMaxPageEntries( self::getTable()->loadTableRowCount( $tableinfo[0], $where ));
@@ -163,15 +171,16 @@ abstract class Pageination implements \Nibiru\IPageination
     /**
      * @return boolean
      */
-    private static function getTable( )
+    private static function getTable( ): IDb
     {
         return self::$_table;
     }
 
     /**
-     * @param boolean $table
+     * @param IDb $table
+     * @param string $where
      */
-    public static function setTable( Adapter\IDb $table, $where = '' )
+    public static function setTable( IDb $table, string $where = '' )
     {
         if(is_object( $table ))
         {
@@ -185,13 +194,13 @@ abstract class Pageination implements \Nibiru\IPageination
     /**
      * @return array
      */
-    protected static function pageContent()
+    protected static function pageContent(): array
     {
         return self::$_current_page_content;
     }
 
     /**
-     * @param array $current_page_content
+     * will set the current page content
      */
     protected static function setCurrentPageContent( )
     {
@@ -211,7 +220,7 @@ abstract class Pageination implements \Nibiru\IPageination
     /**
      * @return int
      */
-    protected static function getCurrentNumber()
+    protected static function getCurrentNumber(): int
     {
         return self::$_current_number;
     }
@@ -221,7 +230,6 @@ abstract class Pageination implements \Nibiru\IPageination
      *       is also used without the pagination, so in order to avoid the
      *       settings not to work, it is possible to skip the currentNumber
      *       setup.
-     * @param int $current_number
      */
     protected static function setCurrentNumber( )
     {
@@ -270,13 +278,13 @@ abstract class Pageination implements \Nibiru\IPageination
     /**
      * @return int
      */
-    protected static function getNextPageNumber()
+    protected static function getNextPageNumber(): int
     {
         return self::$_next_page_number;
     }
 
     /**
-     * @param int $next_page_number
+     * Will set the next page number up
      */
     protected static function setNextPageNumber(  )
     {
@@ -295,13 +303,13 @@ abstract class Pageination implements \Nibiru\IPageination
     /**
      * @return int
      */
-    public static function getPreviousPageNumber()
+    public static function getPreviousPageNumber(): int
     {
         return self::$_previous_page_number;
     }
 
     /**
-     * @param int $previous_page_number
+     * will set the previous page number before
      */
     public static function setPreviousPageNumber( )
     {

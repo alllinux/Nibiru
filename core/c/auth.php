@@ -16,6 +16,9 @@ class Auth extends Controller implements IAuth
 	private $_username      = "";
 	private $_password      = "";
 
+    /**
+     * Auth constructor.
+     */
 	protected function __construct()
 	{
 		parent::__construct();
@@ -23,7 +26,10 @@ class Auth extends Controller implements IAuth
 
 	}
 
-	public static function getInstance()
+    /**
+     * @return View
+     */
+	public static function getInstance(): View
 	{
 		$className = get_called_class();
 		if( self::$_instance == null )
@@ -33,6 +39,11 @@ class Auth extends Controller implements IAuth
 		return self::$_instance;
 	}
 
+    /**
+     * @param $login
+     * @param $password
+     * @return bool
+     */
 	public function auth( $login, $password )
 	{
 		// TODO: Implement auth($username, $password) method.
@@ -41,7 +52,7 @@ class Auth extends Controller implements IAuth
 
 		if(!array_key_exists('auth', $_SESSION))
 		{
-			$user_password = Pdo::query("SELECT DES_DECRYPT(user_pass, '".Config::getInstance()->getConfig()["SECURITY"]["password_hash"]."') AS pass FROM user WHERE user_login = '".$login."';");
+			$user_password = Pdo::query("SELECT DES_DECRYPT(user_pass, '".Config::getInstance()->getConfig()[IView::NIBIRU_SECURITY]["password_hash"]."') AS pass FROM user WHERE user_login = '".$login."';");
 			if( $user_password["pass"] == $password )
 			{
 				$session_id = session_id();
@@ -103,5 +114,4 @@ class Auth extends Controller implements IAuth
 	{
 		$this->_password = $password;
 	}
-
 }

@@ -10,8 +10,5 @@ namespace Nibiru;
  */
 interface IAuth
 {
-	const NIBIRU_SECURITY = "SECURITY";
-
 	public function auth( $username, $password );
-
 }

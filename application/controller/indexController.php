@@ -1,6 +1,5 @@
 <?php
 namespace Nibiru;
-
 /**
  * User       - stephan
  * Date       - 24.01.17
@@ -9,24 +8,19 @@ namespace Nibiru;
  * @category  - [PLEASE SPECIFIY]
  * @license   - BSD License
  */
+use Nibiru\Adapter\Controller;
 
-class indexController extends View implements IController
+class indexController extends Controller
 {
-	public function __construct()
-	{
-		
-	}
 
 	public function pageAction()
 	{
-        View::getInstance()->assign(
-			array(
-				'name' => 'Beispielseite',
-				'title' => 'Stephan Kasdorf - Nibiru Example',
+        View::assign([
+				'name' => 'rapid prototyping framework',
+				'title' => 'Nibiru Example Startpage',
         		'css'  => Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]["smarty.css"],
 				'js'  => Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]["smarty.js"]
-			)
-		);
+        ]);
 	}
 
 	public function navigationAction()

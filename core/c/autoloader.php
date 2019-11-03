@@ -156,7 +156,16 @@ class Autoloader
     {
         return self::$_modules;
     }
-    
+
+    /**
+     * @param string $folderPath
+     * @return \RecursiveIteratorIterator
+     */
+    private static function folderContent( string $folderPath ): \RecursiveIteratorIterator
+    {
+        return new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator( $folderPath ));
+    }
+
     /**
      * @param array $filesInFoler
      */
@@ -172,7 +181,7 @@ class Autoloader
         {
             foreach ( Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER] as $modelfolder )
             {
-                $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator( __DIR__ . $modelfolder ));
+                $iterator = self::folderContent( __DIR__ . $modelfolder );
                 foreach ( $iterator as $item )
                 {
                     if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
@@ -184,7 +193,7 @@ class Autoloader
         }
         else
         {
-            $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER] ));
+            $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER] );
             foreach ( $iterator as $item )
             {
                 if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
@@ -196,7 +205,7 @@ class Autoloader
         /**
          * @desc run check on modules that should provide an interface as well as a trait
          */
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::INTERFACE_FOLDER] ));
+        $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::INTERFACE_FOLDER] );
         foreach ( $iterator as $item )
         {
             if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
@@ -214,7 +223,7 @@ class Autoloader
             self::$_filesInFoler[] = $interface['filepathname'];
         }
         
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::TRAIT_FOLDER] ));
+        $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::TRAIT_FOLDER] );
         foreach ( $iterator as $item )
         {
             if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
@@ -232,7 +241,7 @@ class Autoloader
             self::$_filesInFoler[] = $trait['filepathname'];
         }
         
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::MODULE_FOLDER] ));
+        $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::MODULE_FOLDER] );
         foreach ( $iterator as $item )
         {
             if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")

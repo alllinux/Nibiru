@@ -1,6 +1,8 @@
 {
 "navigation" :
                 {
-                  "Home": { "link": "/", "tooltip": "Home", "icon": "icon icon-home", "footer": "false" }
+                  "Home": { "link": "/", "tooltip": "Home", "icon": "icon icon-home", "footer": "false" },
+                  "Controller": { "link": "/controller", "tooltip": "Controller", "icon": "icon icon-pencil", "footer": "false" },
+                  "Forms": { "link": "/forms", "tooltip": "Forms", "icon": "icon icon-clipboard", "footer": "false" }
                 }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "alllinux/nibiru",
+  "name": "nibiru/nibiru-framework",
   "type": "framework",
   "description": "PHP MVC rapid prototyping framework",
   "keywords": ["php","mvc","prototyping","nibiru","template-engine","database","navigation","router","rapid"],
@@ -8,12 +8,18 @@
   "authors": [
     {
       "name": "Stephan Kasdorf",
-      "email": "skasdorf@alllinux.de",
-      "homepage": "http://www.alllinux.de",
+      "email": "stephan.kasdorf@bittomine.com",
+      "homepage": "https://www.nibiru-framework.com",
       "role": "Developer"
     }
   ],
+  "config": {
+    "vendor-dir": "core/l"
+  },
   "require": {
-    "php": ">=7.1.0"
+    "php": ">=7.1.0",
+    "smarty/smarty": "^3.1",
+    "phpmailer/phpmailer": "^6.1",
+    "carbondate/carbon": "^2.0@beta"
   }
 }

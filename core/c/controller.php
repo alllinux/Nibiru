@@ -1,6 +1,5 @@
 <?php
 namespace Nibiru;
-
 /**
  * User       - stephan
  * Date       - 24.01.17
@@ -9,7 +8,8 @@ namespace Nibiru;
  * @category  - [PLEASE SPECIFIY]
  * @license   - BSD License
  */
-class Controller
+
+class Controller extends View
 {
 	private static $_instance;
 	private $_config        = array();
@@ -25,7 +25,7 @@ class Controller
 		$this->_setConfig(Config::getInstance()->getConfig());
 	}
 
-	public static function getInstance()
+	public static function getInstance(): View
 	{
 		$className = get_called_class();
 		if( self::$_instance == null )
