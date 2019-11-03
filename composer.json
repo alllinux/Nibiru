@@ -12,7 +12,7 @@
     "php": "^7.3",
     "codeception/codeception": "^3.1"
   },
-  "license": "BSD",
+  "license": "GPL",
   "authors": [
     {
       "name": "Stephan Kasdorf",
