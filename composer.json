@@ -1,5 +1,5 @@
 {
-  "name": "alllinux/nibiru",
+  "name": "nibiru/nibiru-framework",
   "type": "framework",
   "description": "PHP MVC rapid prototyping framework",
   "keywords": ["php","mvc","prototyping","nibiru","template-engine","database","navigation","router","rapid"],
