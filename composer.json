@@ -7,7 +7,6 @@
   },
   "require": {
     "smarty/smarty": "^3.1",
-    "carbondate/carbon": "^1.33",
     "phpmailer/phpmailer": "^6.1",
     "php": ">=7.3",
     "codeception/codeception": "^3.1"
