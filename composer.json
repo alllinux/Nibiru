@@ -19,7 +19,6 @@
   "require": {
     "php": ">=7.1.0",
     "smarty/smarty": "^3.1",
-    "phpmailer/phpmailer": "^6.1",
-    "carbondate/carbon": "^2.0@beta"
+    "phpmailer/phpmailer": "^6.1"
   }
 }
