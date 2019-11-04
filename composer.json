@@ -3,8 +3,8 @@
   "type": "framework",
   "description": "PHP MVC rapid prototyping framework",
   "keywords": ["php","mvc","prototyping","nibiru","template-engine","database","navigation","router","rapid"],
-  "homepage": "https://github.com/alllinux/Nibiru",
   "license": "BSD-4-Clause",
+  "homepage": "https://github.com/alllinux/Nibiru",
   "authors": [
     {
       "name": "Stephan Kasdorf",
