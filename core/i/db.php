@@ -20,6 +20,7 @@ interface IDb
      * @desc inserts a rowset into the table, by the given nextInsertIndex return
      *       value for the table
      * @param bool $id
+     * @param array $rowset
      * @return mixed
      */
     public function insertRowsetById( $rowset = array(), $id = false );
