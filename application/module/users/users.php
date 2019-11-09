@@ -1,5 +1,5 @@
 <?php
-namespace Nibiru\Module;
+namespace Nibiru\Module\Users;
 /**
  * @desc this file is for the autoloader to function properly,
  * you might as well use it as the primary user class for your
@@ -9,10 +9,10 @@ namespace Nibiru\Module;
  * Date: 28.08.18
  * Time: 11:22
  */
-use Nibiru\Adapter;
-use Nibiru\Messages;
+use Nibiru\Module\Users\Interfaces;
+use Nibiru\Module\Users\Traits;
 
-class Users implements Adapter\Users
+class Users implements Interfaces\Users
 {
-    use Messages\Users;
+    use Traits\Users;
 }

@@ -1,6 +1,6 @@
 # Nibiru 
 ### Rapid Prototyping PHP Framework
-Version 0.7.0 beta
+Version 0.9.3 beta
 ## Introduction
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
@@ -100,7 +100,6 @@ Engine Implementation.</div>
 <li>A soap extension will not be part of the system anymore, since that is just a bad habit, so this will be replaced with a REST api.</li>
 </ul>
 
-<h1>Update</h1>
 <p>Version 0.7.0 beta 27.01.2018</p>
 <ul>
 <li>Class generator for the database models can now be used, and are configured in the settings file</li>
@@ -113,12 +112,28 @@ Engine Implementation.</div>
 <li>Added a class mask file in the settings folder in order to have the chance to pre-configure the autmatic generated database model files.</li>
 </ul>
 
-<h1>TODO</h1>
-<p>Version 0.7.1 beta</p>
+<p>Version 0.7.0 beta</p>
 <ul>
 <li>Add autoated class generator for MySQL database models</li>
 </ul>
 
+<h1>Update</h1>
+<p>Version 0.9.3 beta 09.11.2019</p>
+<ul>
+    <li>Autoloader is now supporting a better module structure</li>
+    <li>Some minor bugfixes</li>
+    <li>Updated the annotations for better autocompletion</li>
+    <li>removed the Twig and Dwoo engines, they are not needed anymore</li>
+</ul>
+
+<h1>TODO</h1>
+<p>Still in progress for the next version</p>
+<ul>
+<li>framework documentation</li>
+<li>class documentation</li>
+<li>soap interface to a given SOAP server (canceled, not needed to old)</li>
+<li>bitcoin api, and payment gateway</li>
+</ul>
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 15px; margin-bottom: 15px;">The start is done, have success with PHP prototyping, and always remember to have fun!</div>
 Author: Stephan Kasdorf<br><br>

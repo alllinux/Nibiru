@@ -14,13 +14,16 @@ class Autoloader
 {
     const MY_FILE_NAME          = "autoloader.php";
     const DB_MODEL_FOLDER       = "dbmodel";
-    const MODULE_FOLDER         = "module";
-    const INTERFACE_FOLDER      = "interfaces";
-    const TRAIT_FOLDER          = "trait";
+    const MODULES               = [
+        'module',
+        'interfaces',
+        'traits'
+    ];
     const SETTINGS_SECTION      = "AUTOLOADER";
     const SETTINGS_CLASS_POS    = "class.pos";
     const SETTINGS_TRAIT_POS    = "trait.pos";
     const SETTINGS_IFACE_POS    = "iface.pos";
+    const REGEX_PATH_NAME       = "[NAME]";
     
     private static $_filesInFoler = array();
     private static $_instance;
@@ -61,6 +64,7 @@ class Autoloader
      * @desc will sort the array by a given sort order from the configuration file
      *       just provided in the AUTOLOADER section.
      * @param array $modules
+     * @param mixed $section
      * @return array
      */
     private static function sortOrderModules( array $modules, $section ): array
@@ -163,6 +167,11 @@ class Autoloader
      */
     private static function folderContent( string $folderPath ): \RecursiveIteratorIterator
     {
+        $folderSettings = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_POS];
+        foreach($folderSettings as $moduleFolderName)
+        {
+            $folderPath = str_replace(self::REGEX_PATH_NAME, $moduleFolderName, $folderPath);
+        }
         return new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator( $folderPath ));
     }
 
@@ -205,58 +214,25 @@ class Autoloader
         /**
          * @desc run check on modules that should provide an interface as well as a trait
          */
-        $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::INTERFACE_FOLDER] );
-        foreach ( $iterator as $item )
+        foreach(self::MODULES as $module)
         {
-            if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
+            $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][$module] );
+            foreach ( $iterator as $item )
             {
-                $interfaces[] = array(
-                    'nfilename' => str_replace('.php', '', $item->getFileName()),
-                    'filepathname'      => $item->getPath() . '/' . $item->getFileName()
-                );
+                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
+                {
+                    $moduleFolder[] = array(
+                        'nfilename' => str_replace('.php', '', $item->getFileName()),
+                        'filepathname'      => $item->getPath() . '/' . $item->getFileName()
+                    );
+                }
             }
-        }
-        asort($interfaces);
-        $Sinterfaces = self::sortOrderModules($interfaces, self::SETTINGS_IFACE_POS);
-        foreach ($Sinterfaces as $interface)
-        {
-            self::$_filesInFoler[] = $interface['filepathname'];
-        }
-        
-        $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::TRAIT_FOLDER] );
-        foreach ( $iterator as $item )
-        {
-            if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
+            asort($moduleFolder);
+            $itms = self::sortOrderModules($moduleFolder, self::SETTINGS_IFACE_POS);
+            foreach ($itms as $itm)
             {
-                $traits[] = array(
-                    'nfilename' => str_replace('.php', '', $item->getFileName()),
-                    'filepathname'      => $item->getPath() . '/' . $item->getFileName()
-                );
+                self::$_filesInFoler[] = $itm['filepathname'];
             }
-        }
-        asort($traits);
-        $Straits = self::sortOrderModules($traits, self::SETTINGS_TRAIT_POS);
-        foreach($Straits as $trait)
-        {
-            self::$_filesInFoler[] = $trait['filepathname'];
-        }
-        
-        $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::MODULE_FOLDER] );
-        foreach ( $iterator as $item )
-        {
-            if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
-            {
-                $modules[] = array(
-                    'nfilename' => str_replace('.php', '', $item->getFileName()),
-                    'filepathname'      => $item->getPath() . '/' . $item->getFileName()
-                );
-            }
-        }
-        asort($modules);
-        $Smodules = self::sortOrderModules($modules, self::SETTINGS_CLASS_POS);
-        foreach ($Smodules as $module)
-        {
-            self::$_filesInFoler[] = $module['filepathname'];
         }
     }
 }

@@ -43,7 +43,7 @@ interface IForm
 
     /**
      * @desc loads the current Form element to the form
-     * @param $element
+     * @param $attributes
      * @return mixed
      */
     public function loadElement( $attributes );
