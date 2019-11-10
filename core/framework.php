@@ -18,6 +18,7 @@ require_once __DIR__ . '/t/messages.php';
 require_once __DIR__ . '/t/pageination.php';
 require_once __DIR__ . '/c/settings.php';
 require_once __DIR__ . '/c/config.php';
+require_once __DIR__ . '/c/registry.php';
 require_once __DIR__ . '/c/router.php';
 require_once __DIR__ . '/i/engine.php';
 require_once __DIR__ . '/c/engine.php';

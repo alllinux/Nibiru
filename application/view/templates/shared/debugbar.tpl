@@ -121,7 +121,9 @@
             <p>
                 <!-- Smarty $raw output -->
                 {if isset($ndbraw_output)}
+                <pre>
                     {$ndbraw_output}
+                </pre>
                 {else}
                     {$message}
                 {/if}
