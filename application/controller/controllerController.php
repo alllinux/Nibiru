@@ -10,6 +10,7 @@ class controllerController extends Controller
         View::assign([
             'name' => 'rapid prototyping framework',
             'title' => 'Nibiru Controller Example',
+            'ndbraw_output' => print_r(Registry::getInstance()->loadModuleConfigByName('users'), true),
             'css'  => Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]["smarty.css"],
             'js'  => Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]["smarty.js"]
         ]);

@@ -13,12 +13,11 @@ require_once __DIR__ . '/../i/db.php';
 class Autoloader
 {
     const MY_FILE_NAME          = "autoloader.php";
+    const PHP_FILE_EXTENSION    = ".php";
     const DB_MODEL_FOLDER       = "dbmodel";
-    const MODULES               = [
-        'module',
-        'interfaces',
-        'traits'
-    ];
+    const MODULE_FOLDER         = "module";
+    const INTERFACE_FOLDER      = "interfaces";
+    const TRAIT_FOLDER          = "traits";
     const SETTINGS_SECTION      = "AUTOLOADER";
     const SETTINGS_CLASS_POS    = "class.pos";
     const SETTINGS_TRAIT_POS    = "trait.pos";
@@ -32,7 +31,7 @@ class Autoloader
     
     protected function __construct()
     {
-        self::_setFilesInFoler();
+        self::_setFilesInFolder();
     }
     
     public static function getInstance()
@@ -67,11 +66,10 @@ class Autoloader
      * @param mixed $section
      * @return array
      */
-    private static function sortOrderModules( array $modules, $section ): array
+    private static function sortOrderModules( array $modules, $section ): ?array
     {
         (bool) $skip = false;
         (array) $normal = array();
-        
         if($section == self::SETTINGS_CLASS_POS)
         {
             $moduleSortOrder = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_POS];
@@ -163,14 +161,14 @@ class Autoloader
 
     /**
      * @param string $folderPath
+     * @param string $moduleName
      * @return \RecursiveIteratorIterator
      */
-    private static function folderContent( string $folderPath ): \RecursiveIteratorIterator
+    private static function folderContent( string $folderPath, string $moduleName = '' ): \RecursiveIteratorIterator
     {
-        $folderSettings = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_POS];
-        foreach($folderSettings as $moduleFolderName)
+        if(strstr($folderPath, self::REGEX_PATH_NAME) && $moduleName!="")
         {
-            $folderPath = str_replace(self::REGEX_PATH_NAME, $moduleFolderName, $folderPath);
+            $folderPath = str_replace(self::REGEX_PATH_NAME, $moduleName, $folderPath);
         }
         return new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator( $folderPath ));
     }
@@ -178,13 +176,14 @@ class Autoloader
     /**
      * @param array $filesInFoler
      */
-    private static function _setFilesInFoler( )
+    private static function _setFilesInFolder( )
     {
         /**
          * @desc arrays for sorting the module order, so they will load
          *       alphabetically
          */
         $modules = array();
+        self::$_filesInFoler = array();
         
         if( is_array( Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER] ) )
         {
@@ -193,7 +192,7 @@ class Autoloader
                 $iterator = self::folderContent( __DIR__ . $modelfolder );
                 foreach ( $iterator as $item )
                 {
-                    if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
+                    if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
                     {
                         self::$_filesInFoler[] = $item->getPathName();
                     }
@@ -205,33 +204,85 @@ class Autoloader
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER] );
             foreach ( $iterator as $item )
             {
-                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
+                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
                 {
                     self::$_filesInFoler[] = $item->getPathName();
                 }
             }
         }
         /**
-         * @desc run check on modules that should provide an interface as well as a trait
+         * TODO: refactor this section
          */
-        foreach(self::MODULES as $module)
+        $moduleInterfaceNames = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_IFACE_POS];
+        foreach($moduleInterfaceNames as $interfaceName)
         {
-            $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][$module] );
+            $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::INTERFACE_FOLDER], $interfaceName);
+            foreach ($iterator as $item)
+            {
+                if($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                {
+                    $interfaces[] = array(
+                        'nfilename' => str_replace('.php', '', $item->getFileName()),
+                        'filepathname' => $item->getPath() . '/' . $item->getFileName()
+                    );
+                }
+            }
+            asort($interfaces);
+            $Sinterfaces = self::sortOrderModules($interfaces, self::SETTINGS_IFACE_POS);
+            foreach ($Sinterfaces as $interface)
+            {
+                if(!in_array($interface['filepathname'], self::$_filesInFoler))
+                {
+                    self::$_filesInFoler[] = $interface['filepathname'];
+                }
+            }
+        }
+        $modulesTraitsNames = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_TRAIT_POS];
+        foreach($modulesTraitsNames as $traitsName)
+        {
+            $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::TRAIT_FOLDER], $traitsName );
             foreach ( $iterator as $item )
             {
-                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!="..")
+                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
                 {
-                    $moduleFolder[] = array(
+                    $traits[] = array(
                         'nfilename' => str_replace('.php', '', $item->getFileName()),
                         'filepathname'      => $item->getPath() . '/' . $item->getFileName()
                     );
                 }
             }
-            asort($moduleFolder);
-            $itms = self::sortOrderModules($moduleFolder, self::SETTINGS_IFACE_POS);
-            foreach ($itms as $itm)
+            asort($traits);
+            $Straits = self::sortOrderModules($traits, self::SETTINGS_TRAIT_POS);
+            foreach($Straits as $trait)
             {
-                self::$_filesInFoler[] = $itm['filepathname'];
+                if(!in_array($trait['filepathname'], self::$_filesInFoler))
+                {
+                    self::$_filesInFoler[] = $trait['filepathname'];
+                }
+            }
+        }
+        $modulesClassNames = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_POS];
+        foreach($modulesClassNames as $className)
+        {
+            $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::MODULE_FOLDER], $className );
+            foreach ( $iterator as $item )
+            {
+                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                {
+                    $modules[] = array(
+                        'nfilename' => str_replace('.php', '', $item->getFileName()),
+                        'filepathname'      => $item->getPath() . '/' . $item->getFileName()
+                    );
+                }
+            }
+            asort($modules);
+            $Smodules = self::sortOrderModules($modules, self::SETTINGS_CLASS_POS);
+            foreach($Smodules as $smodule)
+            {
+                if(!in_array($smodule['filepathname'], self::$_filesInFoler))
+                {
+                    self::$_filesInFoler[] = $smodule['filepathname'];
+                }
             }
         }
     }
