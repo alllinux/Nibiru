@@ -23,19 +23,26 @@ class Psql extends Mysql implements IPsql
         }
         else
         {
-            $section = Config::getInstance()->getConfig()[self::SETTINGS_DATABASE];
+            $settings = Config::getInstance()->getConfig()[self::SETTINGS_DATABASE];
         }
-        $this->_setUsername($settings[self::PLACE_USERNAME]);
-        $this->_setPassword($settings[self::PLACE_PASSWORD]);
-        $this->_setDbname($settings[self::PLACE_DATABASE]);
-        $this->_setDiver($settings[self::PLACE_DRIVER]);
-        $this->_setHostname($settings[self::PLACE_HOSTNAME]);
-        $this->_setPort($settings[self::PLACE_PORT]);
-        $this->_setReadOnly($settings[self::PLACE_READONLY]);
-        $this->_setEncoding($settings[self::PLACE_ENCODING]);
-        $this->_setMultithreading($settings[self::PLACE_MULTI_THREADING]);
-        $this->_setDsn();
-        $this->_setConn();
+        if($settings[self::PLACE_IS_ACTIVE])
+        {
+            $this->_setUsername($settings[self::PLACE_USERNAME]);
+            $this->_setPassword($settings[self::PLACE_PASSWORD]);
+            $this->_setDbname($settings[self::PLACE_DATABASE]);
+            $this->_setDiver($settings[self::PLACE_DRIVER]);
+            $this->_setHostname($settings[self::PLACE_HOSTNAME]);
+            $this->_setPort($settings[self::PLACE_PORT]);
+            $this->_setReadOnly($settings[self::PLACE_READONLY]);
+            $this->_setEncoding($settings[self::PLACE_ENCODING]);
+            $this->_setMultithreading($settings[self::PLACE_MULTI_THREADING]);
+            $this->_setDsn();
+            $this->_setConn();
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public static function getInstance( $section = false )

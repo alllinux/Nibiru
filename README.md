@@ -1,6 +1,6 @@
 # Nibiru 
 ### Rapid Prototyping PHP Framework
-Version 0.9.3 beta
+Version 0.9.4.2 beta
 ## Introduction
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
@@ -20,6 +20,9 @@ Engine Implementation.</div>
 <li>Dwoo template engine ( untested )</li>
 <li>Twig template engine ( untested )</li>
 <li>PDO adapter to the MySQL database</li>
+<li>PDO adapter to the Postgress database</li>
+<li>ODBC adapter to the Postgress database</li>
+<li>Autogenerator for models corresponding to the database tables</li>
 <ol>
 <li>read datasets from a complete table</li>
 <li>read datasets by selection from a table</li>
@@ -117,7 +120,6 @@ Engine Implementation.</div>
 <li>Add autoated class generator for MySQL database models</li>
 </ul>
 
-<h1>Update</h1>
 <p>Version 0.9.3 beta 09.11.2019</p>
 <ul>
     <li>Autoloader is now supporting a better module structure</li>
@@ -125,7 +127,13 @@ Engine Implementation.</div>
     <li>Updated the annotations for better autocompletion</li>
     <li>removed the Twig and Dwoo engines, they are not needed anymore</li>
 </ul>
-
+<h1>Update</h1>
+<p>Version 0.9.4.2</p>
+<ul>
+    <li>Database is.active switch in the configuration file</li>
+    <li>minor bugfix in the Postgress Database Adapter</li>
+    <li>added .gitignore file</li>
+</ul>
 <h1>TODO</h1>
 <p>Still in progress for the next version</p>
 <ul>
