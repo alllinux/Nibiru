@@ -18,6 +18,7 @@ interface IMysql
     const PLACE_QUERY_LIMIT	        = "NO LIMIT";
     const PLACE_SORT_ORDER	        = "NO ORDER";
 	const PLACE_DSN                 = "NO CONNECTION STRING";
+	const PLACE_IS_ACTIVE           = "is.active";
 	const PLACE_USERNAME            = "username";
 	const PLACE_PASSWORD            = "password";
 	const PLACE_HOSTNAME            = "hostname";

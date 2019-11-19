@@ -13,9 +13,16 @@ class Model extends Table
 
     public function __construct($argv)
     {
-        parent::__construct($argv);
-        $this->createOutFolder();
-        $this->createClassFiles();
+        if(Config::getInstance()->getConfig()[IMysql::SETTINGS_DATABASE][IMysql::PLACE_IS_ACTIVE])
+        {
+            parent::__construct($argv);
+            $this->createOutFolder();
+            $this->createClassFiles();
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private function createOutFolder()

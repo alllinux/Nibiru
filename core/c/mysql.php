@@ -34,14 +34,17 @@ class Mysql implements IMysql
         {
             $settings = Config::getInstance()->getConfig()[self::SETTINGS_DATABASE];
         }
-		$this->_setUsername($settings[self::PLACE_USERNAME]);
-		$this->_setPassword($settings[self::PLACE_PASSWORD]);
-		$this->_setDbname($settings[self::PLACE_DATABASE]);
-		$this->_setDiver($settings[self::PLACE_DRIVER]);
-		$this->_setHostname($settings[self::PLACE_HOSTNAME]);
-		$this->_setPort($settings[self::PLACE_PORT]);
-		$this->_setDsn();
-		$this->_setConn();
+        if($settings[self::PLACE_IS_ACTIVE])
+        {
+            $this->_setUsername($settings[self::PLACE_USERNAME]);
+            $this->_setPassword($settings[self::PLACE_PASSWORD]);
+            $this->_setDbname($settings[self::PLACE_DATABASE]);
+            $this->_setDiver($settings[self::PLACE_DRIVER]);
+            $this->_setHostname($settings[self::PLACE_HOSTNAME]);
+            $this->_setPort($settings[self::PLACE_PORT]);
+            $this->_setDsn();
+            $this->_setConn();
+        }
 	}
 
 	public static function getInstance( $section = false )
