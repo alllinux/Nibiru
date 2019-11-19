@@ -128,11 +128,12 @@ Engine Implementation.</div>
     <li>removed the Twig and Dwoo engines, they are not needed anymore</li>
 </ul>
 <h1>Update</h1>
-<p>Version 0.9.4.2</p>
+<p>Version 0.9.4.3</p>
 <ul>
     <li>Database is.active switch in the configuration file</li>
     <li>minor bugfix in the Postgress Database Adapter</li>
     <li>added .gitignore file</li>
+    <li>added section to the settings.development.ini</li>
 </ul>
 <h1>TODO</h1>
 <p>Still in progress for the next version</p>
