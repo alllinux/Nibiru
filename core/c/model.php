@@ -106,15 +106,18 @@ class Model extends Table
                     if(Config::getInstance()->getConfig()[self::CONFIG_SECTION]['odbc'])
                     {
                         $template = str_replace('[ADAPTER]', self::ADAPTER_POSTGRES, $template);
+                        $template = str_replace('[CONNECTOR]', self::ADAPTER_POSTGRES, $template);
                     }
                     else
                     {
                         $template = str_replace('[ADAPTER]', self::ADAPTER_POSTGRESQL, $template);
+                        $template = str_replace('[CONNECTOR]', self::ADAPTER_POSTGRESQL, $template);
                     }
                 }
                 if($this->getDatabaseDriver()==self::DB_DRIVER_MYSQL)
                 {
                     $template = str_replace('[ADAPTER]', self::ADAPTER_MYSQL, $template);
+                    $template = str_replace('[CONNECTOR]', self::ADAPTER_PDO, $template);
                 }
 
                 if(Config::getInstance()->getConfig()[self::CONFIG_SECTION][self::DB_OVERWRITE_MODELS])

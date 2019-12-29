@@ -1,6 +1,6 @@
 # Nibiru 
 ### Rapid Prototyping PHP Framework
-Version 0.9.4.2 beta
+Version 0.9.5 beta
 ## Introduction
 
 <div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
@@ -127,7 +127,6 @@ Engine Implementation.</div>
     <li>Updated the annotations for better autocompletion</li>
     <li>removed the Twig and Dwoo engines, they are not needed anymore</li>
 </ul>
-<h1>Update</h1>
 <p>Version 0.9.4.3</p>
 <ul>
     <li>Database is.active switch in the configuration file</li>
@@ -141,6 +140,19 @@ Engine Implementation.</div>
 <li>framework documentation</li>
 <li>class documentation</li>
 <li>soap interface to a given SOAP server (canceled, not needed to old)</li>
+<li>bitcoin api, and payment gateway</li>
+</ul>
+<h1>Update</h1>
+<p>Version 0.9.5</p>
+<ul>
+    <li>Added Autogenerator for database tables</li>
+    <li>Fixed some minor bug in the db.class.mask</li>
+</ul>
+<h1>TODO</h1>
+<p>Still in progress for the next version</p>
+<ul>
+<li>framework documentation</li>
+<li>class documentation</li>
 <li>bitcoin api, and payment gateway</li>
 </ul>
 

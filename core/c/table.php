@@ -23,6 +23,7 @@ class Table
     const ADAPTER_POSTGRES          = "Postgres";
     const ADAPTER_POSTGRESQL        = "Postgresql";
     const ADAPTER_MYSQL             = "MySQL";
+    const ADAPTER_PDO               = "Pdo";
 
     const PARAMETERS = array(
         '--table',
@@ -228,7 +229,13 @@ class Table
         }
         if($this->getDatabaseDriver()==self::DB_DRIVER_MYSQL)
         {
-            //TODO: Implement the Table array for MySQL
+            Pdo::settingsSection( $this->getConfigSection() );
+            $result = Pdo::queryString('SHOW TABLES;');
+            foreach ($result as $entry)
+            {
+                $this->_setFields(array_shift($entry));
+                $this->_tables[array_shift($entry)] = $this->getFields();
+            }
         }
     }
 
@@ -344,7 +351,12 @@ class Table
         }
         if($this->getDatabaseDriver()==self::DB_DRIVER_MYSQL)
         {
-            //TODO: Implement the Table array for MySQL
+            Pdo::settingsSection( $this->getConfigSection() );
+            $result = Pdo::queryString('DESCRIBE ' . $table . ';' );
+            foreach($result as $field)
+            {
+                $this->_fields[] = $field['Field'];
+            }
         }
 
     }

@@ -20,7 +20,7 @@ class [CLASSNAME] extends Db
 
     public function __construct()
     {
-        [ADAPTER]::settingsSection('[DBSECTION]');
+        [CONNECTOR]::settingsSection('[DBSECTION]');
         self::initTable( self::TABLE );
     }
 
@@ -29,8 +29,4 @@ class [CLASSNAME] extends Db
         return self::TABLE;
     }
 
-    public function insertArrayIntoTable($dataset = array())
-    {
-        // TODO: Implement insertArrayIntoTable() method.
-    }
 }
