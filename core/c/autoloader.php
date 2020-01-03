@@ -12,17 +12,19 @@ require_once __DIR__ . '/../i/db.php';
  */
 class Autoloader
 {
-    const MY_FILE_NAME          = "autoloader.php";
-    const PHP_FILE_EXTENSION    = ".php";
-    const DB_MODEL_FOLDER       = "dbmodel";
-    const MODULE_FOLDER         = "module";
-    const INTERFACE_FOLDER      = "interfaces";
-    const TRAIT_FOLDER          = "traits";
-    const SETTINGS_SECTION      = "AUTOLOADER";
-    const SETTINGS_CLASS_POS    = "class.pos";
-    const SETTINGS_TRAIT_POS    = "trait.pos";
-    const SETTINGS_IFACE_POS    = "iface.pos";
-    const REGEX_PATH_NAME       = "[NAME]";
+    const MY_FILE_NAME              = "autoloader.php";
+    const PHP_FILE_EXTENSION        = ".php";
+    const DB_MODEL_FOLDER           = "dbmodel";
+    const MODULE_FOLDER             = "module";
+    const INTERFACE_FOLDER          = "interfaces";
+    const TRAIT_FOLDER              = "traits";
+    const PLUGINS_FOLDER            = "plugins";
+    const SETTINGS_SECTION          = "AUTOLOADER";
+    const SETTINGS_CLASS_POS        = "class.pos";
+    const SETTINGS_TRAIT_POS        = "trait.pos";
+    const SETTINGS_IFACE_POS        = "iface.pos";
+    const SETTINGS_CLASS_PLUGIN_POS = "class.plugin.pos";
+    const REGEX_PATH_NAME           = "[NAME]";
     
     private static $_filesInFoler = array();
     private static $_instance;
@@ -81,6 +83,10 @@ class Autoloader
         if($section == self::SETTINGS_IFACE_POS)
         {
             $moduleSortOrder = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_IFACE_POS];
+        }
+        if($section == self::SETTINGS_CLASS_PLUGIN_POS)
+        {
+            $moduleSortOrder = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_PLUGIN_POS];
         }
         if(sizeof($moduleSortOrder)>0)
         {
@@ -227,13 +233,16 @@ class Autoloader
                     );
                 }
             }
-            asort($interfaces);
-            $Sinterfaces = self::sortOrderModules($interfaces, self::SETTINGS_IFACE_POS);
-            foreach ($Sinterfaces as $interface)
+            if(is_array($interfaces))
             {
-                if(!in_array($interface['filepathname'], self::$_filesInFoler))
+                asort($interfaces);
+                $Sinterfaces = self::sortOrderModules($interfaces, self::SETTINGS_IFACE_POS);
+                foreach ($Sinterfaces as $interface)
                 {
-                    self::$_filesInFoler[] = $interface['filepathname'];
+                    if(!in_array($interface['filepathname'], self::$_filesInFoler))
+                    {
+                        self::$_filesInFoler[] = $interface['filepathname'];
+                    }
                 }
             }
         }
@@ -251,13 +260,16 @@ class Autoloader
                     );
                 }
             }
-            asort($traits);
-            $Straits = self::sortOrderModules($traits, self::SETTINGS_TRAIT_POS);
-            foreach($Straits as $trait)
+            if(is_array($traits))
             {
-                if(!in_array($trait['filepathname'], self::$_filesInFoler))
+                asort($traits);
+                $Straits = self::sortOrderModules($traits, self::SETTINGS_TRAIT_POS);
+                foreach($Straits as $trait)
                 {
-                    self::$_filesInFoler[] = $trait['filepathname'];
+                    if(!in_array($trait['filepathname'], self::$_filesInFoler))
+                    {
+                        self::$_filesInFoler[] = $trait['filepathname'];
+                    }
                 }
             }
         }
@@ -275,13 +287,50 @@ class Autoloader
                     );
                 }
             }
-            asort($modules);
-            $Smodules = self::sortOrderModules($modules, self::SETTINGS_CLASS_POS);
-            foreach($Smodules as $smodule)
+            if(is_array($modules))
             {
-                if(!in_array($smodule['filepathname'], self::$_filesInFoler))
+                asort($modules);
+                $Smodules = self::sortOrderModules($modules, self::SETTINGS_CLASS_POS);
+                foreach($Smodules as $smodule)
                 {
-                    self::$_filesInFoler[] = $smodule['filepathname'];
+                    if(!in_array($smodule['filepathname'], self::$_filesInFoler))
+                    {
+                        self::$_filesInFoler[] = $smodule['filepathname'];
+                    }
+                }
+            }
+        }
+        $modulesPluginsNames = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_POS];
+        $pluginNames = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_PLUGIN_POS];
+
+        foreach($modulesPluginsNames as $pluginsName)
+        {
+            $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::PLUGINS_FOLDER], $pluginsName );
+            foreach($pluginNames as $pluginName)
+            {
+                foreach ($iterator as $item)
+                {
+                    if(strstr($item->getFilename(), $pluginName))
+                    {
+                        if ($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION)) {
+                            $plugins[] = array(
+                                'nfilename' => str_replace('.php', '', $item->getFileName()),
+                                'filepathname' => $item->getPath() . '/' . $item->getFileName()
+                            );
+                        }
+                    }
+                }
+            }
+            if(is_array($plugins))
+            {
+                asort($plugins);
+                $Splugins = self::sortOrderModules($plugins, self::SETTINGS_CLASS_PLUGIN_POS);
+                foreach($Splugins as $plugin)
+                {
+                    if(!in_array($plugin['filepathname'], self::$_filesInFoler))
+                    {
+                        self::$_filesInFoler[] = $plugin['filepathname'];
+                    }
                 }
             }
         }
