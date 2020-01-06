@@ -72,6 +72,8 @@ class Autoloader
     {
         (bool) $skip = false;
         (array) $normal = array();
+        (array) $first = array();
+        (array) $sorted = array();
         if($section == self::SETTINGS_CLASS_POS)
         {
             $moduleSortOrder = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_POS];
@@ -109,7 +111,7 @@ class Autoloader
                     $skip = false;
                 }
             }
-            if(array_key_exists(0, $first))
+            if(is_array($first) && array_key_exists(0, $first))
             {
                 $sorted = array();
                 foreach($moduleSortOrder as $item)
@@ -170,13 +172,20 @@ class Autoloader
      * @param string $moduleName
      * @return \RecursiveIteratorIterator
      */
-    private static function folderContent( string $folderPath, string $moduleName = '' ): \RecursiveIteratorIterator
+    private static function folderContent( string $folderPath, string $moduleName = '' ): ?\RecursiveIteratorIterator
     {
         if(strstr($folderPath, self::REGEX_PATH_NAME) && $moduleName!="")
         {
             $folderPath = str_replace(self::REGEX_PATH_NAME, $moduleName, $folderPath);
         }
-        return new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator( $folderPath ));
+        if(is_dir($folderPath))
+        {
+            return new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator( $folderPath ));
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -223,14 +232,17 @@ class Autoloader
         foreach($moduleInterfaceNames as $interfaceName)
         {
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::INTERFACE_FOLDER], $interfaceName);
-            foreach ($iterator as $item)
+            if(sizeof($iterator)>0)
             {
-                if($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                foreach ($iterator as $item)
                 {
-                    $interfaces[] = array(
-                        'nfilename' => str_replace('.php', '', $item->getFileName()),
-                        'filepathname' => $item->getPath() . '/' . $item->getFileName()
-                    );
+                    if($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                    {
+                        $interfaces[] = array(
+                            'nfilename' => str_replace('.php', '', $item->getFileName()),
+                            'filepathname' => $item->getPath() . '/' . $item->getFileName()
+                        );
+                    }
                 }
             }
             if(is_array($interfaces))
@@ -302,7 +314,7 @@ class Autoloader
         }
         $modulesPluginsNames = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_POS];
         $pluginNames = Config::getInstance()->getConfig()[self::SETTINGS_SECTION][self::SETTINGS_CLASS_PLUGIN_POS];
-
+        $plugins = [];
         foreach($modulesPluginsNames as $pluginsName)
         {
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::PLUGINS_FOLDER], $pluginsName );

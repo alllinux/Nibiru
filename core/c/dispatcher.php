@@ -39,23 +39,26 @@ final class Dispatcher
         Router::getInstance();
         Router::getInstance()->route();
         Autoloader::getInstance()->runRequireOnce();
-        require_once __DIR__ . '/../../application/controller/' . Router::getInstance()->tplName() . 'Controller.php';
-        $class = "Nibiru\\".\Nibiru\Router::getInstance()->tplName()."Controller";
-        $controller = new $class();
-        if(array_key_exists('_action', $_REQUEST))
+        if(is_file(__DIR__ . '/../../application/controller/' . Router::getInstance()->tplName() . 'Controller.php'))
         {
-            $action = $_REQUEST['_action']."Action";
-            $controller->navigationAction();
-            $controller->$action();
-            $controller->pageAction();
-        }
-        else
-        {
-            $controller->navigationAction();
-            $controller->pageAction();
-        }
+            require_once __DIR__ . '/../../application/controller/' . Router::getInstance()->tplName() . 'Controller.php';
+            $class = "Nibiru\\".\Nibiru\Router::getInstance()->tplName()."Controller";
+            $controller = new $class();
+            if(array_key_exists('_action', $_REQUEST))
+            {
+                $action = $_REQUEST['_action']."Action";
+                $controller->navigationAction();
+                $controller->$action();
+                $controller->pageAction();
+            }
+            else
+            {
+                $controller->navigationAction();
+                $controller->pageAction();
+            }
 
-        Debug::getInstance();
-        Display::getInstance()->display();
+            Debug::getInstance();
+            Display::getInstance()->display();
+        }
     }
 }

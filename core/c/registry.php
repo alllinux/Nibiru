@@ -70,11 +70,14 @@ final class Registry
             {
                 $module = new \stdClass();
                 $module_settings = parse_ini_file($settings->getPathName(), true);
-                foreach ( $module_settings[strtoupper($this->getModuleName())] as $key=>$value)
+                if(array_key_exists(strtoupper($this->getModuleName()), $module_settings))
                 {
-                    $module->$key = $value;
+                    foreach ($module_settings[strtoupper($this->getModuleName())] as $key=>$value)
+                    {
+                        $module->$key = $value;
+                    }
+                    $this->_modules_config[$this->getModuleName()] = $module;
                 }
-                $this->_modules_config[$this->getModuleName()] = $module;
             }
         }
     }
