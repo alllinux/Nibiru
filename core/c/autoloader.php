@@ -205,23 +205,29 @@ class Autoloader
             foreach ( Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER] as $modelfolder )
             {
                 $iterator = self::folderContent( __DIR__ . $modelfolder );
-                foreach ( $iterator as $item )
+                if($iterator!=null)
                 {
-                    if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                    foreach ($iterator as $item)
                     {
-                        self::$_filesInFoler[] = $item->getPathName();
+                        if ($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                        {
+                            self::$_filesInFoler[] = $item->getPathName();
+                        }
                     }
                 }
             }
         }
         else
         {
-            $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER] );
-            foreach ( $iterator as $item )
+            $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER]);
+            if($iterator != null)
             {
-                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                foreach ($iterator as $item)
                 {
-                    self::$_filesInFoler[] = $item->getPathName();
+                    if ($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                    {
+                        self::$_filesInFoler[] = $item->getPathName();
+                    }
                 }
             }
         }
@@ -232,9 +238,9 @@ class Autoloader
         foreach($moduleInterfaceNames as $interfaceName)
         {
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::INTERFACE_FOLDER], $interfaceName);
-            if(sizeof($iterator)>0)
+            if($iterator!=null)
             {
-                foreach ($iterator as $item)
+                foreach ( $iterator as $item )
                 {
                     if($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
                     {
@@ -262,14 +268,17 @@ class Autoloader
         foreach($modulesTraitsNames as $traitsName)
         {
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::TRAIT_FOLDER], $traitsName );
-            foreach ( $iterator as $item )
+            if($iterator!=null)
             {
-                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                foreach ( $iterator as $item )
                 {
-                    $traits[] = array(
-                        'nfilename' => str_replace('.php', '', $item->getFileName()),
-                        'filepathname'      => $item->getPath() . '/' . $item->getFileName()
-                    );
+                    if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                    {
+                        $traits[] = array(
+                            'nfilename' => str_replace('.php', '', $item->getFileName()),
+                            'filepathname'      => $item->getPath() . '/' . $item->getFileName()
+                        );
+                    }
                 }
             }
             if(is_array($traits))
@@ -289,14 +298,17 @@ class Autoloader
         foreach($modulesClassNames as $className)
         {
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::MODULE_FOLDER], $className );
-            foreach ( $iterator as $item )
+            if($iterator!=null)
             {
-                if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                foreach ( $iterator as $item )
                 {
-                    $modules[] = array(
-                        'nfilename' => str_replace('.php', '', $item->getFileName()),
-                        'filepathname'      => $item->getPath() . '/' . $item->getFileName()
-                    );
+                    if($item->getFileName()!= self::MY_FILE_NAME && $item->getFileName()!="." && $item->getFileName()!=".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                    {
+                        $modules[] = array(
+                            'nfilename' => str_replace('.php', '', $item->getFileName()),
+                            'filepathname'      => $item->getPath() . '/' . $item->getFileName()
+                        );
+                    }
                 }
             }
             if(is_array($modules))

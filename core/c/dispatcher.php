@@ -48,7 +48,10 @@ final class Dispatcher
             {
                 $action = $_REQUEST['_action']."Action";
                 $controller->navigationAction();
-                $controller->$action();
+                if(method_exists($controller, $action))
+                {
+                    $controller->$action();
+                }
                 $controller->pageAction();
             }
             else
