@@ -89,7 +89,8 @@ final class Pdo extends Mysql implements IPdo
             }
         }
         $prepare = $statement->prepare("SELECT * FROM " . $tablename . " WHERE " . $id_name . " = :" . $id_name . ";");
-        $prepare->execute($id);
+        $prepare->bindParam(":".$id_name, $id, \PDO::PARAM_INT);
+        $prepare->execute();
         $fetchAll = $prepare->fetchAll();
         $rowset = array_shift($fetchAll);
 
@@ -125,6 +126,36 @@ final class Pdo extends Mysql implements IPdo
             if(is_string($entry))
             {
                 $result[$entry] = $rowset[$entry];
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @desc selects the given table row by given parameter and column
+     * @param string $tablename
+     * @param string $column_name
+     * @param string $parameter_name
+     * @return mixed
+     */
+    public static function fetchRowsInArrayByWhere($tablename = IMysql::PLACE_TABLE_NAME,
+                                                   $column_name = IMysql::PLACE_COLUMN_NAME,
+                                                   $parameter_name = IMysql::PLACE_SEARCH_TERM)
+    {
+        $statement = parent::getInstance( self::getSettingsSection() )->getConn();
+        $result = [];
+        $prepare = $statement->prepare("SELECT * FROM " . $tablename . " WHERE " . $column_name . " = :" . $column_name . ";");
+        $prepare->bindParam(":".$column_name, $parameter_name, \PDO::PARAM_STR);
+        $prepare->execute();
+        $r = $prepare->fetchAll();
+        foreach($r as $key=>$item)
+        {
+            foreach ($item as $index=>$field)
+            {
+                if(!is_numeric($index))
+                {
+                    $result[$key][$index] = $field;
+                }
             }
         }
         return $result;

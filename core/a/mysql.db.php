@@ -68,7 +68,7 @@ abstract class Db implements IDb
      */
     public function selectRowsetById($id = false)
     {
-        // TODO: Implement selectRowsetById() method.
+        return Pdo::fetchRowInArrayById( self::getTable()['table'], $id );
     }
 
     /**
