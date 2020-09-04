@@ -32,7 +32,7 @@ class TypeButton extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<button type="TYPE" value="VALUE" ID CLASS>NAME' . "</button>\n";
+        $this->_element = '<button type="TYPE" name="NAME" ID CLASS>VALUE' . "</button>\n";
     }
 
 }
