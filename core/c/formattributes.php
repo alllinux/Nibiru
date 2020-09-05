@@ -59,6 +59,7 @@ class FormAttributes
         $this->_element = str_replace(' ID', '', $this->_element);
         $this->_element = str_replace(' CLASS', '', $this->_element);
         $this->_element = str_replace(' enctype="ENCTYPE"', '', $this->_element);
+        $this->_element = str_replace(' checked="CHECKED"', '', $this->_element);
         $this->_element = str_replace(' onsubmit="ONSUBMIT"', '', $this->_element);
         $this->_element = str_replace(' onclick="ONCLICK"', '', $this->_element);
         $this->_element = str_replace(' action="ACTION"', '', $this->_element);
@@ -77,6 +78,7 @@ class FormAttributes
         $this->_element = str_replace(' SELECTED', '', $this->_element);
         $this->_element = str_replace(' CONTEXT', '', $this->_element);
         $this->_element = str_replace(' CHECKED', '', $this->_element);
+        $this->_element = str_replace(' VALUE', '', $this->_element);
     }
 
     /**

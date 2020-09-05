@@ -33,7 +33,7 @@ class TypeCheckbox extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<input type="checkbox" name="NAME" value="VALUE" CHECKED ID CLASS>' . 'VALUE<br>' . "\n";
+        $this->_element = '<input type="checkbox" name="NAME" value="VALUE" ID CLASS checked="CHECKED" CHECKED>' . ' VALUE<br>' . "\n";
     }
 
 
