@@ -31,7 +31,6 @@ class formsController extends Controller
                 'class' => 'input-text'
             )
         );
-
         Form::addTypeLabel(
             array(
                 'value'  => 'Email',
@@ -39,7 +38,6 @@ class formsController extends Controller
                 'class'  => 'contacts-label'
             )
         );
-
         Form::addInputTypeText(
             array(
                 'name'     => 'email',
@@ -55,7 +53,7 @@ class formsController extends Controller
         Form::addTypeButton(
             array(
                 'class'  => 'btn-block btn-info',
-                'name'   => 'Send Message'
+                'value'   => 'Send Message'
             )
         );
 

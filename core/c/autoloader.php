@@ -334,13 +334,16 @@ class Autoloader
             {
                 foreach ($iterator as $item)
                 {
-                    if(strstr($item->getFilename(), $pluginName))
+                    if(!empty($pluginName))
                     {
-                        if ($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION)) {
-                            $plugins[] = array(
-                                'nfilename' => str_replace('.php', '', $item->getFileName()),
-                                'filepathname' => $item->getPath() . '/' . $item->getFileName()
-                            );
+                        if(strstr($item->getFilename(), $pluginName))
+                        {
+                            if ($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION)) {
+                                $plugins[] = array(
+                                    'nfilename' => str_replace('.php', '', $item->getFileName()),
+                                    'filepathname' => $item->getPath() . '/' . $item->getFileName()
+                                );
+                            }
                         }
                     }
                 }
