@@ -18,7 +18,9 @@ class TypeText extends FormAttributes implements IForm
         self::FORM_ATTRIBUTE_ID             => '',
         self::FORM_ATTRIBUTE_CLASS          => '',
         self::FORM_ATTRIBUTE_PLACEHOLDER    => '',
-        self::FORM_ATTRIBUTE_REQUIRED       => ''
+        self::FORM_ATTRIBUTE_REQUIRED       => '',
+        self::FORM_ATTRIBUTE_MAXLENGTH      => '',
+        self::FORM_ATTRIBUTE_TABINDEX       => ''
     );
     
     public function loadElement( $attributes )

@@ -40,6 +40,8 @@ interface IForm
     const FORM_ATTRIBUTE_SELECTED       = 'selected';
     const FORM_ATTRIBUTE_CONTEXT        = 'context';
     const FORM_ATTRIBUTE_CHECKED        = 'checked';
+    const FORM_ATTRIBUTE_MAXLENGTH      = 'maxlength';
+    const FORM_ATTRIBUTE_TABINDEX       = 'tabindex';
 
     /**
      * @desc loads the current Form element to the form

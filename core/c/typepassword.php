@@ -16,7 +16,8 @@ class TypePassword extends FormAttributes implements IForm
         self::FORM_ATTRIBUTE_ID             => '',
         self::FORM_ATTRIBUTE_CLASS          => '',
         self::FORM_ATTRIBUTE_PLACEHOLDER    => '',
-        self::FORM_ATTRIBUTE_REQUIRED       => ''
+        self::FORM_ATTRIBUTE_REQUIRED       => '',
+        self::FORM_VALUE
     );
 
     public function loadElement( $attributes )
@@ -32,7 +33,7 @@ class TypePassword extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<input type="password" name="NAME" placeholder="PLACEHOLDER" required="REQUIRED" ID CLASS>' . "\n";
+        $this->_element = '<input type="password" name="NAME" value="VALUE" placeholder="PLACEHOLDER" required="REQUIRED" ID CLASS>' . "\n";
     }
 
 
