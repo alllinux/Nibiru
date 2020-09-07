@@ -34,7 +34,7 @@ class TypeText extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<input type="text" name="NAME" value="VALUE" placeholder="PLACEHOLDER" required="REQUIRED" SPEECH ID CLASS>' . "\n";
+        $this->_element = '<input type="text" name="NAME" value="VALUE" placeholder="PLACEHOLDER" maxlength="MAXLENGTH" tabindex="TABINDEX" required="REQUIRED" SPEECH ID CLASS>' . "\n";
     }
     
     
