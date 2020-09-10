@@ -31,6 +31,6 @@ class TypeSelect extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<select name="NAME" onchange="ONCHANGE" ID CLASS>' . "\n" . 'OPTIONS' . "\n" . '</select>' . "\n";
+        $this->_element = '<select name="NAME" onchange="ONCHANGE" ID CLASS SELECTED>' . "\n" . 'OPTIONS' . "\n" . '</select>' . "\n";
     }
 }
