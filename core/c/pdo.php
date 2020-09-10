@@ -163,7 +163,7 @@ final class Pdo extends Mysql implements IPdo
 
     public static function getLastInsertedID()
 	{
-		// TODO: Implement getLastInsertedID() method.
+		return parent::getInstance( self::getSettingsSection() )->getConn()->lastInsertId();
 	}
 
     public static function fetchTableAsArray( $tablename = self::PLACE_TABLE_NAME, $limit = self::PLACE_QUERY_LIMIT, $order = self::PLACE_SORT_ORDER )
