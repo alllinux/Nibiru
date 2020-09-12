@@ -123,9 +123,9 @@ class Controller extends View
     /**
      * @param string $param
      * @param bool $params
-     * @return string|null
+     * @return string|array
      */
-    public function getPost( string $param, bool $params = false ) :mixed
+    public function getPost( string $param, bool $params = false )
     {
         if($param!="")
         {
@@ -140,9 +140,9 @@ class Controller extends View
     /**
      * @param string $param
      * @param bool $params
-     * @return string|null
+     * @return string|array
      */
-    public function getGet( string $param, bool $params = false ) :?string
+    public function getGet( string $param, bool $params = false )
     {
         if($param!="")
         {
@@ -157,9 +157,9 @@ class Controller extends View
     /**
      * @param string $param
      * @param bool $params
-     * @return mixed
+     * @return string|array
      */
-    public function getRequest( string $param, bool $params = false ) :?string
+    public function getRequest( string $param, bool $params = false )
     {
         if($param!="")
         {
@@ -174,9 +174,9 @@ class Controller extends View
     /**
      * @param string $param
      * @param bool $params
-     * @return string|null
+     * @return string|array
      */
-    public function getServer( string $param, bool $params = false ) :?string
+    public function getServer( string $param, bool $params = false )
     {
         if($param!="")
         {
