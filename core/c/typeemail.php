@@ -13,6 +13,7 @@ class TypeEmail extends FormAttributes implements IForm
 {
     private $_attributes = array(
         self::FORM_NAME                     => '',
+        self::FORM_VALUE                    => '',
         self::FORM_ATTRIBUTE_ID             => '',
         self::FORM_ATTRIBUTE_CLASS          => '',
         self::FORM_ATTRIBUTE_PLACEHOLDER    => '',
@@ -32,7 +33,7 @@ class TypeEmail extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<input type="email" name="NAME" placeholder="PLACEHOLDER" required="REQUIRED" ID CLASS>' . "\n";
+        $this->_element = '<input type="email" name="NAME" value="VALUE" placeholder="PLACEHOLDER" required="REQUIRED" ID CLASS>' . "\n";
     }
 
 
