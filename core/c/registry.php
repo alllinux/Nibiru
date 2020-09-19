@@ -123,7 +123,7 @@ final class Registry
     /**
      * @desc will reset the registry
      */
-    public function __destruct()
+    public function destroy()
     {
         self::$_instance = NULL;
     }
