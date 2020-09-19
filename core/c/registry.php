@@ -119,4 +119,12 @@ final class Registry
     {
         return $this->getModulesConfig()[$module_name];
     }
+
+    /**
+     * @desc will reset the registry
+     */
+    public function __destruct()
+    {
+        self::$_instance = NULL;
+    }
 }
