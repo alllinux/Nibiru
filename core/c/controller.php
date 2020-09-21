@@ -187,4 +187,21 @@ class Controller extends View
             return $_SERVER;
         }
     }
+
+    /**
+     * @param string $param
+     * @param bool $params
+     * @return string|array
+     */
+    public function getFiles( string $param, bool $params = false )
+    {
+        if($param!="")
+        {
+            return $_FILES[$param];
+        }
+        elseif($params)
+        {
+            return $_FILES;
+        }
+    }
 }
