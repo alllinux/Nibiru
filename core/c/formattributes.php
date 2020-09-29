@@ -63,6 +63,7 @@ class FormAttributes
         $this->_element = str_replace(' onsubmit="ONSUBMIT"', '', $this->_element);
         $this->_element = str_replace(' onclick="ONCLICK"', '', $this->_element);
         $this->_element = str_replace(' action="ACTION"', '', $this->_element);
+        $this->_element = str_replace(' disabled="DISABLED"', '', $this->_element);
         $this->_element = str_replace(' maxlength="MAXLENGTH"', '', $this->_element);
         $this->_element = str_replace(' tabindex="TABINDEX"', '', $this->_element);
         $this->_element = str_replace(' SPEECH', '', $this->_element);

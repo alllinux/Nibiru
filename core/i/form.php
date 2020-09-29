@@ -42,6 +42,7 @@ interface IForm
     const FORM_ATTRIBUTE_CHECKED        = 'checked';
     const FORM_ATTRIBUTE_MAXLENGTH      = 'maxlength';
     const FORM_ATTRIBUTE_TABINDEX       = 'tabindex';
+    const FORM_ATTRIBUTE_DISABLED       = 'disabled';
 
     /**
      * @desc loads the current Form element to the form
