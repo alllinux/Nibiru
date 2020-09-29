@@ -52,14 +52,19 @@ class Auth extends Controller implements IAuth
 
 		if(!array_key_exists('auth', $_SESSION))
 		{
-			$user_password = Pdo::query("SELECT user_account_active, DES_DECRYPT(user_pass, '".Config::getInstance()->getConfig()[IView::NIBIRU_SECURITY]["password_hash"]."') AS pass FROM user WHERE user_login = '".$login."';");
-			if( $user_password["pass"] == $password && $user_password['user_account_active'] )
-			{
-				$session_id = session_id();
-				$_SESSION['auth']['id']	   		 = $session_id;
-				$_SESSION['auth']['login'] 		 = $login;
-				return true;
-			}
+            $user_password = Pdo::query("SELECT user_account_active, DES_DECRYPT(user_pass, '".Config::getInstance()->getConfig()[IView::NIBIRU_SECURITY]["password_hash"]."') AS pass, user_id FROM user WHERE user_login = '".$login."';");
+            if( $user_password["pass"] == $password && $user_password['user_account_active'] == 1 )
+            {
+                $session_id = session_id();
+                $_SESSION = [
+                    'auth' => [
+                        'session_id' => $session_id,
+                        'user_id'    => $user_password['user_id'],
+                        'login'      => $login
+                    ]
+                ];
+                return true;
+            }
 			else
 			{
 				return false;
