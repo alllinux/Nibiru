@@ -15,7 +15,8 @@ class TypeRadio extends FormAttributes implements IForm
         self::FORM_NAME             => '',
         self::FORM_VALUE            => '',
         self::FORM_ATTRIBUTE_CLASS  => '',
-        self::FORM_ATTRIBUTE_ID     => ''
+        self::FORM_ATTRIBUTE_ID     => '',
+        self::FORM_ATTRIBUTE_CHECKED => ''
     );
     
 
@@ -33,7 +34,7 @@ class TypeRadio extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<input type="radio" name="NAME" value="VALUE" ID CLASS>' . 'VALUE<br>' . "\n";
+        $this->_element = '<input type="radio" name="NAME" value="VALUE" checked="CHECKED" ID CLASS>' . "\n";
     }
 
 
