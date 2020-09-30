@@ -84,6 +84,15 @@ class View implements IView
 	}
 
     /**
+     * @desc setting response to application json headers
+     */
+    public static function forwardToJsonHeader()
+    {
+        header(self::NIBIRU_CONTENT_TYPE_JSON, true);
+        header(self::NIBIRU_CONTENT_TYPE_CONNECTION, true);
+    }
+
+    /**
      * @param $page
      */
 	public function display( $page )
