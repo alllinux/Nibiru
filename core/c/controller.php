@@ -204,4 +204,21 @@ class Controller extends View
             return $_FILES;
         }
     }
+
+    /**
+     * @param string $param
+     * @param bool $params
+     * @return string|array
+     */
+    public function getSession( string $param, bool $params = false )
+    {
+        if($param!="")
+        {
+            return $_SESSION[$param];
+        }
+        elseif($params)
+        {
+            return $_SESSION;
+        }
+    }
 }
