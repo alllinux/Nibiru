@@ -17,7 +17,9 @@ interface IView
     const NIBIRU_ROUTING 	             = "ROUTING";
     const NIBIRU_EMAIL		             = "EMAIL";
     const NIBIRU_FILE_END 	             = ".tpl";
-    const NIBIRU_CONTENT_TYPE_JSON       = "Content-Type: application/json";
-    const NIBIRU_CONTENT_TYPE_CONNECTION = "Connection: keep-alive";
-    const NIBIRU_CONTENT_RESPONSE_OK     = "HTTP/1.1 200 OK";
+    const NIBIRU_CONTENT_TYPE_JSON          = "Content-Type: application/json";
+    const NIBIRU_CONTENT_TYPE_CONNECTION    = "Connection: keep-alive";
+    const NIBIRU_CONTENT_RESPONSE_OK        = "HTTP/1.1 200 OK";
+    const NIBIRU_CONTENT_ENCODING           = "Accept-Encoding: gzip, deflate";
+    const NIBIRU_CONTENT_TRANSFER_ENCODING  = "Transfer-Encoding: {encoding}";
 }

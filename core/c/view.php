@@ -84,12 +84,18 @@ class View implements IView
 	}
 
     /**
+     * @param string $encoding
      * @desc setting response to application json headers
      */
-    public static function forwardToJsonHeader()
+    public static function forwardToJsonHeader( string $encoding = "" )
     {
         header(self::NIBIRU_CONTENT_TYPE_JSON, true);
         header(self::NIBIRU_CONTENT_TYPE_CONNECTION, true);
+        header(self::NIBIRU_CONTENT_ENCODING, true);
+        if(strlen($encoding)>0)
+        {
+            header(str_replace('{transfer}', $encoding, self::NIBIRU_CONTENT_TRANSFER_ENCODING));
+        }
     }
 
     /**
