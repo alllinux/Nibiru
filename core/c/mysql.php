@@ -47,7 +47,11 @@ class Mysql implements IMysql
         }
 	}
 
-	public static function getInstance( $section = false )
+    /**
+     * @param false $section
+     * @return Mysql
+     */
+	public static function getInstance( $section = false ): Mysql
 	{
 		$className = get_called_class();
 		if(self::$_instance==null) self::$_instance = new $className( $section );
@@ -150,10 +154,10 @@ class Mysql implements IMysql
 		$this->_dbname = $dbname;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getConn()
+    /**
+     * @return \PDO
+     */
+	public function getConn(): \PDO
 	{
 		return $this->_conn;
 	}

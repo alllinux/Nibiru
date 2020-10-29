@@ -7,7 +7,7 @@ namespace Nibiru;
  * Time: 11:02
  */
 
-class Psql extends Mysql implements IPsql
+class Psql implements IPsql
 {
     use Messages;
 
@@ -45,7 +45,7 @@ class Psql extends Mysql implements IPsql
         }
     }
 
-    public static function getInstance( $section = false )
+    public static function getInstance( $section = false ): Psql
     {
         $className = get_called_class();
         if(self::$_instance==null) self::$_instance = new $className( $section );

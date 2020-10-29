@@ -46,7 +46,7 @@ class Odbc extends Mysql implements IOdbc
 
     }
 
-    public static function getInstance( $section = false )
+    public static function getInstance( $section = false ): Mysql
     {
         $className = get_called_class();
         if(self::$_instance==null) self::$_instance = new $className( $section );
