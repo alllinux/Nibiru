@@ -10,6 +10,26 @@ namespace Nibiru\Adapter;
 interface IDb
 {
     /**
+     * @desc updates a row by a given field and field where search value
+     * @param false $wherefield
+     * @param false $wherevalue
+     * @param false $rowfield
+     * @param false $rowvalue
+     * @return mixed
+     */
+    public function updateRowByFieldWhere( $wherefield = false, $wherevalue = false, $rowfield = false, $rowvalue = false );
+    /**
+     * will return the last inserted id of the given table
+     * @return int
+     */
+    public function lastInsertId();
+
+    /**
+     * @desc Will load the given database table as an array
+     * @return mixed
+     */
+    public function loadTableAsArray();
+    /**
      * @desc Has to select a given Rowset by the index ID of the table
      * @param bool $id
      * @return mixed

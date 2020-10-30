@@ -44,6 +44,15 @@ abstract class Db implements IDb
     }
 
     /**
+     * will return the last inserted id of the given table
+     * @return int
+     */
+    public function lastInsertId()
+    {
+        return Pdo::getLastInsertedID();
+    }
+
+    /**
      * @param bool $user_name
      * @return mixed
      */

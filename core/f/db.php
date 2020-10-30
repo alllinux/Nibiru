@@ -1,12 +1,13 @@
 <?php
 namespace Nibiru\Factory;
-
 /**
  * Created by PhpStorm.
  * User: kasdorf
  * Date: 10.11.17
  * Time: 09:24
  */
+use Nibiru\Adapter\IDb;
+
 class Db
 {
     const DATABASE_DRIVER_NS    = "driver";
@@ -17,10 +18,10 @@ class Db
      *       all database functionallity has to be run trough this
      *       factory
      * @param string $modelName
-     * @return null
+     * @return IDb
      * @throws \Exception
      */
-    public static function loadModel( $modelName = "")
+    public static function loadModel( $modelName = ""): IDb
     {
         try {
             if( $modelName != "" )
