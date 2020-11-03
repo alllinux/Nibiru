@@ -148,7 +148,8 @@ class Router extends Config
     private static function setCurPage( )
     {
         $params = false;
-        $uri_parts = explode('/', $_SERVER["REQUEST_URI"]);
+        $param_parts = explode('?', $_SERVER["REQUEST_URI"]);
+        $uri_parts = explode('/', $param_parts[0]);
         if(is_array($uri_parts))
         {
             if($uri_parts[1] == "")
@@ -158,7 +159,7 @@ class Router extends Config
             else
             {
                 self::$_cur_page = $uri_parts[1];
-                if(array_key_exists(2, $uri_parts))
+                if(array_key_exists(2, $uri_parts) && $uri_parts[2]!="")
                 {
                     self::setAction($uri_parts[2]);
                     $params = true;
