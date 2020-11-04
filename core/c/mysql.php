@@ -21,6 +21,7 @@ class Mysql implements IMysql
 	protected $_hostname       = self::PLACE_HOSTNAME;
 	protected $_dbname         = self::PLACE_DATABASE;
 	protected $_port           = self::PLACE_PORT;
+	protected $_encoding       = self::PLACE_ENCODING;
 
 	protected $_conn           = self::PLACE_CONNECTION;
 
@@ -42,21 +43,34 @@ class Mysql implements IMysql
             $this->_setDiver($settings[self::PLACE_DRIVER]);
             $this->_setHostname($settings[self::PLACE_HOSTNAME]);
             $this->_setPort($settings[self::PLACE_PORT]);
+            $this->_setEncoding($settings[self::PLACE_ENCODING]);
             $this->_setDsn();
             $this->_setConn();
         }
 	}
 
-    /**
-     * @param false $section
-     * @return Mysql
-     */
 	public static function getInstance( $section = false ): Mysql
 	{
 		$className = get_called_class();
 		if(self::$_instance==null) self::$_instance = new $className( $section );
 		return self::$_instance;
 	}
+
+    /**
+     * @return string
+     */
+    protected function getEncoding(): string
+    {
+        return $this->_encoding;
+    }
+
+    /**
+     * @param string $encoding
+     */
+    private function _setEncoding(string $encoding): void
+    {
+        $this->_encoding = strtolower($encoding);
+    }
 
 	/**
 	 * @return string
@@ -162,12 +176,13 @@ class Mysql implements IMysql
 		return $this->_conn;
 	}
 
-	/**
-	 * @param string $conn
-	 */
+    /**
+     * @desc set a new database connection
+     */
 	private function _setConn( )
 	{
 		$this->_conn = new \PDO($this->getDsn(), $this->getUsername(), $this->getPassword());
+		$this->_conn->query("SET NAMES '".$this->getEncoding()."'");
 	}
 
 	/**
