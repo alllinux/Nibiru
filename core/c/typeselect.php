@@ -15,7 +15,9 @@ class TypeSelect extends FormAttributes implements IForm
         self::FORM_NAME                 => '',
         self::FORM_ATTRIBUTE_CLASS      => '',
         self::FORM_ATTRIBUTE_ID         => '',
-        self::FORM_ATTRIBUTE_ONCHANGE   => ''
+        self::FORM_ATTRIBUTE_ONCHANGE   => '',
+        self::FORM_ATTRIBUTE_ONBLUR     => '',
+        self::FORM_ATTRIBUTE_ONFOCUS    => ''
     );
 
     public function loadElement( $attributes )
@@ -31,6 +33,6 @@ class TypeSelect extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<select name="NAME" onchange="ONCHANGE" ID CLASS SELECTED>' . "\n" . 'OPTIONS' . "\n" . '</select>' . "\n";
+        $this->_element = '<select name="NAME" onchange="ONCHANGE" onblur="ONBLUR" onfocus="ONFOCUS" ID CLASS SELECTED>' . "\n" . 'OPTIONS' . "\n" . '</select>' . "\n";
     }
 }

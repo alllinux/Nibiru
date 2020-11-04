@@ -25,6 +25,9 @@ interface IForm
     const FORM_TYPE_BUTTON              = 'button';
     const FORM_ATTRIBUTE_ROWS           = 'rows';
     const FORM_ATTRIBUTE_COLS           = 'cols';
+    const FORM_ATTRIBUTE_MIN            = 'min';
+    const FORM_ATTRIBUTE_MAX            = 'max';
+    const FORM_ATTRIBUTE_STEP           = 'step';
     const FORM_ATTRIBUTE_SPEECH         = 'speech';
     const FORM_ATTRIBUTE_SRC            = 'src';
     const FORM_ATTRIBUTE_ALT            = 'alt';
@@ -37,6 +40,8 @@ interface IForm
     const FORM_ATTRIBUTE_TYPE           = 'type';
     const FORM_ATTRIBUTE_ONCHANGE       = 'onchange';
     const FORM_ATTRIBUTE_ONSUBMIT       = 'onsubmit';
+    const FORM_ATTRIBUTE_ONBLUR         = 'onblur';
+    const FORM_ATTRIBUTE_ONFOCUS        = 'onfocus';
     const FORM_ATTRIBUTE_SELECTED       = 'selected';
     const FORM_ATTRIBUTE_CONTEXT        = 'context';
     const FORM_ATTRIBUTE_CHECKED        = 'checked';

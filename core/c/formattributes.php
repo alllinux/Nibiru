@@ -65,6 +65,9 @@ class FormAttributes
         $this->_element = str_replace(' action="ACTION"', '', $this->_element);
         $this->_element = str_replace(' disabled="DISABLED"', '', $this->_element);
         $this->_element = str_replace(' maxlength="MAXLENGTH"', '', $this->_element);
+        $this->_element = str_replace(' min="MIN"', '', $this->_element);
+        $this->_element = str_replace(' max="MAX"', '', $this->_element);
+        $this->_element = str_replace(' step="STEP"', '', $this->_element);
         $this->_element = str_replace(' tabindex="TABINDEX"', '', $this->_element);
         $this->_element = str_replace(' SPEECH', '', $this->_element);
         $this->_element = str_replace(' FORM', '', $this->_element);
@@ -75,6 +78,8 @@ class FormAttributes
         $this->_element = str_replace('  ', ' ', $this->_element);
         $this->_element = str_replace(' type="TYPE"', '', $this->_element);
         $this->_element = str_replace(' onchange="ONCHANGE"', '', $this->_element);
+        $this->_element = str_replace(' onblur="ONBLUR"', '', $this->_element);
+        $this->_element = str_replace(' onfocus="ONFOCUS"', '', $this->_element);
         $this->_element = str_replace(' target="TARGET"', '', $this->_element);
         $this->_element = str_replace(' method="METHOD"', '', $this->_element);
         $this->_element = str_replace(' data-toggle="DATA-TOGGLE"', '', $this->_element);
