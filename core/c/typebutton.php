@@ -12,11 +12,12 @@ use Nibiru\Adapter;
 class TypeButton extends FormAttributes implements IForm
 {
     private $_attributes = array(
-        self::FORM_VALUE            => '',
-        self::FORM_ATTRIBUTE_ID     => '',
-        self::FORM_ATTRIBUTE_CLASS  => '',
-        self::FORM_NAME             => '',
-        self::FORM_ATTRIBUTE_TYPE   => ''
+        self::FORM_VALUE                => '',
+        self::FORM_ATTRIBUTE_ID         => '',
+        self::FORM_ATTRIBUTE_CLASS      => '',
+        self::FORM_NAME                 => '',
+        self::FORM_ATTRIBUTE_TYPE       => '',
+        self::FORM_ATTRIBUTE_ONCLICK    => ''
     );
 
     public function loadElement( $attributes )
@@ -32,7 +33,7 @@ class TypeButton extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<button type="TYPE" name="NAME" ID CLASS>VALUE' . "</button>\n";
+        $this->_element = '<button type="TYPE" name="NAME" onclick="ONCLICK" ID CLASS>VALUE' . "</button>\n";
     }
 
 }

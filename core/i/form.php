@@ -42,6 +42,7 @@ interface IForm
     const FORM_ATTRIBUTE_ONSUBMIT       = 'onsubmit';
     const FORM_ATTRIBUTE_ONBLUR         = 'onblur';
     const FORM_ATTRIBUTE_ONFOCUS        = 'onfocus';
+    const FORM_ATTRIBUTE_ONCLICK        = 'onclick';
     const FORM_ATTRIBUTE_SELECTED       = 'selected';
     const FORM_ATTRIBUTE_CONTEXT        = 'context';
     const FORM_ATTRIBUTE_CHECKED        = 'checked';
