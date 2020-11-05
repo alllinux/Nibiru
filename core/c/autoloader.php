@@ -268,7 +268,7 @@ class Autoloader
         foreach($modulesTraitsNames as $traitsName)
         {
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::TRAIT_FOLDER], $traitsName );
-            if($iterator!=null)
+            if($iterator!=null || is_array($iterator) || is_object($iterator))
             {
                 foreach ( $iterator as $item )
                 {
@@ -298,7 +298,7 @@ class Autoloader
         foreach($modulesClassNames as $className)
         {
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::MODULE_FOLDER], $className );
-            if($iterator!=null)
+            if($iterator!=null || is_array($iterator) || is_object($iterator))
             {
                 foreach ( $iterator as $item )
                 {
@@ -332,17 +332,21 @@ class Autoloader
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::PLUGINS_FOLDER], $pluginsName );
             foreach($pluginNames as $pluginName)
             {
-                foreach ($iterator as $item)
+                if(is_array($iterator) || is_object($iterator))
                 {
-                    if(!empty($pluginName))
+                    foreach ($iterator as $item)
                     {
-                        if(strstr($item->getFilename(), $pluginName))
+                        if (!empty($pluginName))
                         {
-                            if ($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION)) {
-                                $plugins[] = array(
-                                    'nfilename' => str_replace('.php', '', $item->getFileName()),
-                                    'filepathname' => $item->getPath() . '/' . $item->getFileName()
-                                );
+                            if (strstr($item->getFilename(), $pluginName))
+                            {
+                                if ($item->getFileName() != self::MY_FILE_NAME && $item->getFileName() != "." && $item->getFileName() != ".." && strstr($item->getFileName(), self::PHP_FILE_EXTENSION))
+                                {
+                                    $plugins[] = array(
+                                        'nfilename' => str_replace('.php', '', $item->getFileName()),
+                                        'filepathname' => $item->getPath() . '/' . $item->getFileName()
+                                    );
+                                }
                             }
                         }
                     }
