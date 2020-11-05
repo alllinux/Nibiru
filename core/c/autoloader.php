@@ -205,7 +205,7 @@ class Autoloader
             foreach ( Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::DB_MODEL_FOLDER] as $modelfolder )
             {
                 $iterator = self::folderContent( __DIR__ . $modelfolder );
-                if($iterator!=null)
+                if($iterator!=null || is_array($iterator) || is_object($iterator))
                 {
                     foreach ($iterator as $item)
                     {
@@ -238,7 +238,7 @@ class Autoloader
         foreach($moduleInterfaceNames as $interfaceName)
         {
             $iterator = self::folderContent(__DIR__ . Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::INTERFACE_FOLDER], $interfaceName);
-            if($iterator!=null)
+            if($iterator!=null || is_array($iterator) || is_object($iterator))
             {
                 foreach ( $iterator as $item )
                 {
