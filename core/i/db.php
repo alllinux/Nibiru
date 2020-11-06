@@ -66,9 +66,10 @@ interface IDb
      * @desc will return a result array from the searched where field from the database
      *       containing the entire dataset rows
      * @param array $fieldWhere
+     * @param false $sortOrder
      * @return mixed
      */
-    public function selectDatasetByFieldWhere( $fieldWhere = array() );
+    public function selectDatasetByFieldWhere( $fieldWhere = array(), $sortOrder = false );
 
     /**
      * @desc selects a row by the fieldname and the given value, should be

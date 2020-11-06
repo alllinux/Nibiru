@@ -54,9 +54,17 @@ final class Pdo extends Mysql implements IPdo
         return $query->fetchAll();
     }
 
-    public static function selectDatasetByFieldAndValue($tablename = self::PLACE_TABLE_NAME, $fieldAndValue = array() )
+    public static function selectDatasetByFieldAndValue($tablename = self::PLACE_TABLE_NAME, $fieldAndValue = array(), $sortOrder = false )
     {
-        $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . "';");
+        if(is_array($sortOrder))
+        {
+            $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . " ORDER BY ".$sortOrder['field']." ". $sortOrder['order'] ."';");
+        }
+        else
+        {
+            $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . "';");
+        }
+
         $result = $result->fetchAll();
         $resultset = [];
         if(array_key_exists(0, $result))

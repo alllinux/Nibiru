@@ -110,11 +110,12 @@ abstract class Db implements IDb
 
     /**
      * @param array $fieldWhere
-     * @return mixed|void
+     * @param false $sortOrder
+     * @return array|mixed
      */
-    public function selectDatasetByFieldWhere($fieldWhere = array())
+    public function selectDatasetByFieldWhere($fieldWhere = array(), $sortOrder = false)
     {
-        return Pdo::selectDatasetByFieldAndValue(self::$table['table'], $fieldWhere);
+        return Pdo::selectDatasetByFieldAndValue(self::$table['table'], $fieldWhere, $sortOrder);
     }
 
     /**
