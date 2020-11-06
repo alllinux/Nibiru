@@ -44,15 +44,6 @@ abstract class Db implements IDb
     }
 
     /**
-     * will return the last inserted id of the given table
-     * @return int
-     */
-    public function lastInsertId()
-    {
-        return Pdo::getLastInsertedID();
-    }
-
-    /**
      * @param bool $user_name
      * @return mixed
      */
@@ -115,6 +106,24 @@ abstract class Db implements IDb
         {
             Pdo::insertArrayIntoTable(self::$table['table'], $dataset);
         }
+    }
+
+    /**
+     * @param array $fieldWhere
+     * @return mixed|void
+     */
+    public function selectDatasetByFieldWhere($fieldWhere = array())
+    {
+        return Pdo::selectDatasetByFieldAndValue(self::$table['table'], $fieldWhere);
+    }
+
+    /**
+     * will return the last inserted id of the given table
+     * @return int
+     */
+    public function lastInsertId()
+    {
+        return Pdo::getLastInsertedID();
     }
 
     public function nextInsertIndex()

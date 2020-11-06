@@ -11,12 +11,12 @@ namespace Nibiru;
 final class Pdo extends Mysql implements IPdo
 {
     private static $section = false;
-    
+
     public static function settingsSection( $section = IOdbc::SETTINGS_DATABASE )
     {
         self::$section = $section;
     }
-    
+
     private static function getSettingsSection()
     {
         return self::$section;
@@ -57,7 +57,35 @@ final class Pdo extends Mysql implements IPdo
     public static function selectDatasetByFieldAndValue($tablename = self::PLACE_TABLE_NAME, $fieldAndValue = array() )
     {
         $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . "';");
-        return $result->fetchAll();
+        $result = $result->fetchAll();
+        $resultset = [];
+        if(array_key_exists(0, $result))
+        {
+            foreach($result as $rowset)
+            {
+                $set = [];
+                foreach($rowset as $key=>$row)
+                {
+                    if(!is_numeric($key))
+                    {
+                        $set[$key] = $row;
+                    }
+                }
+                $resultset[] = $set;
+            }
+        }
+        else
+        {
+            foreach($result as $key=>$row)
+            {
+                if(!is_numeric($row))
+                {
+                    $resultset[$key] = $row;
+                }
+            }
+        }
+
+        return $resultset;
     }
 
     public static function updateColumnByFieldWhere( $tablename = self::PLACE_TABLE_NAME,
@@ -121,14 +149,33 @@ final class Pdo extends Mysql implements IPdo
         $prepare->execute();
         $r = $prepare->fetchAll();
         $rowset = array_shift( $r );
-        foreach(array_keys($rowset) as $entry)
-        {
-            if(is_string($entry))
+        try{
+            if(is_array($rowset))
             {
-                $result[$entry] = $rowset[$entry];
+                if(sizeof($rowset)>0)
+                {
+                    foreach(array_keys($rowset) as $entry)
+                    {
+                        if(is_string($entry))
+                        {
+                            $result[$entry] = $rowset[$entry];
+                        }
+                    }
+                    return $result;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
-        return $result;
+        catch (\Exception $e)
+        {
+            echo '<pre>';
+            print_r($e);
+            echo '</pre>';
+            die();
+        }
     }
 
     /**

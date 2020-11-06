@@ -29,6 +29,7 @@ interface IDb
      * @return mixed
      */
     public function loadTableAsArray();
+
     /**
      * @desc Has to select a given Rowset by the index ID of the table
      * @param bool $id
@@ -60,6 +61,14 @@ interface IDb
      * @return mixed
      */
     public function insertArrayIntoTable( $dataset = array() );
+
+    /**
+     * @desc will return a result array from the searched where field from the database
+     *       containing the entire dataset rows
+     * @param array $fieldWhere
+     * @return mixed
+     */
+    public function selectDatasetByFieldWhere( $fieldWhere = array() );
 
     /**
      * @desc selects a row by the fieldname and the given value, should be
