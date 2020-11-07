@@ -12,11 +12,17 @@ final class Pdo extends Mysql implements IPdo
 {
     private static $section = false;
 
+    /**
+     * @param string $section
+     */
     public static function settingsSection( $section = IOdbc::SETTINGS_DATABASE )
     {
         self::$section = $section;
     }
 
+    /**
+     * @return bool
+     */
     private static function getSettingsSection()
     {
         return self::$section;
@@ -44,28 +50,10 @@ final class Pdo extends Mysql implements IPdo
 	}
 
     /**
-     * @param string $string
-     *
      * @return array
      */
-    public static function queryString( $string = self::PLACE_NO_QUERY )
+	private static function convertFetchToAssociative( array $result ): array
     {
-        $query = parent::getInstance( self::getSettingsSection() )->getConn()->query( $string );
-        return $query->fetchAll();
-    }
-
-    public static function selectDatasetByFieldAndValue($tablename = self::PLACE_TABLE_NAME, $fieldAndValue = array(), $sortOrder = false )
-    {
-        if(is_array($sortOrder))
-        {
-            $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . " ORDER BY ".$sortOrder['field']." ". $sortOrder['order'] ."';");
-        }
-        else
-        {
-            $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . "';");
-        }
-
-        $result = $result->fetchAll();
         $resultset = [];
         if(array_key_exists(0, $result))
         {
@@ -92,10 +80,54 @@ final class Pdo extends Mysql implements IPdo
                 }
             }
         }
-
         return $resultset;
     }
 
+    /**
+     * @param string $string
+     * @param bool $associative
+     * @return array
+     */
+    public static function queryString( $string = self::PLACE_NO_QUERY, $associative = false )
+    {
+        $query = parent::getInstance( self::getSettingsSection() )->getConn()->query( $string );
+        if(!$associative)
+        {
+            return $query->fetchAll();
+        }
+        else
+        {
+            return self::convertFetchToAssociative($query->fetchAll());
+        }
+    }
+
+    /**
+     * @param string $tablename
+     * @param array $fieldAndValue
+     * @param false $sortOrder
+     * @return array
+     */
+    public static function selectDatasetByFieldAndValue($tablename = self::PLACE_TABLE_NAME, $fieldAndValue = array(), $sortOrder = false )
+    {
+        if(is_array($sortOrder))
+        {
+            $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . " ORDER BY ".$sortOrder['field']." ". $sortOrder['order'] ."';");
+        }
+        else
+        {
+            $result = parent::getInstance( self::getSettingsSection() )->getConn()->query("SELECT * FROM " . $tablename . " WHERE " . $fieldAndValue['name'] . " = '" . $fieldAndValue['value'] . "';");
+        }
+
+        return self::convertFetchToAssociative($result->fetchAll());
+    }
+
+    /**
+     * @param string $tablename
+     * @param string $column_name
+     * @param string $parameter_name
+     * @param string $field_name
+     * @param string $where_value
+     */
     public static function updateColumnByFieldWhere( $tablename = self::PLACE_TABLE_NAME,
                                                     $column_name = IMysql::PLACE_COLUMN_NAME,
                                                     $parameter_name = IMysql::PLACE_SEARCH_TERM,
@@ -110,6 +142,11 @@ final class Pdo extends Mysql implements IPdo
         $insert->execute();
     }
 
+    /**
+     * @param string $tablename
+     * @param bool $id
+     * @return array
+     */
 	public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
 	{
         $result = array();
@@ -216,11 +253,20 @@ final class Pdo extends Mysql implements IPdo
         return $result;
     }
 
+    /**
+     * @return int|string
+     */
     public static function getLastInsertedID()
 	{
 		return parent::getInstance( self::getSettingsSection() )->getConn()->lastInsertId();
 	}
 
+    /**
+     * @param string $tablename
+     * @param string $limit
+     * @param string $order
+     * @return array|mixed
+     */
     public static function fetchTableAsArray( $tablename = self::PLACE_TABLE_NAME, $limit = self::PLACE_QUERY_LIMIT, $order = self::PLACE_SORT_ORDER )
     {
         if($limit != self::PLACE_QUERY_LIMIT)
