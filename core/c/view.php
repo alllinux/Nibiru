@@ -68,6 +68,10 @@ class View implements IView
         self::$engine = new \Smarty();
         self::$engine->setTemplateDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates"]);
         self::$engine->setCompileDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["templates_c"]);
+        if(array_key_exists('caching', Config::getInstance()->getConfig()[Engine::T_ENGINE]) && Config::getInstance()->getConfig()[Engine::T_ENGINE]['caching']==true)
+        {
+            self::$engine->setCaching( \Smarty::CACHING_LIFETIME_CURRENT );
+        }
         self::$engine->setCacheDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["cache"]);
         self::$engine->setConfigDir(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["config_dir"]);
         self::$engine->setDebugTemplate(__DIR__ . Config::getInstance()->getConfig()[Engine::T_ENGINE]["debug_template"] );
