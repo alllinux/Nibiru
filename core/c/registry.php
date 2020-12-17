@@ -68,8 +68,17 @@ final class Registry
         {
             if(strstr($settings->getPathName(), self::CONFIG_SETTINGS_KEY) && $settings->getFileName()!='.' && $settings->getFileName()!='..')
             {
+
+                $config_ini_name = basename($settings->getPathName());
+                $ini_file = explode('.', $config_ini_name);
+                $ini_file = $ini_file[0] . '.' . Config::getEnv() . '.' . $ini_file[1];
+                $ini_file = str_replace($config_ini_name, $ini_file, $settings->getPathName()) . "<br>";
+                if(!file_exists($ini_file))
+                {
+                    $ini_file = $settings->getPathName();
+                }
                 $module = new \stdClass();
-                $module_settings = parse_ini_file($settings->getPathName(), true);
+                $module_settings = parse_ini_file($ini_file, true);
                 if(array_key_exists(strtoupper($this->getModuleName()), $module_settings))
                 {
                     foreach ($module_settings[strtoupper($this->getModuleName())] as $key=>$value)

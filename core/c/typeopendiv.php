@@ -33,6 +33,6 @@ class TypeOpenDiv extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<div ID CLASS>' . "\n";
+        $this->_element = '<div ID CLASS>' . 'VALUE' . "\n";
     }
 }
