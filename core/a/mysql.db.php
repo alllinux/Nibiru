@@ -49,7 +49,7 @@ abstract class Db implements IDb
      */
     public function loadPasswordByUsername( $user_name = false )
     {
-        $result = Pdo::query("SELECT DES_DECRYPT(".self::TABLE['field']['user_pass'].", '" . Config::getInstance()->getConfig()[View::NIBIRU_SECURITY]["password_hash"] . "') AS ".self::TABLE['field']['user_pass']." FROM user WHERE " . self::TABLE['field']['user_name']. " = '" . $user_name . "';");
+        $result = Pdo::query("SELECT DES_DECRYPT(".self::getTable()['fields']['user_pass'].", '" . \Nibiru\Config::getInstance()->getConfig()[\Nibiru\View::NIBIRU_SECURITY]["password_hash"] . "') AS ".self::getTable()['fields']['user_pass']." FROM user WHERE " . self::getTable()['fields']['user_name']. " = '" . $user_name . "';");
         return array_shift($result);
     }
 
