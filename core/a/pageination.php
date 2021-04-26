@@ -32,7 +32,7 @@ abstract class Pageination implements IPageination
 
     private static function setUriPaginationPath()
     {
-        self::$_uri_pagination_path = '/' . Router::getInstance()->currentPage() . '/' . Controller::getInstance()->getRequest()['_action'] . '/';
+        self::$_uri_pagination_path = '/' . Router::getInstance()->currentPage() . '/' . Controller::getInstance()->getRequest("")['_action'] . '/';
     }
 
     /**
