@@ -98,7 +98,7 @@ class Model extends Table
                 $template = str_replace('[FIELDARRAY]', $fieldarray, $this->getModelTemplate());
                 $template = str_replace('[TABLE]', $table, $template);
                 $template = str_replace('[CLASSNAME]', ucfirst($classname), $template);
-                $template = str_replace('[FOLDERNAME]', ucfirst($this->getDatabase()), $template);
+                $template = str_replace('[FOLDERNAME]', ucfirst($this->getFolderNamespace()), $template);
                 $template = str_replace('[DBSECTION]', $this->getConfigSection(), $template);
 
                 if($this->getDatabaseDriver()==self::DB_DRIVER_POSTGRESS)

@@ -43,6 +43,7 @@ class Table
     private $_model_template    = "";
     private $_config_section    = "";
     private $_database_driver   = "";
+    private $_folder_namespace  = "";
 
     public function __construct( $argv )
     {
@@ -60,6 +61,7 @@ class Table
         $this->_setDatabaseDriver();
         $this->_setDatabase();
         $this->_setDbNamespace();
+        $this->_setFolderNamespace();
         $this->_setFolderOut();
         $this->_setTable();
         $this->_setTemplateFile( Config::getInstance()->getConfig()[self::CONFIG_SECTION][self::DB_CONFIG_TEMPLATE] );
@@ -92,6 +94,41 @@ class Table
             echo "\e[48;5;0m                                                                    \n";
             echo "\e[16;5;0m--------------------------------------------------------------------\n";
             die();
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFolderNamespace(): string
+    {
+        return $this->_folder_namespace;
+    }
+
+    /**
+     * @desc will convert the folder name to hungarian notation
+     */
+    private function _setFolderNamespace( ): void
+    {
+        if(strstr($this->getDatabase(), '-'))
+        {
+            $parts = explode('-', $this->getDatabase());
+            foreach($parts as $part)
+            {
+                $this->_folder_namespace .= ucfirst($part);
+            }
+        }
+        if(strstr($this->getDatabase(), '_'))
+        {
+            $parts = explode('_', $this->getDatabase());
+            foreach($parts as $part)
+            {
+                $this->_folder_namespace .= ucfirst($part);
+            }
+        }
+        if(!$this->getFolderNamespace())
+        {
+            $this->_folder_namespace = $this->getDatabase();
         }
     }
 
@@ -170,13 +207,14 @@ class Table
      */
     private function _setFolderOut( )
     {
+
         if(array_key_exists(self::DB_CONFIG_SECTION, $this->getParams()))
         {
-            $this->_folder_out = $this->getParams()[self::DB_CONFIG_SECTION_MODEL] . $this->getDatabase();
+            $this->_folder_out = $this->getParams()[self::DB_CONFIG_SECTION_MODEL] . $this->getFolderNamespace();
         }
         else
         {
-            $this->_folder_out = __DIR__ . Config::getInstance()->getConfig()[self::CONFIG_SECTION][self::DB_CONFIG_SECTION_MODEL] . $this->getDatabase();
+            $this->_folder_out = __DIR__ . Config::getInstance()->getConfig()[self::CONFIG_SECTION][self::DB_CONFIG_SECTION_MODEL] . $this->getFolderNamespace();
         }
     }
 
