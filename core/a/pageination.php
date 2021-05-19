@@ -142,11 +142,12 @@ abstract class Pageination implements IPageination
     }
 
     /**
-     * will set the entries per page
+     * @desc will set the entries per page
+     * @param int $entriesPerPage
      */
-    private static function setEntriesPerPage( )
+    public static function setEntriesPerPage( int $entriesPerPage = 0 )
     {
-        self::$_entries_per_page = Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]['entriesperpage'];
+        self::$_entries_per_page = $entriesPerPage ? $entriesPerPage : Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]['entriesperpage'];
     }
 
     /**

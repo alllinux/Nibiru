@@ -34,5 +34,7 @@ interface IMysql
 	const PLACE_WHERE_VALUE	        = "NO WHERE VALUE";
 	const PLACE_DES_ENCRYPT         = false;
     const PLACE_ENCODING            = "encoding";
+    const PLACE_SQL_UPDATE          = "UPDATE";
+    const PLACE_SQL_INSERT          = "INSERT";
 
 }

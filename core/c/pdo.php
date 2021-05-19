@@ -32,22 +32,34 @@ final class Pdo extends Mysql implements IPdo
 	 *
 	 * @return array
 	 */
-	public static function query( $string = self::PLACE_NO_QUERY )
-	{
-		$query = parent::getInstance( self::getSettingsSection() )->getConn()->query( $string );
-		while($row = $query->fetch())
-		{
-			$keys = array_keys($row);
-			for($i=0;sizeof($keys)>$i;$i += 2)
-			{
-				$row_values[] = $row[$keys[$i]];
-				$key_values[] = $keys[$i];
-			}
-			$result = array_combine($key_values, $row_values);
-		}
+    public static function query( $string = self::PLACE_NO_QUERY )
+    {
 
-		return $result;
-	}
+        if(!strstr($string, IOdbc::PLACE_SQL_UPDATE))
+        {
+            if(!strstr($string, IOdbc::PLACE_SQL_INSERT))
+            {
+                $query = parent::getInstance( self::getSettingsSection() )->getConn()->query( $string );
+                while($row = $query->fetch())
+                {
+                    $keys = array_keys($row);
+                    for($i=0;sizeof($keys)>$i;$i += 2)
+                    {
+                        $row_values[] = $row[$keys[$i]];
+                        $key_values[] = $keys[$i];
+                    }
+                    $result = array_combine($key_values, $row_values);
+                }
+
+                return $result;
+            }
+        }
+        else
+        {
+            $query = parent::getInstance( self::getSettingsSection() )->getConn();
+            $query->exec($string);
+        }
+    }
 
     /**
      * @return array

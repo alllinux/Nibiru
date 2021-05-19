@@ -87,6 +87,7 @@ class FormAttributes
         $this->_element = str_replace(' CONTEXT', '', $this->_element);
         $this->_element = str_replace(' CHECKED', '', $this->_element);
         $this->_element = str_replace(' VALUE', '', $this->_element);
+        $this->_element = str_replace(' PATTERN', '', $this->_element);
     }
 
     /**

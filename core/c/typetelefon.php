@@ -17,7 +17,8 @@ class TypeTelefon extends FormAttributes implements IForm
         self::FORM_ATTRIBUTE_CLASS          => '',
         self::FORM_ATTRIBUTE_ID             => '',
         self::FORM_ATTRIBUTE_PLACEHOLDER    => '',
-        self::FORM_ATTRIBUTE_REQUIRED       => ''
+        self::FORM_ATTRIBUTE_REQUIRED       => '',
+        self::FORM_ATTRIBUTE_PATTERN        => ''
     );
 
     public function loadElement( $attributes )
