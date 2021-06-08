@@ -78,6 +78,7 @@ class Model extends Table
                 $numItems = count($tablefields);
                 $i = 0;
                 $fieldarray = "";
+                $parameters = "";
                 foreach($this->getTables()[$table] as $field)
                 {
                     if( $i==0 )
@@ -87,15 +88,25 @@ class Model extends Table
 
                     if( ++$i === $numItems )
                     {
+                        $parameters .= "private $".$field.";\n\t";
+                        $setters .= "public function _set".str_replace('_', '', ucfirst($field))."($".$field.")\n\t{\n\t\t\$this->".$field." = $".$field.";\n\t}\n\n\t";
+                        $getters .= "public function get".str_replace('_', '', ucfirst($field))."()\n\t{\n\t\treturn \$this->".$field.";\n\t}\n\n\t";
                         $fieldarray .= "\t\t\t\t\t\t\t\t'" . $field . "' => '" . $field . "'"."\n\t\t\t\t\t\t)";
                     }
                     else
                     {
+                        $parameters .= "private $".$field.";\n\t";
+                        $setters .= "public function _set".str_replace('_', '', ucfirst($field))."($".$field.")\n\t{\n\t\t\$this->".$field." = $".$field.";\n\t}\n\n\t";
+                        $getters .= "public function get".str_replace('_', '', ucfirst($field))."()\n\t{\n\t\treturn \$this->".$field.";\n\t}\n\n\t";
                         $fieldarray .= "\t\t\t\t\t\t\t\t'" . $field . "' => '" . $field . "',\n";
                     }
 
                 }
-                $template = str_replace('[FIELDARRAY]', $fieldarray, $this->getModelTemplate());
+
+                $template = str_replace('[CLASSPARAMETERS]', $parameters, $this->getModelTemplate());
+                $template = str_replace('[FIELDARRAY]', $fieldarray, $template);
+                $template = str_replace('[SETTERS]', $setters, $template);
+                $template = str_replace('[GETTERS]', $getters, $template);
                 $template = str_replace('[TABLE]', $table, $template);
                 $template = str_replace('[CLASSNAME]', ucfirst($classname), $template);
                 $template = str_replace('[FOLDERNAME]', ucfirst($this->getFolderNamespace()), $template);
@@ -119,7 +130,6 @@ class Model extends Table
                     $template = str_replace('[ADAPTER]', self::ADAPTER_MYSQL, $template);
                     $template = str_replace('[CONNECTOR]', self::ADAPTER_PDO, $template);
                 }
-
                 if(Config::getInstance()->getConfig()[self::CONFIG_SECTION][self::DB_OVERWRITE_MODELS])
                 {
                     file_put_contents($this->getFolderOut() . '/' . $classname . self::PHP_FILE_ENDING, $template);

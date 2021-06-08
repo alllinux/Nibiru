@@ -13,6 +13,8 @@ use Nibiru\Pdo;
 class [CLASSNAME] extends Db
 {
 
+    [CLASSPARAMETERS]
+
     const TABLE = array(
         'table'     => '[TABLE]',
         'fields'    =>  [FIELDARRAY]
@@ -28,5 +30,16 @@ class [CLASSNAME] extends Db
     {
         return self::TABLE;
     }
-
+    /**
+     * @desc This are the class wide setters
+     *       currently this is what is needed in order
+     *       to run some addition
+     */
+    [SETTERS]
+    /**
+      * @desc This are the class wide getters
+      *       currently this is what is needed in order
+      *       to run some addition
+      */
+    [GETTERS]
 }
