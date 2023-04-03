@@ -1,17 +1,22 @@
 <?php
-
 namespace Nibiru\Model\[FOLDERNAME];
 use Nibiru\Adapter\[ADAPTER]\Db;
 use Nibiru\Pdo;
 
 /**
- * Created by PhpStorm.
- * User: kasdorf
- * Date: 10.11.17
- * Time: 09:38
+ * Class         [TABLE]Model
+ * @package      Nibiru
+ * @author       Stephan Kasdorf
+ * @date         03.04.23
+ * @copyright:   2023 Nibiru Framework, you may copy the code,
+ *               but have to inform the author about where it
+ *               is used. So happy copying.
+ * @licence:     BSD 4-Old License
  */
 class [CLASSNAME] extends Db
 {
+
+    [CLASSPARAMETERS]
 
     const TABLE = array(
         'table'     => '[TABLE]',
@@ -28,5 +33,16 @@ class [CLASSNAME] extends Db
     {
         return self::TABLE;
     }
-
+    /**
+     * @desc This are the class wide setters
+     *       currently this is what is needed in order
+     *       to run some addition
+     */
+    [SETTERS]
+    /**
+      * @desc This are the class wide getters
+      *       currently this is what is needed in order
+      *       to run some addition
+      */
+    [GETTERS]
 }
