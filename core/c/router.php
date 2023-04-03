@@ -70,7 +70,7 @@ class Router extends Config
 	/**
 	 * @return mixed
 	 */
-	public function getRoutes()
+	public static function getRoutes()
 	{
 		return self::$_routes;
 	}

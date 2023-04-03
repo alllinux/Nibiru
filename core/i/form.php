@@ -50,6 +50,8 @@ interface IForm
     const FORM_ATTRIBUTE_TABINDEX       = 'tabindex';
     const FORM_ATTRIBUTE_DISABLED       = 'disabled';
     const FORM_ATTRIBUTE_PATTERN        = 'pattern';
+    const FORM_ATTRIBUTE_ANY            = 'any';
+    const FORM_ATTRIBUTE_HREF           = 'href';
 
     /**
      * @desc loads the current Form element to the form

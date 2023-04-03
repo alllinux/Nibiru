@@ -2,7 +2,9 @@
 namespace Nibiru\Factory;
 use Nibiru\Form\TypeButton;
 use Nibiru\Form\TypeCheckbox;
+use Nibiru\Form\TypeCloseAny;
 use Nibiru\Form\TypeCloseDiv;
+use Nibiru\Form\TypeCloseSpan;
 use Nibiru\Form\TypeColor;
 use Nibiru\Form\TypeDatetime;
 use Nibiru\Form\TypeEmail;
@@ -11,7 +13,9 @@ use Nibiru\Form\TypeHidden;
 use Nibiru\Form\TypeImageSubmit;
 use Nibiru\Form\TypeLabel;
 use Nibiru\Form\TypeNumber;
+use Nibiru\Form\TypeOpenAny;
 use Nibiru\Form\TypeOpenDiv;
+use Nibiru\Form\TypeOpenSpan;
 use Nibiru\Form\TypeOption;
 use Nibiru\Form\TypePassword;
 use Nibiru\Form\TypeRadio;
@@ -505,5 +509,26 @@ class Form
     {
         self::setElement( new TypeCloseDiv() );
         self::assemble( self::getElement()->loadElement( false ) );
+    }
+
+    /**
+     * @desc adds an opening span to the form element
+     * @param $attributes
+     * @return void
+     */
+    public static function addOpenAny( $attributes )
+    {
+        self::setElement( new TypeOpenAny() );
+        self::assemble( self::getElement()->loadElement( $attributes ));
+    }
+
+    /**
+     * @desc adds a closing span to the form element
+     * @return void
+     */
+    public static function addCloseAny( $attributes )
+    {
+        self::setElement( new TypeCloseAny() );
+        self::assemble( self::getElement()->loadElement( $attributes ));
     }
 }

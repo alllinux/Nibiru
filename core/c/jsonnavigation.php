@@ -137,61 +137,43 @@ class JsonNavigation extends Config
 		}
 	}
 
-	/**
-	 * Loads the navigation from a json file into
-	 * the view, making the variables available
+    /**
+     * Loads the navigation from a json file into
+     * the view, making the variables available
      * @param string $name
      */
-	public function loadJsonNavigationArray( string $name = '' )
-	{
-		if( $name )
-		{
-			self::$_navigation_array = array();
-			self::setSectionName( $name );
-			self::setName( $name );
-			parent::getInstance();
-			self::setFileContentString();
-			self::setFileContentArray();
-			self::setNavigation();
-		}
-		$nav = self::getNavigation();
-		foreach ( $nav as $item => $value)
-		{
-			if($item == self::getSectionName())
-			{
-				$keys = array_keys($value);
-				for($i=0; sizeof($keys)>$i;$i++)
-				{
-					if(array_key_exists('link', $value[$keys[$i]]))
-					{
-						self::$_navigation_array[] = array(
-							'title'   => $keys[$i],
-							'icon'    => $value[$keys[$i]]["icon"],
-							'link'    => $value[$keys[$i]]["link"],
-							'tooltip' => $value[$keys[$i]]["tooltip"],
-                            'footer'  => $value[$keys[$i]]['footer']
-						);	
-					}
-					elseif(array_key_exists('onclick', $value[$keys[$i]]))
-					{
-						self::$_navigation_array[] = array(
-							'title'   => $keys[$i],
-							'icon'    => $value[$keys[$i]]["icon"],
-							'tooltip' => $value[$keys[$i]]["tooltip"],
-							'onclick' => $value[$keys[$i]]["onclick"],
-                            'footer'  => $value[$keys[$i]]['footer']
-						);
-					}					
-				}
-			}
-		}
-		if( $name )
-		{
-			View::getInstance()->getEngine()->assignGlobal(self::getName(), self::$_navigation_array);
-		}
-		else
-		{
-			View::getInstance()->getEngine()->assignGlobal("navigationJson", self::$_navigation_array);
-		}
-	}
+    public function loadJsonNavigationArray( string $name = 'navigation' )
+    {
+        self::$_navigation_array = array();
+        self::setSectionName( $name );
+        self::setName( $name );
+        parent::getInstance();
+        self::setFileContentString();
+        self::setFileContentArray();
+        self::setNavigation();
+        $nav = self::getNavigation();
+        foreach ( $nav as $item => $value)
+        {
+            if($item == self::getSectionName())
+            {
+                $keys = array_keys($value);
+                for($i=0; sizeof($keys)>$i;$i++)
+                {
+                    $fields = [];
+                    $fieldKeys=array_keys($value[$keys[$i]]);
+                    $fields['title']=$keys[$i];
+
+                    foreach ($fieldKeys as $fieldKey)
+                    {
+                        if(array_key_exists($fieldKey, $value[$keys[$i]]))
+                        {
+                            $fields[$fieldKey]=$value[$keys[$i]][$fieldKey];
+                        }
+                    }
+                    self::$_navigation_array[] = $fields;
+                }
+            }
+        }
+        View::getInstance()->getEngine()->assignGlobal(self::getName(), self::$_navigation_array);
+    }
 }

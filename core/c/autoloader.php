@@ -138,9 +138,22 @@ class Autoloader
     {
         foreach (self::getFilesInFoler() as $file)
         {
-            $required[] = $file;
-            require_once $file;
+            if(!strstr($file, self::PLUGINS_FOLDER))
+            {
+                $required[] = $file;
+                require_once $file;
+            }
+            else
+            {
+                $plugins[] = $file;
+            }
         }
+        foreach($plugins as $plugin)
+        {
+            $required[] = $plugin;
+            require_once $plugin;
+        }
+
         if(self::isDebug())
         {
             View::getInstance()->assign(

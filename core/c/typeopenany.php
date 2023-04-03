@@ -8,12 +8,14 @@ use Nibiru\Adapter;
  * File:        typeopendiv.php
  * Date:        05.09.20
  */
-class TypeOpenDiv extends FormAttributes implements IForm
+class TypeOpenAny extends FormAttributes implements IForm
 {
     private $_attributes = array(
         self::FORM_VALUE            => '',
         self::FORM_ATTRIBUTE_ID     => '',
-        self::FORM_ATTRIBUTE_CLASS  => ''
+        self::FORM_ATTRIBUTE_CLASS  => '',
+        self::FORM_ATTRIBUTE_ANY    => '',
+        self::FORM_ATTRIBUTE_HREF   => ''
     );
 
     /**
@@ -33,6 +35,6 @@ class TypeOpenDiv extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<div ID CLASS>' . 'VALUE' . "\n";
+        $this->_element = '<ANY href="HREF" ID CLASS>' . 'VALUE' . "\n";
     }
 }

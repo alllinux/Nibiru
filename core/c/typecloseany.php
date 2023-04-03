@@ -8,16 +8,24 @@ use Nibiru\Adapter;
  * File:        typeclosediv.php
  * Date:        05.09.20
  */
-class TypeCloseDiv extends FormAttributes implements IForm
+class TypeCloseAny extends FormAttributes implements IForm
 {
+    private $_attributes = array(
+        self::FORM_VALUE            => '',
+        self::FORM_ATTRIBUTE_ID     => '',
+        self::FORM_ATTRIBUTE_CLASS  => '',
+        self::FORM_ATTRIBUTE_ANY    => ''
+    );
+
     /**
      * @param $attributes
      * @return mixed
      */
     public function loadElement($attributes)
     {
-        parent::__construct( );
+        parent::__construct( $this->_attributes );
         $this->_setElement();
+        $this->_setAttributes( self::loadAttributeValues( $attributes ) );
         return $this->getElement();
     }
 
@@ -26,6 +34,6 @@ class TypeCloseDiv extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '</div>' . "\n";
+        $this->_element = '</ANY>' . "\n";
     }
 }

@@ -67,6 +67,7 @@ class FormAttributes
         $this->_element = str_replace(' maxlength="MAXLENGTH"', '', $this->_element);
         $this->_element = str_replace(' min="MIN"', '', $this->_element);
         $this->_element = str_replace(' max="MAX"', '', $this->_element);
+        $this->_element = str_replace(' href="HREF"', '', $this->_element);
         $this->_element = str_replace(' step="STEP"', '', $this->_element);
         $this->_element = str_replace(' tabindex="TABINDEX"', '', $this->_element);
         $this->_element = str_replace(' SPEECH', '', $this->_element);
@@ -88,6 +89,7 @@ class FormAttributes
         $this->_element = str_replace(' CHECKED', '', $this->_element);
         $this->_element = str_replace(' VALUE', '', $this->_element);
         $this->_element = str_replace(' PATTERN', '', $this->_element);
+        $this->_element = str_replace('ANY', '', $this->_element);
     }
 
     /**

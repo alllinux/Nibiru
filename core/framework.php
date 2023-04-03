@@ -83,6 +83,8 @@ require_once __DIR__ . '/c/typeurl.php';
 require_once __DIR__ . '/c/typelabel.php';
 require_once __DIR__ . '/c/typeopendiv.php';
 require_once __DIR__ . '/c/typeclosediv.php';
+require_once __DIR__ . '/c/typeopenany.php';
+require_once __DIR__ . '/c/typecloseany.php';
 require_once __DIR__ . '/i/view.php';
 require_once __DIR__ . '/c/view.php';
 require_once __DIR__ . '/i/controller.php';

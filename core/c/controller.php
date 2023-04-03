@@ -25,9 +25,10 @@ class Controller extends View
     protected function __construct()
     {
         $this->_setConfig(Config::getInstance()->getConfig());
+        $this->_setController();
     }
 
-    public static function getInstance(): View
+    public static function getInstance(): View|Controller
     {
         $className = get_called_class();
         if( self::$_instance == null )
@@ -54,19 +55,29 @@ class Controller extends View
     }
 
     /**
+     * @desc will return the current controller name
      * @return string
      */
-    public function getController()
+    public function getController(): string
     {
         return $this->_controller;
     }
 
     /**
+     * @desc will set the current controller name
      * @param string $controller
      */
-    protected function setController( $controller )
+    protected function _setController( string $controller = "" )
     {
-        $this->_controller = $controller;
+        if($controller!="")
+        {
+            $this->_controller = $controller;
+        }
+        else
+        {
+            $url = explode("/", $_SERVER['REQUEST_URI']);
+            $this->_controller = $url[1];
+        }
     }
 
     /**
