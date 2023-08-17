@@ -1,160 +1,95 @@
-# Nibiru 
-### Rapid Prototyping PHP Framework
-Version 0.9.5 beta
-## Introduction
 
-<div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">Nibiru is a rapid prototyping framework written in PHP and based on the MVC design pattern. Now one may say that writing <br>
-another framework is not cool because there are so many, such as Symphony, ZendFramework ( where as I have prefered the<br>
-first version of that framework ), Laravel, etc.. But let's be honest they are complete overkill for smaller projects and<br>
-are not fit to quick start your "own" development.</div>
+# nibiru framework :rocket:
 
-<div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">That is why I have started my own little framework and am happy to provide the first version of Nibiru, in the version 0.1,<br>
-there is still a lot of work to be done in refactoring the core features for the View, Controller and the main Template<br>
-Engine Implementation.</div>
+Welcome to the **nibiru framework**, a powerful MMVC (Modular Model-View-Controller) PHP Framework designed specifically for rapid prototyping. Whether you're building a quick prototype or a large-scale application, **nibiru framework** provides the tools and structure you need to get up and running in no time.
 
-<div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 12px; margin-bottom: 15px;">
-<h1>Currently supported features</h1><br>
-<ul>
-<li>Controller, Model, View ( already tested )</li>
-<li>Smarty template engine ( already tested )</li>
-<li>Dwoo template engine ( untested )</li>
-<li>Twig template engine ( untested )</li>
-<li>PDO adapter to the MySQL database</li>
-<li>PDO adapter to the Postgress database</li>
-<li>ODBC adapter to the Postgress database</li>
-<li>Autogenerator for models corresponding to the database tables</li>
-<ol>
-<li>read datasets from a complete table</li>
-<li>read datasets by selection from a table</li>
-<li>write datasets by array into a table</li>
-</ol>
-<li>Bootstrap template of a dashboard</li>
-<li>Example page, on how to setup a View and Controller</li>
-<li>Example page, on how to setup a navigation with a json file</li>
-<li>Debugbar access through the configuration, sould be set to true in order to use it</li>
-</ul>
-<h1>In progress for the next version</h1>
-<ul>
-<li>framework documentation</li>
-<li>class documentation</li>
-<li>soap interface to a given SOAP server (canceled, not needed to old)</li>
-<li>bitcoin api, and payment gateway</li>
-<li>Dwoo tempalte engine tests</li>
-<li>Twig tempalte engine tests</li>
-<li>Database access functionallity for the db.php Factory</li>
-</ul>
+## What is MMVC PHP Framework for rapid prototyping?
 
-<p>Version 0.2 beta 19.07.2017</p>
-<ul>
-    <li>Dispatcher update now supports actions within Controllers</li>
-    <li>Main Framework call moved to the framework file</li>
-    <li>Added support for ODBC in a basic Postgress class</li>
-    <li>Updated the router and added a static printstufftoscreen call</li>
-</ul>
-<p>Still in progress for the next version</p>
-<ul>
-<li>framework documentation</li>
-<li>class documentation</li>
-<li>soap interface to a given SOAP server (canceled, not needed to old)</li>
-<li>bitcoin api, and payment gateway</li>
-<li>Dwoo tempalte engine tests</li>
-<li>Twig tempalte engine tests</li>
-</ul>
+MMVC in the **nibiru framework** stands for Modular Model-View-Controller. Modules, have the `observer` pattern, and are comprehensive entities that encompass not just the MVC components but also traits, interfaces, plugins, and settings. These modules are designed for loose coupling, promoting modularity and ease of integration. Each module can be loaded through its namespace, offering a flexible way to add and manage functionalities in your application. The built-in observer ensures seamless communication between these modules.
 
-<p>Version 0.3 beta 04.02.2018</p>
-<ul>
-<li>Improved: The Router now accepts actions, either trough the _action as parameter, or on the URL pattern after the controller name Example: http://youdomain/[controllername]/[actionname]/</li>
-<li>It is now possible to load as many navigations on the page as wanted by passing the name to the <br>JsonNavigation::getInstance()->loadJsonNavigationArray('[NAME]'); <br>call in the navigationAction of the Controller</li>
-<li>Building forms by simple adding the namespace<br> use Nibiru\Factory\Form; <br>and calling Example:<br> Form::addInputTypeText( array( 'name' => 'lastname', 'value' => 'placeholder' ) );<br> To finalize the form the last call should be something like this:<br>Form::addForm( array('name' => 'testform', 'method' => 'post', 'action' => '/' . Router::getInstance()->currentPage(), 'target' => '_self') );</li>
-<li>The Database design has fully been refactored, now it contains an autoloading mechanism which can be triggert by createing a database folder in the application folder, a Example file is in the folder applicatoin/database</li>
-<li>The Database access can now be implemented anywhere in your application by adding the namespace to your database accessing Logic:<br>use Nibiru\Factory\Db;</li>
-</ul>
-</div>
-<p>Version 0.3.5 beta 14.03.2018</p>
-<ul>
-<li>Bugfix on the Router, now the currentPage will be returned correctly.</li>
-<li>Update for the database adapter, a detailed instruction on how to use it will be within the soon comming documentation</li>
-<li>Improvement of the form elements, those now are able to also swap div layers around a field, as well as correct labeling</li>
-<li>Added missing form elements, migration to a Form factory, in order to easy configure and install a form anywhere you like</li>
-<li>Minor bugfixing</li>
-</ul>
+## nibiru Binary Command-Line Tool
 
-<p>Version 0.4.0 beta 28.08.2018</p>
-<ul>
-<li>Minor update concerning the autoloading class in the core, now it is also possible to give a loading order through the configuration</li>
-<li>Minor update concerning the form factory classes in the core, now some javascript events are implemented as well, another update concerning functinoallity will follow soon.</li>
-<li>Update on the example configuration file, implementing the autoloading order of interfaces, moduels and traits.</li>
-<li>Update for multidatabase support, see the documentation on http://www.nibiru-framework.com</li>
-</ul>
+```plaintext
+  _   _ _ _     _              ______                                           _    
+ | \ | (_) |   (_)            |  ____|                                         | |   
+ |  \| |_| |__  _ _ __ _   _  | |__ _ __ __ _ _ __ ___   _____      _____  _ __| | __
+ | . ` | | '_ \| | '__| | | | |  __| '__/ _` | '_ ` _ \ / _ \ \ /\ / / _ \| '__| |/ /
+ | |\  | | |_) | | |  | |_| | | |  | | | (_| | | | | | |  __/\ V  V / (_) | |  |   < 
+ |_| \_|_|_.__/|_|_|   \__,_| |_|  |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_
+----------------------------------------------------------------------------------------------
 
-<h1>Bugfixing</h1>
-<p>Version 0.6.1 beta 04.01.2019</p>
-<ul>
-<li>Bugfix for the pagination in the core files, used not to work on more then three pages, is now fixed.</li>
-</ul>
+Usage: ./nibiru [-m <module_name>] [-c <controller_name>] [-h]
 
-<h1>Previous version</h1>
-<p>Version 0.6.0 beta 05.12.2018</p>
-<ul>
-<li>Added a Pagination to the core it now can be used like in the template file Example, the class just needs to be extended by the module that should have a pageination (e.g. a Blog Module)</li>
-<li>Some extensions for the Routing option, in order to parmeterize the url.</li>
-<li>Name fixing.</li>
-<li>Added an additional attribute for the navigation, so the navigation position can be set to footer.</li>
-<li>A soap extension will not be part of the system anymore, since that is just a bad habit, so this will be replaced with a REST api.</li>
-</ul>
+  -m {name}: create a new module with the given name.
+  -c {name}: create a new controller with the given name.
+  -p {name} -m {name}: create a new plugin with the given name in the given name for the module.
+  -cache-clear: will clear the cache of the applications template_c folder.
+  -s: check framework folders and permissions, and set them if they are not present.
+  -mi {local|staging|production}: run migration files from application/settings/config/database/.
+  -mi-reset {local|staging|production}: will reset the migrations table, use only if you know what you are doing.
+  -mi-reset-file {filename} {local|staging|production}: will reset the migration entry for a filename e.g. mytable.sql, use only if you know what you are doing.
+  -h: display this help message.
+  -version or -v: display the version of the nibiru binary, and the current framework version.
 
-<p>Version 0.7.0 beta 27.01.2018</p>
-<ul>
-<li>Class generator for the database models can now be used, and are configured in the settings file</li>
-<li>A bug in the debug core class has been corrected</li>
-<li>Implemented the pgsql driver from PHP</li>
-<li>Added a configuration parameter for useing either the ODBC, or the PGSQL-PHP database driver</li>
-<li>It is possible to now generate the database models even if they already exisit, by configuring overwrite in the configuration</li>
-<li>Added multithreading for postgres</li>
-<li>Added charset configuration for the database settings</li>
-<li>Added a class mask file in the settings folder in order to have the chance to pre-configure the autmatic generated database model files.</li>
-</ul>
+```
 
-<p>Version 0.7.0 beta</p>
-<ul>
-<li>Add autoated class generator for MySQL database models</li>
-</ul>
+For a more detailed explanation and additional functionalities, please refer to the [official documentation](https://nibiru-framework.com).
 
-<p>Version 0.9.3 beta 09.11.2019</p>
-<ul>
-    <li>Autoloader is now supporting a better module structure</li>
-    <li>Some minor bugfixes</li>
-    <li>Updated the annotations for better autocompletion</li>
-    <li>removed the Twig and Dwoo engines, they are not needed anymore</li>
-</ul>
-<p>Version 0.9.4.3</p>
-<ul>
-    <li>Database is.active switch in the configuration file</li>
-    <li>minor bugfix in the Postgress Database Adapter</li>
-    <li>added .gitignore file</li>
-    <li>added section to the settings.development.ini</li>
-</ul>
-<h1>TODO</h1>
-<p>Still in progress for the next version</p>
-<ul>
-<li>framework documentation</li>
-<li>class documentation</li>
-<li>soap interface to a given SOAP server (canceled, not needed to old)</li>
-<li>bitcoin api, and payment gateway</li>
-</ul>
-<h1>Update</h1>
-<p>Version 0.9.5</p>
-<ul>
-    <li>Added Autogenerator for database tables</li>
-    <li>Fixed some minor bug in the db.class.mask</li>
-</ul>
-<h1>TODO</h1>
-<p>Still in progress for the next version</p>
-<ul>
-<li>framework documentation</li>
-<li>class documentation</li>
-<li>bitcoin api, and payment gateway</li>
-</ul>
+## Database Migrations
 
-<div style="word-spacing: 2px; letter-spacing: 0.1px; font-size: 15px; margin-bottom: 15px;">The start is done, have success with PHP prototyping, and always remember to have fun!</div>
-Author: Stephan Kasdorf<br><br>
+In the **nibiru framework**, database migrations play a crucial role in managing and versioning your database schema. Migrations allow developers to define sets of changes that modify the database schema, making it easier to track, roll back, or apply updates as needed.
+
+With the `nibiru` binary tool, managing these migrations becomes even more effortless:
+
+- `./nibiru -mi {environment}`: This command allows you to run migration files from the `application/settings/config/database/` directory for a specific environment (`local`, `staging`, or `production`).
+- `./nibiru -mi-reset {environment}`: Use this command with caution. It resets the migrations table, effectively allowing you to start fresh with your migrations.
+- `./nibiru -mi-reset-file {filename} {environment}`: If you need to reset a specific migration entry, this command lets you target a particular filename, such as `mytable.sql`, for a given environment.
+
+It's essential to use migrations to ensure that your database schema remains consistent across different environments and stages of your application's lifecycle.
+
+## Generating Controllers
+
+Using the `nibiru` binary tool, developers can effortlessly generate controllers for their applications:
+
+- `./nibiru -c {controller_name}`: This command will create a new controller with the specified name.
+
+Upon generation, the controller will be located in:
+
+```
+/application/controllers/{controller_name}.php
+```
+
+Additionally, a corresponding view file will be generated and placed in:
+
+```
+/application/views/{controller_name}/
+```
+
+This structure ensures that the logic in the controller and its associated views are neatly organized and easy to manage.
+
+## Generating Modules
+
+The `nibiru` binary tool also facilitates the generation of modules:
+
+- `./nibiru -m {module_name}`: This command will create a new module with the given name.
+
+The generated module will have its own directory structure, encompassing traits, interfaces, plugins, settings, and a main PHP file. The structure will resemble:
+
+```
+/modules/{module_name}/
+    ├── {module_name}.php
+    ├── interfaces/
+    ├── plugins/
+    ├── settings/
+    └── traits/
+```
+
+This modular approach allows for clear separation of concerns and promotes scalability and maintainability of the application.
+
+## Credits
+
+Created by Stephan Kasdorf, 2023
+
+---
+
+Happy Coding! :computer:
