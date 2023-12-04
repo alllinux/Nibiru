@@ -219,17 +219,64 @@ class Controller extends View
     /**
      * @param string $param
      * @param bool $params
+     * @param bool $checkForActiveSession
      * @return string|array
      */
-    public function getSession( string $param, bool $params = false )
+    public function getSession( string $param, bool $params = false, bool $checkForActiveSession = false ): string|array
     {
-        if($param!="")
+        if($checkForActiveSession)
         {
-            return $_SESSION[$param];
+            if(session_status() == PHP_SESSION_DISABLED || sizeof($_SESSION) == 0)
+            {
+                return IController::SESSION_DISABLED;
+            }
+            elseif(session_status() == PHP_SESSION_NONE && sizeof($_SESSION) == 0)
+            {
+                return IController::SESSION_DISABLED;
+            }
+            else
+            {
+                return IController::SESSION_ACTIVE;
+            }
         }
-        elseif($params)
+        else
         {
-            return $_SESSION;
+            if($param!="")
+            {
+                if(session_status() == PHP_SESSION_NONE)
+                {
+                    session_start();
+                }
+                if(session_status() == PHP_SESSION_ACTIVE)
+                {
+                    if (array_key_exists($param, $_SESSION))
+                    {
+                        if($_SESSION[$param] != null)
+                        {
+                            return $_SESSION[$param];
+                        } else {
+                            return IController::SESSION_KEY_VALUE_NOT_FOUND;
+                        }
+                    } else {
+                        return IController::SESSION_KEY_NOT_FOUND;
+                    }
+                }
+                else
+                {
+                    return IController::SESSION_DISABLED;
+                }
+            }
+            elseif($params)
+            {
+                if(session_status() == PHP_SESSION_ACTIVE)
+                {
+                    return $_SESSION;
+                }
+                else
+                {
+                    return IController::SESSION_DISABLED;
+                }
+            }
         }
     }
 }

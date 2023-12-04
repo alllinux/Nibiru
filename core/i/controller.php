@@ -10,20 +10,24 @@ namespace Nibiru;
  */
 interface IController
 {
-	const START_CONTROLLER_NAME = "index";
-	
-	/**
-	 * This should be part of any extended controller
-	 * class in order to implement a page structure
-	 * @return array
-	 */
-	public function pageAction();
+    const START_CONTROLLER_NAME = "index";
+    const SESSION_ACTIVE = 'SESSION ACTIVE';
+    const SESSION_DISABLED = 'SESSION DISABLED';
+    const SESSION_KEY_NOT_FOUND = 'KEY NOT FOUND';
+    const SESSION_KEY_VALUE_NOT_FOUND = 'KEY VALUE NOT FOUND';
 
-	/**
-	 * This is the part where you can add titles to
-	 * your page navigation.
-	 */
+    /**
+     * This should be part of any extended controller
+     * class in order to implement a page structure
+     * @return array
+     */
+    public function pageAction();
 
-	public function navigationAction();
+    /**
+     * This is the part where you can add titles to
+     * your page navigation.
+     */
+
+    public function navigationAction();
 
 }
