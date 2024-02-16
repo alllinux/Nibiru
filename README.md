@@ -23,11 +23,13 @@ Usage: ./nibiru [-m <module_name>] [-c <controller_name>] [-h]
   -m {name}: create a new module with the given name.
   -c {name}: create a new controller with the given name.
   -p {name} -m {name}: create a new plugin with the given name in the given name for the module.
+                       add -g switch if a Graylog Server present.
   -cache-clear: will clear the cache of the applications template_c folder.
   -s: check framework folders and permissions, and set them if they are not present.
   -mi {local|staging|production}: run migration files from application/settings/config/database/.
   -mi-reset {local|staging|production}: will reset the migrations table, use only if you know what you are doing.
   -mi-reset-file {filename} {local|staging|production}: will reset the migration entry for a filename e.g. mytable.sql, use only if you know what you are doing.
+  -ws {URL} -wp {PORT}: connect to a WebSocket at the given URL and port.
   -h: display this help message.
   -version or -v: display the version of the nibiru binary, and the current framework version.
 
