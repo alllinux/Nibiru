@@ -9,6 +9,7 @@ require_once __DIR__ . '/../i/db.php';
  * User: kasdorf
  * Date: 10.11.17
  * Time: 09:44
+ * @deprecated - this class is deprecated, use the auto autoloader instead (c/auto.php)
  */
 class Autoloader
 {

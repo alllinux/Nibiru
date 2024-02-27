@@ -11,5 +11,5 @@ namespace Nibiru\Adapter;
  */
 interface IVersion
 {
-    const NIBIRU_VERSION = "0.9.7";
+    const NIBIRU_VERSION = "1.0.0";
 }
