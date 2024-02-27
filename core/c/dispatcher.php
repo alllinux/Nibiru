@@ -7,8 +7,8 @@
  */
 
 namespace Nibiru;
-use Nibiru\Autoloader\Autoloader;
-require_once __DIR__ . '/../c/autoloader.php';
+use Nibiru\Auto\Auto;
+require_once __DIR__ . '/../c/auto.php';
 
 final class Dispatcher
 {
@@ -38,7 +38,8 @@ final class Dispatcher
         }
         Router::getInstance();
         Router::getInstance()->route();
-        Autoloader::getInstance()->runRequireOnce();
+        Auto::loader()->loadModelFiles();
+        Auto::loader()->loadModules();
         if(is_file(__DIR__ . '/../../application/controller/' . Router::getInstance()->tplName() . 'Controller.php'))
         {
             require_once __DIR__ . '/../../application/controller/' . Router::getInstance()->tplName() . 'Controller.php';

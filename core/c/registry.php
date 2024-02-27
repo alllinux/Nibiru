@@ -8,7 +8,7 @@ namespace Nibiru;
  * @category  - [PLEASE SPECIFIY]
  * @license   - BSD License
  */
-use Nibiru\Autoloader\Autoloader;
+use Nibiru\Auto\Auto;
 
 final class Registry
 {
@@ -47,7 +47,7 @@ final class Registry
      */
     private function _setModulesPath( ): void
     {
-        $this->_modules_path = __DIR__ . str_replace(Autoloader::REGEX_PATH_NAME, '', Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::CONFIG_MODULE_KEY]);
+        $this->_modules_path = __DIR__ . str_replace(Auto::REGEX_PATH_NAME, '', Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS][self::CONFIG_MODULE_KEY]);
     }
 
     /**
@@ -114,7 +114,7 @@ final class Registry
      */
     private function loadModuleRegistry(): void
     {
-        foreach(Config::getInstance()->getConfig()[Autoloader::SETTINGS_SECTION][Autoloader::SETTINGS_CLASS_POS] as $module)
+        foreach(Config::getInstance()->getConfig()[Auto::SETTINGS_SECTION][Auto::SETTINGS_CLASS_POS] as $module)
         {
             $this->_setModuleName($module);
         }
