@@ -13,7 +13,8 @@ class TypeSearch extends FormAttributes implements IForm
 {
     private $_attributes = array(
         self::FORM_ATTRIBUTE_CLASS  => '',
-        self::FORM_ATTRIBUTE_ID     => ''
+        self::FORM_ATTRIBUTE_ID     => '',
+        self::FORM_ATTRIBUTE_PLACEHOLDER    => ''
     );
 
     public function loadElement( $attributes )
@@ -29,7 +30,7 @@ class TypeSearch extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<input type="search" ID CLASS>' . "\n";
+        $this->_element = '<input type="search" placeholder="PLACEHOLDER" ID CLASS>' . "\n";
     }
 
 
