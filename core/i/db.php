@@ -10,6 +10,14 @@ namespace Nibiru\Adapter;
 interface IDb
 {
     /**
+     * @desc will update the a row with the $rowset parameter by the given id
+     * @param array $rowData
+     * @param int $id
+     * @return mixed
+     */
+    public function updateRowById( array $rowData, int $id );
+
+    /**
      * @desc updates a row by a given field and field where search value
      * @param false $wherefield
      * @param false $wherevalue

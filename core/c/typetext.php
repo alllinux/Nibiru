@@ -21,7 +21,9 @@ class TypeText extends FormAttributes implements IForm
         self::FORM_ATTRIBUTE_REQUIRED       => '',
         self::FORM_ATTRIBUTE_MAXLENGTH      => '',
         self::FORM_ATTRIBUTE_TABINDEX       => '',
-        self::FORM_ATTRIBUTE_DISABLED       => ''
+        self::FORM_ATTRIBUTE_DISABLED       => '',
+        self::FORM_ATTRIBUTE_TS_DECIMALS    => '',
+        self::FORM_ATTRIBUTE_TS_STEPS       => ''
     );
     
     public function loadElement( $attributes )
@@ -37,7 +39,7 @@ class TypeText extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<input type="text" name="NAME" value="VALUE" placeholder="PLACEHOLDER" maxlength="MAXLENGTH" tabindex="TABINDEX" required="REQUIRED" disabled="DISABLED" SPEECH ID CLASS>' . "\n";
+        $this->_element = '<input type="text" name="NAME" value="VALUE" placeholder="PLACEHOLDER" maxlength="MAXLENGTH" tabindex="TABINDEX" required="REQUIRED" disabled="DISABLED" data-bts-decimals="DATA-BTS-DECIMALS" data-bts-step="DATA-BTS-STEP" SPEECH ID CLASS>' . "\n";
     }
     
     

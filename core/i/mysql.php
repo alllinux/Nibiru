@@ -15,6 +15,7 @@ interface IMysql
 	const PLACE_NO_QUERY            = "NO QUERY";
 	const NO_ID                     = false;
 	const PLACE_TABLE_NAME          = "NO TABLENAME";
+	const PLACE_ARRAY_NAME          = "NO ARRAY";
     const PLACE_QUERY_LIMIT	        = "NO LIMIT";
     const PLACE_SORT_ORDER	        = "NO ORDER";
 	const PLACE_DSN                 = "NO CONNECTION STRING";
