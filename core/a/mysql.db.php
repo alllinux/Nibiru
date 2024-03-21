@@ -72,9 +72,21 @@ abstract class Db implements IDb
     }
 
     /**
-     * @param array $rowset
-     * @param bool $id
-     * @return mixed|void
+     * @desc will update the a row with the $rowset parameter by the given id
+     * @param array $rowData
+     * @param int $id
+     * @return bool
+     */
+    public function updateRowById(array $rowData, int $id): bool
+    {
+        return Pdo::updateRowById( self::getTable()['table'], self::getTable()['fields'], $rowData, $id );
+    }
+
+    /**
+     * @desc inserts a rowset into the table, by the given nextInsertIndex return
+     * @param $rowset
+     * @param $id
+     * @return void
      */
     public function insertRowsetById($rowset = array(), $id = false)
     {
@@ -95,16 +107,17 @@ abstract class Db implements IDb
      * @desc inserts an array into the database as on of the fields may be encrypted, but it has to be a varbinary field 
      * @param array $dataset
      * @param bool $encrypted
+     * @return bool
      */
-    public function insertArrayIntoTable($dataset = array(), $encrypted = false)
+    public function insertArrayIntoTable($dataset = array(), $encrypted = false): bool
     {
         if($encrypted)
         {
-            Pdo::insertArrayIntoTable(self::$table['table'], $dataset, $encrypted);
+            return Pdo::insertArrayIntoTable(self::$table['table'], $dataset, $encrypted);
         }
         else
         {
-            Pdo::insertArrayIntoTable(self::$table['table'], $dataset);
+            return Pdo::insertArrayIntoTable(self::$table['table'], $dataset);
         }
     }
 

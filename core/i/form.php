@@ -52,6 +52,8 @@ interface IForm
     const FORM_ATTRIBUTE_PATTERN        = 'pattern';
     const FORM_ATTRIBUTE_ANY            = 'any';
     const FORM_ATTRIBUTE_HREF           = 'href';
+    const FORM_ATTRIBUTE_TS_DECIMALS    = "data-bts-decimals";
+    const FORM_ATTRIBUTE_TS_STEPS       = "data-bts-step";
 
     /**
      * @desc loads the current Form element to the form

@@ -4,6 +4,7 @@ namespace Nibiru;
  * User       - stephan
  * Date       - 01.02.17
  * Time       - 18:55
+ * @TODO      - SECURITY FIX REFACTORING NEEDED!
  * @author    - alllinux.de GbR
  * @category  - [PLEASE SPECIFIY]
  * @license   - BSD License
@@ -27,11 +28,37 @@ final class Pdo extends Mysql implements IPdo
     {
         return self::$section;
     }
-	/**
-	 * @param string $string
-	 *
-	 * @return array
-	 */
+
+    /**
+     * @desc Loads all table names from the current database.
+     *
+     * @security This method is protected and intended for use within the class hierarchy.
+     *           It fetches the names of all tables in the database to facilitate validation
+     *           of table names in database operations.
+     *
+     * @return array An array of table names.
+     */
+    protected static function loadTableNames(): array
+    {
+        try {
+            $pdo = parent::getInstance(self::getSettingsSection())->getConn();
+            $query = "SHOW TABLES";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+            $tables = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+            return $tables;
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+
+    /**
+     * @param string $string
+     *
+     * @return array
+     */
     public static function query( $string = self::PLACE_NO_QUERY )
     {
 
@@ -64,7 +91,7 @@ final class Pdo extends Mysql implements IPdo
     /**
      * @return array
      */
-	private static function convertFetchToAssociative( array $result ): array
+    private static function convertFetchToAssociative( array $result ): array
     {
         $resultset = [];
         if(array_key_exists(0, $result))
@@ -141,10 +168,10 @@ final class Pdo extends Mysql implements IPdo
      * @param string $where_value
      */
     public static function updateColumnByFieldWhere( $tablename = self::PLACE_TABLE_NAME,
-                                                    $column_name = IMysql::PLACE_COLUMN_NAME,
-                                                    $parameter_name = IMysql::PLACE_SEARCH_TERM,
-                                                    $field_name = IMysql::PLACE_FIELD_NAME,
-                                                    $where_value = IMysql::PLACE_WHERE_VALUE )
+                                                     $column_name = IMysql::PLACE_COLUMN_NAME,
+                                                     $parameter_name = IMysql::PLACE_SEARCH_TERM,
+                                                     $field_name = IMysql::PLACE_FIELD_NAME,
+                                                     $where_value = IMysql::PLACE_WHERE_VALUE )
     {
         $statement = parent::getInstance( self::getSettingsSection() )->getConn();
         $query = "UPDATE " . $tablename . " SET " . $column_name . " = :" . $column_name . " WHERE " . $field_name . " = :". $field_name;
@@ -155,16 +182,80 @@ final class Pdo extends Mysql implements IPdo
     }
 
     /**
+     * @desc Update a row in a database table by its primary key ID.
+     *
+     * @param string $tableName The name of the table to update.
+     * @param array $data An associative array where keys are column names and values are the new values for those columns.
+     * @param int $id The value of the primary key for the row to update.
+     *
+     * @return bool Returns true on success or false on failure.
+     */
+    public static function updateRowById(string $tableName, array $columnNames, array $data, int $id): bool
+    {
+        try {
+            // Inside a method of the mysql.db.php class or its subclass
+            $validTables = self::loadTableNames();
+
+            // Validate the table name
+            if (!in_array($tableName, $validTables, true)) {
+                throw new \InvalidArgumentException("FATAL ERROR in main CORE updateRowById: Invalid table name: {$tableName}");
+            }
+
+            // Validate column names
+            foreach (array_keys($data) as $column) {
+                if (!in_array($column, $columnNames, true))
+                {
+                    throw new \InvalidArgumentException("FATAL ERROR in main CORE updateRowById: Invalid column name: {$column}");
+                }
+            }
+
+            // Get PDO instance
+            $pdo = parent::getInstance(self::getSettingsSection())->getConn();
+
+            // Fetch the primary key field name
+            $queryPrimaryKey = "SELECT COLUMN_NAME FROM information_schema.COLUMNS
+                                    WHERE TABLE_NAME = :tableName
+                                    AND COLUMN_KEY = 'PRI' LIMIT 1;";
+            $stmtPrimaryKey = $pdo->prepare($queryPrimaryKey);
+            $stmtPrimaryKey->bindValue(':tableName', $tableName);
+            $stmtPrimaryKey->execute();
+            $primaryKeyResult = $stmtPrimaryKey->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$primaryKeyResult)
+            {
+                throw new \RuntimeException('FATAL ERROR in main CORE updateRowById: No primary key found for table ' . $tableName);
+            }
+            $primaryKeyField = $primaryKeyResult['COLUMN_NAME'];
+            $query = "UPDATE " . $tableName . " SET ";
+            $updateParts = [];
+            foreach ($data as $column => $value) {
+                $updateParts[] = $column . " = :" . $column;
+            }
+            $query .= implode(', ', $updateParts);
+            $query .= " WHERE " . $primaryKeyField . " = :primaryKeyValue";
+            $stmt = $pdo->prepare($query);
+            foreach ($data as $column => $value) {
+                $stmt->bindValue(':' . $column, $value);
+            }
+            $stmt->bindValue(':primaryKeyValue', $id);
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * @param string $tablename
      * @param bool $id
      * @return array
      */
-	public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
-	{
+    public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
+    {
         $result = array();
-	    $statement = parent::getInstance( self::getSettingsSection() )->getConn();
-	    $describe = $statement->query('DESC ' . $tablename);
-	    $describe->execute();
+        $statement = parent::getInstance( self::getSettingsSection() )->getConn();
+        $describe = $statement->query('DESC ' . $tablename);
+        $describe->execute();
         $tableInformation = $describe->fetchAll( \PDO::FETCH_ASSOC );
         foreach ( $tableInformation as $entry )
         {
@@ -269,9 +360,9 @@ final class Pdo extends Mysql implements IPdo
      * @return int|string
      */
     public static function getLastInsertedID()
-	{
-		return parent::getInstance( self::getSettingsSection() )->getConn()->lastInsertId();
-	}
+    {
+        return parent::getInstance( self::getSettingsSection() )->getConn()->lastInsertId();
+    }
 
     /**
      * @param string $tablename
@@ -314,8 +405,9 @@ final class Pdo extends Mysql implements IPdo
      * @param string $tablename
      * @param string $array_name
      * @param bool $encrypted
+     * @return bool
      */
-	public static function insertArrayIntoTable( $tablename = IMysql::PLACE_TABLE_NAME, $array_name = IMysql::PLACE_ARRAY_NAME, $encrypted = IMysql::PLACE_DES_ENCRYPT )
+    public static function insertArrayIntoTable( $tablename = IMysql::PLACE_TABLE_NAME, $array_name = IMysql::PLACE_ARRAY_NAME, $encrypted = IMysql::PLACE_DES_ENCRYPT ): bool
     {
         $statement = parent::getInstance( self::getSettingsSection() )->getConn();
 
@@ -373,7 +465,7 @@ final class Pdo extends Mysql implements IPdo
                     {
                         $array_name['key'] = Config::getInstance()->getConfig()[View::NIBIRU_SECURITY]["password_hash"];
                     }
-                    $query->execute( $entry );
+                    return $query->execute( $entry );
                 }
             }
             else
@@ -426,7 +518,7 @@ final class Pdo extends Mysql implements IPdo
                 {
                     $array_name['key'] = Config::getInstance()->getConfig()[View::NIBIRU_SECURITY]["password_hash"];
                 }
-                $query->execute( $array_name );
+                return $query->execute( $array_name );
             }
 
         }
