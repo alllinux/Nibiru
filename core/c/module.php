@@ -30,7 +30,7 @@ class Module extends Adapter\Module
     protected function _set(string $name, $value): void
     {
         try {
-            $_class_properties = get_class_vars(__CLASS__);
+            $_class_properties = get_class_vars(get_called_class());
             if (array_key_exists($name, $_class_properties))
             {
                 $this->$name = $value;
@@ -49,7 +49,7 @@ class Module extends Adapter\Module
     protected function _get(string $name): mixed
     {
         try {
-            $_class_properties = get_class_vars(__CLASS__);
+            $_class_properties = get_class_vars(get_called_class());
             if (array_key_exists($name, $_class_properties))
             {
                 return $this->$name;
