@@ -9,7 +9,7 @@ namespace Nibiru;
  * @category  - [PLEASE SPECIFIY]
  * @license   - BSD License
  */
-final class Pdo extends Mysql implements IPdo
+final class pdo extends Mysql implements IPdo
 {
     private static $section = false;
 
@@ -55,11 +55,11 @@ final class Pdo extends Mysql implements IPdo
 
 
     /**
-     * @param string $string
-     *
-     * @return array
-     */
-    public static function query( $string = self::PLACE_NO_QUERY )
+	 * @param string $string
+	 *
+	 * @return array|bool
+	 */
+    public static function query( $string = self::PLACE_NO_QUERY ): array|bool
     {
 
         if(!strstr($string, IOdbc::PLACE_SQL_UPDATE))
@@ -84,14 +84,14 @@ final class Pdo extends Mysql implements IPdo
         else
         {
             $query = parent::getInstance( self::getSettingsSection() )->getConn();
-            $query->exec($string);
+            return $query->exec($string);
         }
     }
 
     /**
      * @return array
      */
-    private static function convertFetchToAssociative( array $result ): array
+	private static function convertFetchToAssociative( array $result ): array
     {
         $resultset = [];
         if(array_key_exists(0, $result))
@@ -168,10 +168,10 @@ final class Pdo extends Mysql implements IPdo
      * @param string $where_value
      */
     public static function updateColumnByFieldWhere( $tablename = self::PLACE_TABLE_NAME,
-                                                     $column_name = IMysql::PLACE_COLUMN_NAME,
-                                                     $parameter_name = IMysql::PLACE_SEARCH_TERM,
-                                                     $field_name = IMysql::PLACE_FIELD_NAME,
-                                                     $where_value = IMysql::PLACE_WHERE_VALUE )
+                                                    $column_name = IMysql::PLACE_COLUMN_NAME,
+                                                    $parameter_name = IMysql::PLACE_SEARCH_TERM,
+                                                    $field_name = IMysql::PLACE_FIELD_NAME,
+                                                    $where_value = IMysql::PLACE_WHERE_VALUE )
     {
         $statement = parent::getInstance( self::getSettingsSection() )->getConn();
         $query = "UPDATE " . $tablename . " SET " . $column_name . " = :" . $column_name . " WHERE " . $field_name . " = :". $field_name;
@@ -250,12 +250,12 @@ final class Pdo extends Mysql implements IPdo
      * @param bool $id
      * @return array
      */
-    public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
-    {
+	public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
+	{
         $result = array();
-        $statement = parent::getInstance( self::getSettingsSection() )->getConn();
-        $describe = $statement->query('DESC ' . $tablename);
-        $describe->execute();
+	    $statement = parent::getInstance( self::getSettingsSection() )->getConn();
+	    $describe = $statement->query('DESC ' . $tablename);
+	    $describe->execute();
         $tableInformation = $describe->fetchAll( \PDO::FETCH_ASSOC );
         foreach ( $tableInformation as $entry )
         {
@@ -360,9 +360,9 @@ final class Pdo extends Mysql implements IPdo
      * @return int|string
      */
     public static function getLastInsertedID()
-    {
-        return parent::getInstance( self::getSettingsSection() )->getConn()->lastInsertId();
-    }
+	{
+		return parent::getInstance( self::getSettingsSection() )->getConn()->lastInsertId();
+	}
 
     /**
      * @param string $tablename
@@ -407,7 +407,7 @@ final class Pdo extends Mysql implements IPdo
      * @param bool $encrypted
      * @return bool
      */
-    public static function insertArrayIntoTable( $tablename = IMysql::PLACE_TABLE_NAME, $array_name = IMysql::PLACE_ARRAY_NAME, $encrypted = IMysql::PLACE_DES_ENCRYPT ): bool
+	public static function insertArrayIntoTable( $tablename = IMysql::PLACE_TABLE_NAME, $array_name = IMysql::PLACE_ARRAY_NAME, $encrypted = IMysql::PLACE_DES_ENCRYPT ): bool
     {
         $statement = parent::getInstance( self::getSettingsSection() )->getConn();
 

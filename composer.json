@@ -2,7 +2,7 @@
   "name": "nibiru/nibiru-framework",
   "type": "framework",
   "description": "PHP MVC rapid prototyping framework",
-  "keywords": ["php","mvc","prototyping","nibiru","template-engine","database","navigation","router","rapid"],
+  "keywords": ["php","mmvc","prototyping","nibiru","template-engine","database","navigation","router","rapid","mvc"],
   "license": "BSD-4-Clause",
   "homepage": "https://github.com/alllinux/Nibiru",
   "authors": [
@@ -14,16 +14,29 @@
     }
   ],
   "config": {
-    "vendor-dir": "core/l"
+    "vendor-dir": "core/l",
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
   },
   "require": {
-    "php": ">=8.1.0",
+    "php": ">=8.2.0",
     "smarty/smarty": "^3.1",
-    "phpmailer/phpmailer": "^6.1",
+    "phpmailer/phpmailer": "^6.9.1",
     "dasprid/enum": "^1.0.3",
-    "bacon/bacon-qr-code": ">=1.0.3",
     "mevdschee/php-crud-api": "^2.14",
     "symfony/psr-http-message-bridge": "^2.1",
-    "laminas/laminas-diactoros": "^2.24"
+    "laminas/laminas-diactoros": "^2.24",
+    "guzzlehttp/guzzle": "^7.8.1",
+    "brick/date-time": "^0.4.1",
+    "ext-memcached": "*",
+    "ext-gd": "*",
+    "ext-pdo": "*",
+    "openai-php/client": "^v0.8.4",
+    "elasticsearch/elasticsearch": "7.17.0",
+    "ext-curl": "*",
+    "picqer/php-barcode-generator": "^2.4",
+    "bacon/bacon-qr-code": "^2.0",
+    "enjin/php-blockchain-tools": "^1.15"
   }
 }
