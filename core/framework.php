@@ -20,29 +20,29 @@ require_once __DIR__ . '/c/settings.php';
 require_once __DIR__ . '/c/config.php';
 require_once __DIR__ . '/c/registry.php';
 require_once __DIR__ . '/c/router.php';
-require_once __DIR__ . '/i/engine.php';
+require_once __DIR__ . '/i/IEngine.php';
 require_once __DIR__ . '/c/engine.php';
 require_once __DIR__ . '/l/autoload.php';
 /**
  * @desc Database connectivity
  */
-require_once __DIR__ . '/i/mysql.php';
+require_once __DIR__ . '/i/IMysql.php';
 require_once __DIR__ . '/c/mysql.php';
-require_once __DIR__ . '/i/pdo.php';
+require_once __DIR__ . '/i/IPdo.php';
 require_once __DIR__ . '/c/pdo.php';
 /**
  * @desc Database ODBC support
  */
-require_once __DIR__ . '/i/odbc.php';
+require_once __DIR__ . '/i/IOdbc.php';
 require_once __DIR__ . '/c/odbc.php';
-require_once __DIR__ . '/i/postgres.php';
+require_once __DIR__ . '/i/IPostgres.php';
 require_once __DIR__ . '/c/postgres.php';
-require_once __DIR__ . '/i/psql.php';
+require_once __DIR__ . '/i/IPsql.php';
 require_once __DIR__ . '/c/psql.php';
-require_once __DIR__ . '/i/postgresql.php';
+require_once __DIR__ . '/i/IPostgresql.php';
 require_once __DIR__ . '/c/postgresql.php';
-require_once __DIR__ . '/i/db.php';
-require_once __DIR__ . '/i/pageination.php';
+require_once __DIR__ . '/i/IDb.php';
+require_once __DIR__ . '/i/IPageination.php';
 require_once __DIR__ . '/a/mysql.db.php';
 require_once __DIR__ . '/a/postgres.db.php';
 require_once __DIR__ . '/a/postgresql.db.php';
@@ -53,7 +53,7 @@ require_once __DIR__ . '/c/model.php';
 /**
  * @desc MVC functionality
  */
-require_once __DIR__ . '/i/form.php';
+require_once __DIR__ . '/i/IForm.php';
 require_once __DIR__ . '/f/form.php';
 require_once __DIR__ . '/t/form.php';
 require_once __DIR__ . '/c/formattributes.php';
@@ -85,16 +85,22 @@ require_once __DIR__ . '/c/typeopendiv.php';
 require_once __DIR__ . '/c/typeclosediv.php';
 require_once __DIR__ . '/c/typeopenany.php';
 require_once __DIR__ . '/c/typecloseany.php';
-require_once __DIR__ . '/i/view.php';
+require_once __DIR__ . '/i/IView.php';
 require_once __DIR__ . '/c/view.php';
-require_once __DIR__ . '/i/controller.php';
+require_once __DIR__ . '/i/IController.php';
 require_once __DIR__ . '/c/controller.php';
 require_once __DIR__ . '/a/controller.php';
 require_once __DIR__ . '/c/jsonnavigation.php';
 /**
+ * @desc MMVC functionality
+ */
+require_once __DIR__ . '/i/IModule.php';
+require_once __DIR__ . '/a/module.php';
+require_once __DIR__ . '/c/module.php';
+/**
  * @desc currently unfinished
  */
-require_once __DIR__ . '/i/auth.php';
+require_once __DIR__ . '/i/IAuth.php';
 require_once __DIR__ . '/c/auth.php';
 /**
  * @desc main application starters
