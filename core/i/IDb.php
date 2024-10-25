@@ -13,9 +13,10 @@ interface IDb
      * @desc will update the a row with the $rowset parameter by the given id
      * @param array $rowData
      * @param int $id
+     * @param string $encrypted
      * @return mixed
      */
-    public function updateRowById( array $rowData, int $id );
+    public function updateRowById( array $rowData, int $id, string $encrypted = "" );
 
     /**
      * @desc updates a row by a given field and field where search value
