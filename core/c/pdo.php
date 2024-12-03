@@ -166,19 +166,20 @@ final class pdo extends Mysql implements IPdo
      * @param string $parameter_name
      * @param string $field_name
      * @param string $where_value
+     * @return bool
      */
     public static function updateColumnByFieldWhere( $tablename = self::PLACE_TABLE_NAME,
                                                     $column_name = IMysql::PLACE_COLUMN_NAME,
                                                     $parameter_name = IMysql::PLACE_SEARCH_TERM,
                                                     $field_name = IMysql::PLACE_FIELD_NAME,
-                                                    $where_value = IMysql::PLACE_WHERE_VALUE )
+                                                    $where_value = IMysql::PLACE_WHERE_VALUE ): bool
     {
         $statement = parent::getInstance( self::getSettingsSection() )->getConn();
         $query = "UPDATE " . $tablename . " SET " . $column_name . " = :" . $column_name . " WHERE " . $field_name . " = :". $field_name;
         $insert = $statement->prepare($query);
         $insert->bindParam( ':'.$column_name, $parameter_name );
         $insert->bindParam( ':'.$field_name, $where_value );
-        $insert->execute();
+        return $insert->execute();
     }
 
     /**
