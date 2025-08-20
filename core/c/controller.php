@@ -168,18 +168,23 @@ class Controller extends View
     /**
      * @param string $param
      * @param bool $params
-     * @return string|array
+     * @return string|array|null
      */
-    public function getRequest( string $param, bool $params = false )
+    public function getRequest( string $param, bool $params = false ):string|array|null
     {
         if($param!="")
         {
-            return $_REQUEST[$param];
+            if(array_key_exists($param, $_REQUEST))
+            {
+                return $_REQUEST[$param];
+            }
+            return null;
         }
         elseif($params)
         {
             return $_REQUEST;
         }
+        return null;
     }
 
     /**

@@ -75,11 +75,12 @@ abstract class Db implements IDb
      * @desc will update the a row with the $rowset parameter by the given id
      * @param array $rowData
      * @param int $id
+     * @param string $encrypted
      * @return bool
      */
-    public function updateRowById(array $rowData, int $id): bool
+    public function updateRowById(array $rowData, int $id, string $encrypted = ""): bool
     {
-        return Pdo::updateRowById( self::getTable()['table'], self::getTable()['fields'], $rowData, $id );
+        return Pdo::updateRowById( self::getTable()['table'], self::getTable()['fields'], $rowData, $id, $encrypted );
     }
 
     /**
@@ -151,10 +152,11 @@ abstract class Db implements IDb
      * @param bool $wherevalue
      * @param bool $rowfield
      * @param bool $rowvalue
+     * @return bool
      */
-    public function updateRowByFieldWhere( $wherefield = false, $wherevalue = false, $rowfield = false, $rowvalue = false )
+    public function updateRowByFieldWhere( $wherefield = false, $wherevalue = false, $rowfield = false, $rowvalue = false ): bool
     {
-        Pdo::updateColumnByFieldWhere( self::$table['table'], $rowfield, $rowvalue, $wherefield, $wherevalue );
+        return Pdo::updateColumnByFieldWhere( self::$table['table'], $rowfield, $rowvalue, $wherefield, $wherevalue );
     }
 
     /**

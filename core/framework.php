@@ -75,6 +75,7 @@ require_once __DIR__ . '/c/typenumber.php';
 require_once __DIR__ . '/c/typereset.php';
 require_once __DIR__ . '/c/typefileupload.php';
 require_once __DIR__ . '/c/typecheckbox.php';
+require_once __DIR__ . '/c/typeswitch.php';
 require_once __DIR__ . '/c/typecolor.php';
 require_once __DIR__ . '/c/typeoption.php';
 require_once __DIR__ . '/c/typeselect.php';

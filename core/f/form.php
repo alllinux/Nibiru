@@ -24,6 +24,7 @@ use Nibiru\Form\TypeReset;
 use Nibiru\Form\TypeSearch;
 use Nibiru\Form\TypeSelect;
 use Nibiru\Form\TypeSubmit;
+use Nibiru\Form\TypeSwitch;
 use Nibiru\Form\TypeTelefon;
 use Nibiru\Form\TypeTextarea;
 use Nibiru\Form\TypeText;
@@ -237,6 +238,23 @@ class Form
             self::setDiv( $div );
         }
         self::setElement( new TypeCheckbox() );
+        self::assemble( self::getElement()->loadElement( $attributes ) );
+    }
+
+    /**
+     * @desc adds an input type switch field to the form; this method is useful for
+     *       adding toggle switches or binary options.
+     * @param $attributes an array of attributes, such as ("NAME", "ID", "CLASS", "ONCHANGE", "ONBLUR", "ONFOCUS", "REQUIRED", "CHECKED")
+     * @param $div optional parameter to specify a div wrapping element; if provided, the div will be set for the component.
+     * @return void
+     */
+    public static function addInputTypeSwitch( $attributes, $div = false )
+    {
+        if($div)
+        {
+            self::setDiv( $div );
+        }
+        self::setElement( new TypeSwitch() );
         self::assemble( self::getElement()->loadElement( $attributes ) );
     }
 

@@ -166,19 +166,20 @@ final class pdo extends Mysql implements IPdo
      * @param string $parameter_name
      * @param string $field_name
      * @param string $where_value
+     * @return bool
      */
     public static function updateColumnByFieldWhere( $tablename = self::PLACE_TABLE_NAME,
                                                     $column_name = IMysql::PLACE_COLUMN_NAME,
                                                     $parameter_name = IMysql::PLACE_SEARCH_TERM,
                                                     $field_name = IMysql::PLACE_FIELD_NAME,
-                                                    $where_value = IMysql::PLACE_WHERE_VALUE )
+                                                    $where_value = IMysql::PLACE_WHERE_VALUE ): bool
     {
         $statement = parent::getInstance( self::getSettingsSection() )->getConn();
         $query = "UPDATE " . $tablename . " SET " . $column_name . " = :" . $column_name . " WHERE " . $field_name . " = :". $field_name;
         $insert = $statement->prepare($query);
         $insert->bindParam( ':'.$column_name, $parameter_name );
         $insert->bindParam( ':'.$field_name, $where_value );
-        $insert->execute();
+        return $insert->execute();
     }
 
     /**
@@ -187,17 +188,19 @@ final class pdo extends Mysql implements IPdo
      * @param string $tableName The name of the table to update.
      * @param array $data An associative array where keys are column names and values are the new values for those columns.
      * @param int $id The value of the primary key for the row to update.
+     * @param string $encrypted The field that has encrypted data for handling correct field encryption
      *
      * @return bool Returns true on success or false on failure.
      */
-    public static function updateRowById(string $tableName, array $columnNames, array $data, int $id): bool
+    public static function updateRowById(string $tableName, array $columnNames, array $data, int $id, string $encrypted = IMysql::PLACE_DES_ENCRYPT): bool
     {
         try {
             // Inside a method of the mysql.db.php class or its subclass
             $validTables = self::loadTableNames();
 
             // Validate the table name
-            if (!in_array($tableName, $validTables, true)) {
+            if (!in_array($tableName, $validTables, true))
+            {
                 throw new \InvalidArgumentException("FATAL ERROR in main CORE updateRowById: Invalid table name: {$tableName}");
             }
 
@@ -214,8 +217,8 @@ final class pdo extends Mysql implements IPdo
 
             // Fetch the primary key field name
             $queryPrimaryKey = "SELECT COLUMN_NAME FROM information_schema.COLUMNS
-                                    WHERE TABLE_NAME = :tableName
-                                    AND COLUMN_KEY = 'PRI' LIMIT 1;";
+                                WHERE TABLE_NAME = :tableName
+                                AND COLUMN_KEY = 'PRI' LIMIT 1;";
             $stmtPrimaryKey = $pdo->prepare($queryPrimaryKey);
             $stmtPrimaryKey->bindValue(':tableName', $tableName);
             $stmtPrimaryKey->execute();
@@ -229,13 +232,24 @@ final class pdo extends Mysql implements IPdo
             $query = "UPDATE " . $tableName . " SET ";
             $updateParts = [];
             foreach ($data as $column => $value) {
-                $updateParts[] = $column . " = :" . $column;
+                if ($column === $encrypted)
+                {
+                    // Encrypt the value using DES_ENCRYPT function
+                    $updateParts[] = "$column = DES_ENCRYPT(:$column, :key)";
+                } else {
+                    $updateParts[] = "$column = :$column";
+                }
             }
             $query .= implode(', ', $updateParts);
             $query .= " WHERE " . $primaryKeyField . " = :primaryKeyValue";
             $stmt = $pdo->prepare($query);
             foreach ($data as $column => $value) {
                 $stmt->bindValue(':' . $column, $value);
+            }
+            if ($encrypted != "")
+            {
+                $key = Config::getInstance()->getConfig()[View::NIBIRU_SECURITY]["password_hash"];
+                $stmt->bindValue(':key', $key);
             }
             $stmt->bindValue(':primaryKeyValue', $id);
             return $stmt->execute();
