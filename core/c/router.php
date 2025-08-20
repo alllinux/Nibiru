@@ -150,8 +150,14 @@ class Router extends Config
         $params = false;
         $param_parts = explode('?', $_SERVER["REQUEST_URI"]);
         $uri_parts = explode('/', $param_parts[0]);
+
         if(is_array($uri_parts))
         {
+            if (self::handleSeoUrls($uri_parts))
+            {
+                // SEO URL was handled, skip normal processing
+                return;
+            }
             if($uri_parts[1] == "")
             {
                 self::$_cur_page = "index";
@@ -262,6 +268,65 @@ class Router extends Config
 		//self::RouterDebug(self::$_cur_page);
 		return self::getCurPage();
 	}
+
+    /**
+     * @desc Generic SEO URL handler for framework-wide SEO-friendly URLs
+     * @param array $uri_parts The URI parts from the request
+     * @return bool Returns true if SEO URL was handled, false otherwise
+     */
+    private static function handleSeoUrls($uri_parts)
+    {
+        // Check if we have the minimum required parts for SEO URL: /controller/slug/id
+        if (!is_array($uri_parts) || count($uri_parts) < 4)
+        {
+            return false;
+        }
+
+        // Extract components
+        $controller = $uri_parts[1] ?? '';
+        $slug = $uri_parts[2] ?? '';
+        $possibleId = $uri_parts[3] ?? '';
+
+        // Validate that the last part is numeric (ID)
+        if (!is_numeric($possibleId))
+        {
+            return false;
+        }
+
+        // Validate that the slug contains non-numeric characters (to differentiate from traditional URLs)
+        if (is_numeric($slug))
+        {
+            return false;
+        }
+
+        // Validate that the slug is not an existing action name
+        if (self::isExistingAction($controller, $slug))
+        {
+            return false;
+        }
+
+        // SEO URL detected - transform it to standard routing
+        self::$_cur_page = $controller;
+        self::setAction('detail'); // Default action for SEO URLs
+        $_REQUEST['id'] = $possibleId;
+        $_REQUEST['slug'] = $slug; // Preserve slug for potential use in controllers
+
+        return true;
+    }
+
+    /**
+     * @desc Check if a slug matches an existing controller action
+     * @param string $controller The controller name
+     * @param string $slug The potential action/slug
+     * @return bool Returns true if it's an existing action
+     */
+    private static function isExistingAction($controller, $slug)
+    {
+        // List of common actions that should not be treated as SEO slugs
+        $commonActions = ['detail', 'list', 'edit', 'delete', 'create', 'update', 'page', 'navigation', 'requestForm'];
+
+        return in_array($slug, $commonActions, true);
+    }
 
 	public static function RouterDebug($value)
 	{
