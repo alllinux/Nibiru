@@ -1,5 +1,7 @@
 <?php
 namespace Nibiru;
+use phpseclib3\File\ASN1\Maps\FieldElement;
+
 /**
  * User       - stephan
  * Date       - 24.01.17
@@ -250,7 +252,17 @@ class Router extends Config
                                 }
                             }
                         }
-
+                        else
+                        {
+                            // Handle single trailing URL segments
+                            if(!is_numeric($uri_parts[$i]) && !empty($uri_parts[$i]))
+                            {
+                                if(!array_key_exists($uri_parts[$i], $_REQUEST))
+                                {
+                                    $_REQUEST[$uri_parts[$i]] = '';
+                                }
+                            }
+                        }
                     }
                 }
             }
