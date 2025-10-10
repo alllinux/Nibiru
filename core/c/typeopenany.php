@@ -39,6 +39,6 @@ class TypeOpenAny extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<ANY href="HREF" src="SRC" alt="ALT" style="STYLE" ID CLASS>' . 'VALUE' . "\n";
+        $this->_element = '<ANY href="HREF" src="SRC" alt="ALT" style="STYLE" data-sitekey="DATA-SITEKEY" ID CLASS>' . 'VALUE' . "\n";
     }
 }
