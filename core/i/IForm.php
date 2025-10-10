@@ -33,6 +33,7 @@ interface IForm
     const FORM_ATTRIBUTE_ALT            = 'alt';
     const FORM_ATTRIBUTE_ID             = 'id';
     const FORM_ATTRIBUTE_CLASS          = 'class';
+    const FORM_ATTRIBUTE_MULTIPLE       = 'multiple';
     const FORM_ATTRIBUTE_FOR            = 'for';
     const FORM_ATTRIBUTE_FORM           = 'form';
     const FORM_ATTRIBUTE_PLACEHOLDER    = 'placeholder';
@@ -43,6 +44,7 @@ interface IForm
     const FORM_ATTRIBUTE_ONBLUR         = 'onblur';
     const FORM_ATTRIBUTE_ONFOCUS        = 'onfocus';
     const FORM_ATTRIBUTE_ONCLICK        = 'onclick';
+    const FORM_ATTRIBUTE_DATA           = 'data';
     const FORM_ATTRIBUTE_SELECTED       = 'selected';
     const FORM_ATTRIBUTE_CONTEXT        = 'context';
     const FORM_ATTRIBUTE_CHECKED        = 'checked';
@@ -54,6 +56,10 @@ interface IForm
     const FORM_ATTRIBUTE_HREF           = 'href';
     const FORM_ATTRIBUTE_TS_DECIMALS    = "data-bts-decimals";
     const FORM_ATTRIBUTE_TS_STEPS       = "data-bts-step";
+
+    const FROM_ATTRIBUTE_STYLE          = 'style';
+
+    const FORM_ATTRIBUTE_DATA_SITEKEY   = 'data-sitekey';
 
     /**
      * @desc loads the current Form element to the form

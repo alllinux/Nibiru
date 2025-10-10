@@ -16,9 +16,10 @@ class TypeOpenAny extends FormAttributes implements IForm
         self::FORM_ATTRIBUTE_CLASS  => '',
         self::FORM_ATTRIBUTE_ANY    => '',
         self::FORM_ATTRIBUTE_HREF   => '',
-        'src'                       => '',
-        'alt'                       => '',
-        'style'                     => ''
+        self::FORM_ATTRIBUTE_SRC    => '',
+        self::FORM_ATTRIBUTE_ALT    => '',
+        'style'                     => '',
+        'data-sitekey'              => ''
     );
 
     /**
