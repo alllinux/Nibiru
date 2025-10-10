@@ -56,9 +56,7 @@ interface IForm
     const FORM_ATTRIBUTE_HREF           = 'href';
     const FORM_ATTRIBUTE_TS_DECIMALS    = "data-bts-decimals";
     const FORM_ATTRIBUTE_TS_STEPS       = "data-bts-step";
-
     const FROM_ATTRIBUTE_STYLE          = 'style';
-
     const FORM_ATTRIBUTE_DATA_SITEKEY   = 'data-sitekey';
 
     /**

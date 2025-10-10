@@ -11,15 +11,15 @@ use Nibiru\Adapter;
 class TypeOpenAny extends FormAttributes implements IForm
 {
     private $_attributes = array(
-        self::FORM_VALUE            => '',
-        self::FORM_ATTRIBUTE_ID     => '',
-        self::FORM_ATTRIBUTE_CLASS  => '',
-        self::FORM_ATTRIBUTE_ANY    => '',
-        self::FORM_ATTRIBUTE_HREF   => '',
-        self::FORM_ATTRIBUTE_SRC    => '',
-        self::FORM_ATTRIBUTE_ALT    => '',
-        'style'                     => '',
-        'data-sitekey'              => ''
+        self::FORM_VALUE                    => '',
+        self::FORM_ATTRIBUTE_ID             => '',
+        self::FORM_ATTRIBUTE_CLASS          => '',
+        self::FORM_ATTRIBUTE_ANY            => '',
+        self::FORM_ATTRIBUTE_HREF           => '',
+        self::FORM_ATTRIBUTE_SRC            => '',
+        self::FORM_ATTRIBUTE_ALT            => '',
+        self::FROM_ATTRIBUTE_STYLE          => '',
+        self::FORM_ATTRIBUTE_DATA_SITEKEY   => ''
     );
 
     /**
