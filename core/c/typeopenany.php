@@ -20,7 +20,8 @@ class TypeOpenAny extends FormAttributes implements IForm
         self::FORM_ATTRIBUTE_ALT            => '',
         self::FROM_ATTRIBUTE_STYLE          => '',
         self::FORM_ATTRIBUTE_DATA_SITEKEY   => '',
-        self::FORM_ATTRIBUTE_TYPE           => ''
+        self::FORM_ATTRIBUTE_TYPE           => '',
+        self::FORM_ATTRIBUTE_ROLE           => ''
     );
 
     /**
@@ -40,6 +41,6 @@ class TypeOpenAny extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<ANY type="TYPE" href="HREF" src="SRC" alt="ALT" style="STYLE" data-sitekey="DATA-SITEKEY" ID CLASS>' . 'VALUE' . "\n";
+        $this->_element = '<ANY type="TYPE" href="HREF" src="SRC" alt="ALT" style="STYLE" data-sitekey="DATA-SITEKEY" ID CLASS role="ROLE">' . 'VALUE' . "\n";
     }
 }

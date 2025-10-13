@@ -99,6 +99,7 @@ class FormAttributes
         $this->_element = str_replace(' PATTERN', '', $this->_element);
         $this->_element = str_replace('ANY', '', $this->_element);
         $this->_element = str_replace('data-sitekey="DATA-SITEKEY"', '', $this->_element);
+        $this->_element = str_replace('role="ROLE"', '', $this->_element);
     }
 
     /**
