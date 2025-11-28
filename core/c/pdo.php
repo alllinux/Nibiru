@@ -9,7 +9,7 @@ namespace Nibiru;
  * @category  - [PLEASE SPECIFIY]
  * @license   - BSD License
  */
-final class pdo extends Mysql implements IPdo
+final class Pdo extends Mysql implements IPdo
 {
     private static $section = false;
 
@@ -55,11 +55,10 @@ final class pdo extends Mysql implements IPdo
 
 
     /**
-	 * @param string $string
-	 *
-	 * @return array|bool
-	 */
-    public static function query( $string = self::PLACE_NO_QUERY ): array|bool
+     * @param string $string
+     * @return mixed
+     */
+    public static function query( $string = self::PLACE_NO_QUERY ): mixed
     {
 
         if(!strstr($string, IOdbc::PLACE_SQL_UPDATE))
@@ -91,7 +90,7 @@ final class pdo extends Mysql implements IPdo
     /**
      * @return array
      */
-	private static function convertFetchToAssociative( array $result ): array
+    private static function convertFetchToAssociative( array $result ): array
     {
         $resultset = [];
         if(array_key_exists(0, $result))
@@ -169,10 +168,10 @@ final class pdo extends Mysql implements IPdo
      * @return bool
      */
     public static function updateColumnByFieldWhere( $tablename = self::PLACE_TABLE_NAME,
-                                                    $column_name = IMysql::PLACE_COLUMN_NAME,
-                                                    $parameter_name = IMysql::PLACE_SEARCH_TERM,
-                                                    $field_name = IMysql::PLACE_FIELD_NAME,
-                                                    $where_value = IMysql::PLACE_WHERE_VALUE ): bool
+                                                     $column_name = IMysql::PLACE_COLUMN_NAME,
+                                                     $parameter_name = IMysql::PLACE_SEARCH_TERM,
+                                                     $field_name = IMysql::PLACE_FIELD_NAME,
+                                                     $where_value = IMysql::PLACE_WHERE_VALUE ): bool
     {
         $statement = parent::getInstance( self::getSettingsSection() )->getConn();
         $query = "UPDATE " . $tablename . " SET " . $column_name . " = :" . $column_name . " WHERE " . $field_name . " = :". $field_name;
@@ -264,12 +263,12 @@ final class pdo extends Mysql implements IPdo
      * @param bool $id
      * @return array
      */
-	public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
-	{
+    public static function fetchRowInArrayById($tablename = self::PLACE_TABLE_NAME, $id = self::NO_ID )
+    {
         $result = array();
-	    $statement = parent::getInstance( self::getSettingsSection() )->getConn();
-	    $describe = $statement->query('DESC ' . $tablename);
-	    $describe->execute();
+        $statement = parent::getInstance( self::getSettingsSection() )->getConn();
+        $describe = $statement->query('DESC ' . $tablename);
+        $describe->execute();
         $tableInformation = $describe->fetchAll( \PDO::FETCH_ASSOC );
         foreach ( $tableInformation as $entry )
         {
@@ -374,9 +373,9 @@ final class pdo extends Mysql implements IPdo
      * @return int|string
      */
     public static function getLastInsertedID()
-	{
-		return parent::getInstance( self::getSettingsSection() )->getConn()->lastInsertId();
-	}
+    {
+        return parent::getInstance( self::getSettingsSection() )->getConn()->lastInsertId();
+    }
 
     /**
      * @param string $tablename
@@ -414,6 +413,63 @@ final class pdo extends Mysql implements IPdo
     }
 
     /**
+     * @desc Deletes a row from the specified table by its ID.
+     * @param string $tablename The name of the table from which to delete the row. If empty, uses the default table.
+     * @param int $id The ID of the row to delete.
+     * @return bool Returns true if the deletion was successful, false otherwise.
+     */
+    public static function deleteRowById(string $tablename = '', int $id = 0): bool
+    {
+        try {
+            // Validate that id is a valid number
+            if (!is_numeric($id) || $id <= 0)
+            {
+                throw new \InvalidArgumentException("FATAL ERROR in main CORE deleteRowById: Invalid ID value. Must be a positive number.");
+            }
+
+            // Validate table name
+            $validTables = self::loadTableNames();
+            if (!in_array($tablename, $validTables, true))
+            {
+                throw new \InvalidArgumentException("FATAL ERROR in main CORE deleteRowById: Invalid table name: {$tablename}");
+            }
+
+            // Get PDO instance
+            $pdo = parent::getInstance(self::getSettingsSection())->getConn();
+
+            // Fetch the primary key field name
+            $queryPrimaryKey = "SELECT COLUMN_NAME FROM information_schema.COLUMNS
+                            WHERE TABLE_NAME = :tableName
+                            AND COLUMN_KEY = 'PRI'
+                            LIMIT 1";
+            $stmtPrimaryKey = $pdo->prepare($queryPrimaryKey);
+            $stmtPrimaryKey->bindValue(':tableName', $tablename);
+            $stmtPrimaryKey->execute();
+            $primaryKeyResult = $stmtPrimaryKey->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$primaryKeyResult) {
+                throw new \RuntimeException('FATAL ERROR in main CORE deleteRowById: No primary key found for table ' . $tablename);
+            }
+
+            $primaryKeyField = $primaryKeyResult['COLUMN_NAME'];
+
+            // Prepare and execute DELETE statement
+            $query = "DELETE FROM " . $tablename . " WHERE " . $primaryKeyField . " = :id";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+
+    /**
      * @desc will insert the array with fieldnames into the database, if the last parameter is set it should be a string containing the
      *       fieldname that should be encrypted
      * @param string $tablename
@@ -421,7 +477,7 @@ final class pdo extends Mysql implements IPdo
      * @param bool $encrypted
      * @return bool
      */
-	public static function insertArrayIntoTable( $tablename = IMysql::PLACE_TABLE_NAME, $array_name = IMysql::PLACE_ARRAY_NAME, $encrypted = IMysql::PLACE_DES_ENCRYPT ): bool
+    public static function insertArrayIntoTable( $tablename = IMysql::PLACE_TABLE_NAME, $array_name = IMysql::PLACE_ARRAY_NAME, $encrypted = IMysql::PLACE_DES_ENCRYPT ): bool
     {
         $statement = parent::getInstance( self::getSettingsSection() )->getConn();
 

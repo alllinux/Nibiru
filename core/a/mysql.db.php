@@ -169,5 +169,13 @@ abstract class Db implements IDb
         return Pdo::fetchRowInArrayByWhere(self::$table['table'], $field['field'], $field['value']);
     }
 
-
+    /**
+     * @desc Deletes a row from the database table by id.
+     * @param int $id The id of the row to delete.
+     * @return bool Returns true if the deletion is successful, otherwise false.
+     */
+    public function deleteRowById(int $id = 0): bool
+    {
+        Pdo::deleteRowById( self::getTable()['table'], $id );
+    }
 }
