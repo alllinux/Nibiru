@@ -1,7 +1,6 @@
 <?php
 namespace Nibiru\Adapter;
-
-use Nibiru\IModule;
+use Nibiru\Adapter\IModule;
 abstract class Module implements IModule
 {
     /**
