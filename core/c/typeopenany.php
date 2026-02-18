@@ -11,11 +11,17 @@ use Nibiru\Adapter;
 class TypeOpenAny extends FormAttributes implements IForm
 {
     private $_attributes = array(
-        self::FORM_VALUE            => '',
-        self::FORM_ATTRIBUTE_ID     => '',
-        self::FORM_ATTRIBUTE_CLASS  => '',
-        self::FORM_ATTRIBUTE_ANY    => '',
-        self::FORM_ATTRIBUTE_HREF   => ''
+        self::FORM_VALUE                    => '',
+        self::FORM_ATTRIBUTE_ID             => '',
+        self::FORM_ATTRIBUTE_CLASS          => '',
+        self::FORM_ATTRIBUTE_ANY            => '',
+        self::FORM_ATTRIBUTE_HREF           => '',
+        self::FORM_ATTRIBUTE_SRC            => '',
+        self::FORM_ATTRIBUTE_ALT            => '',
+        self::FROM_ATTRIBUTE_STYLE          => '',
+        self::FORM_ATTRIBUTE_DATA_SITEKEY   => '',
+        self::FORM_ATTRIBUTE_TYPE           => '',
+        self::FORM_ATTRIBUTE_ROLE           => ''
     );
 
     /**
@@ -35,6 +41,6 @@ class TypeOpenAny extends FormAttributes implements IForm
      */
     private function _setElement( )
     {
-        $this->_element = '<ANY href="HREF" ID CLASS>' . 'VALUE' . "\n";
+        $this->_element = '<ANY type="TYPE" href="HREF" src="SRC" alt="ALT" style="STYLE" data-sitekey="DATA-SITEKEY" ID CLASS role="ROLE">' . 'VALUE' . "\n";
     }
 }

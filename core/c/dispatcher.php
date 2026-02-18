@@ -32,6 +32,7 @@ final class Dispatcher
 
     public function run()
     {
+        date_default_timezone_set(Config::getInstance()->getConfig()[View::NIBIRU_SETTINGS]['timezone']);
         if(Config::getInstance()->getConfig()[self::CONFIG_GENERATOR_SECTION][self::GENERATOR_DATABASE])
         {
             new Model( false );
@@ -66,6 +67,22 @@ final class Dispatcher
 
             Debug::getInstance();
             Display::getInstance()->display();
+        }
+        else
+        {
+            // Soft 404: Route to error controller for non-existent pages
+            // Load error controller and template from config [ENGINE] section
+            $errorControllerName = Config::getInstance()->getConfig()[Engine::T_ENGINE]['error_controller'];
+            $errorTemplate = Config::getInstance()->getConfig()[Engine::T_ENGINE]['error_template'];
+
+            require_once __DIR__ . '/../../application/controller/' . $errorControllerName . 'Controller.php';
+            $class = "Nibiru\\" . $errorControllerName . "Controller";
+            $controller = new $class();
+            $controller->navigationAction();
+            $controller->pageAction();
+
+            Debug::getInstance();
+            View::getInstance()->display($errorTemplate);
         }
     }
 }

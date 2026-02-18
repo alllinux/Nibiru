@@ -100,4 +100,11 @@ interface IDb
      * @return mixed
      */
     public function loadPasswordByUsername( $user_name = false );
+
+    /**
+     * @desc Deletes a row from the database by its ID.
+     * @param int $id The ID of the row to be deleted. Defaults to 0.
+     * @return bool Returns true if the deletion was successful, false otherwise.
+     */
+    public function deleteRowById( int $id = 0 ): bool;
 }

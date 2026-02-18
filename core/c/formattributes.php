@@ -73,6 +73,9 @@ class FormAttributes
         $this->_element = str_replace(' min="MIN"', '', $this->_element);
         $this->_element = str_replace(' max="MAX"', '', $this->_element);
         $this->_element = str_replace(' href="HREF"', '', $this->_element);
+        $this->_element = str_replace(' src="SRC"', '', $this->_element);
+        $this->_element = str_replace(' alt="ALT"', '', $this->_element);
+        $this->_element = str_replace(' style="STYLE"', '', $this->_element);
         $this->_element = str_replace(' step="STEP"', '', $this->_element);
         $this->_element = str_replace(' tabindex="TABINDEX"', '', $this->_element);
         $this->_element = str_replace(' SPEECH', '', $this->_element);
@@ -95,6 +98,8 @@ class FormAttributes
         $this->_element = str_replace(' VALUE', '', $this->_element);
         $this->_element = str_replace(' PATTERN', '', $this->_element);
         $this->_element = str_replace('ANY', '', $this->_element);
+        $this->_element = str_replace('data-sitekey="DATA-SITEKEY"', '', $this->_element);
+        $this->_element = str_replace('role="ROLE"', '', $this->_element);
     }
 
     /**

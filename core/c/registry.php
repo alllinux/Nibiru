@@ -66,7 +66,7 @@ final class Registry
         $modules_setting_path = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->getModulesPath()));
         foreach($modules_setting_path as $settings)
         {
-            if(strstr($settings->getPathName(), self::CONFIG_SETTINGS_KEY) && $settings->getFileName()!='.' && $settings->getFileName()!='..')
+            if(strstr($settings->getPathName(), self::CONFIG_SETTINGS_KEY) && pathinfo($settings->getFileName(), PATHINFO_EXTENSION) === 'ini' && $settings->getFileName()!='.' && $settings->getFileName()!='..')
             {
 
                 $config_ini_name = basename($settings->getPathName());
